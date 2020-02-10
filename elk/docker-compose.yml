@@ -1,0 +1,51 @@
+version: "3.7"
+
+volumes:
+  elasticsearch:
+
+services:
+    elasticsearch:
+        container_name: elasticsearch
+        image: "docker.elastic.co/elasticsearch/elasticsearch:7.5.2"
+        restart: unless-stopped
+        environment:
+          - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        ports:
+          - "9200:9200"
+        volumes:
+          - "elasticsearch:/usr/share/elasticsearch/data"
+          - "./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro"
+        deploy: # needs docker-compose --compatibility up -d
+          resources:
+            limits:
+              memory: 1024M
+       
+    kibana:
+        container_name: kibana
+        image: "docker.elastic.co/kibana/kibana:7.5.2"
+        restart: unless-stopped
+        depends_on:
+          - elasticsearch
+        ports:
+          - "5601:5601"
+        volumes:
+          - "./kibana.yml:/usr/share/kibana/config/kibana.yml:ro"
+       
+    filebeat:
+        container_name: filebeat
+        image: "docker.elastic.co/beats/filebeat:7.5.2"
+        restart: unless-stopped
+        depends_on:
+          - elasticsearch
+          - kibana
+        user: root
+        ports:
+          - "514:514"
+          - "6514:6514"
+        volumes:
+          - "/var/lib/docker:/var/lib/docker:ro"
+          - "/var/run/docker.sock:/var/run/docker.sock:ro"
+          - "./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro"
+          - "./filebeat:/usr/share/filebeat/config:ro"
+          - "./../pihole/pihole.log:/logs/pihole.log:ro"
+          - "./test.log:/logs/test.log:ro"

@@ -1,0 +1,82 @@
+- type: log
+  paths: 
+    - '/logs/pihole.log'
+  fields_under_root: true
+  fields:
+    message_source: pihole-dns
+    
+  processors:
+  - dissect:
+      tokenizer: "%{+timestamp->} %{+timestamp} %{+timestamp} %{} %{dnsquery.type} %{dnsquery.domain} %{} %{dnsquery.ip}"
+      field: "message"
+      target_prefix: ''
+    
+  - drop_event:
+      when:
+        or:
+          - not: # not formatted correctly
+              has_fields: ['dnsquery.type','dnsquery.domain','dnsquery.ip']
+          - and: # wrong query type
+            - not:
+                contains:
+                  dnsquery.type: "query"
+            - not:
+                contains:
+                  dnsquery.type: "reply"
+            - not:
+                contains:
+                  dnsquery.type: "gravity"
+          - and: # not an ip
+            - not:
+                network:
+                  dnsquery.ip: private
+            - not:
+                network:
+                  dnsquery.ip: public
+            - not:
+                contains:
+                  dnsquery.ip: "0.0.0.0"
+          
+  - if:
+      contains:
+        dnsquery.type: "gravity"
+    then:
+      - drop_fields:
+          fields: ["dnsquery.type"]
+      - add_fields:
+          target: ''
+          fields:
+            dnsquery.type: blocked
+
+  - convert:
+      fields:
+        - {from: "dnsquery.ip", type: "ip"}
+      ignore_missing: true
+      fail_on_error: false
+
+  - dns:
+      when:
+        contains:
+          dnsquery.type: "query"
+      type: reverse
+      action: replace
+      fields:
+        dnsquery.ip: dnsquery.hostname
+      failure_cache.ttl: 15m
+      nameservers: ['192.168.1.1']
+
+  - add_fields:
+      target: ''
+      fields:
+        message_source: pihole-dns
+
+  - timestamp:
+      field: timestamp
+      layouts:
+        - 'Jan 2 15:04:05'
+      test:
+        - 'Jan 9 22:35:38'
+      timezone: "Europe/London"
+      
+  - drop_fields:
+      fields: [timestamp]

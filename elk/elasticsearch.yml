@@ -1,0 +1,9 @@
+cluster.name: "docker-cluster"
+node.name: "elasticsearch01"
+network.host: 0.0.0.0
+discovery.type: single-node
+bootstrap.memory_lock: true
+
+xpack.monitoring.enabled: true
+xpack.monitoring.collection.enabled: true
+xpack.monitoring.elasticsearch.collection.enabled: true

@@ -1,0 +1,19 @@
+db:
+  path: diun.db
+
+watch:
+  workers: 10
+  schedule: "0 * * * *"
+  first_check_notif: true
+
+notif:
+  telegram:
+    enable: false
+    token: aabbccdd:11223344
+    chat_ids:
+      - 123456789
+
+providers:
+  docker:
+    local:
+      watch_by_default: true

@@ -1,0 +1,32 @@
+- type: container
+  paths: 
+    - '/var/lib/docker/containers/*/*.log'
+  json.keys_under_root: true
+  json.overwrite_keys: true
+  json.ignore_decoding_error: true
+  json.add_error_key: false
+
+  processors:
+  - add_docker_metadata:
+      host: "unix:///var/run/docker.sock"
+      
+  - convert:
+      fields:
+        - {from: "container.name", to: "message_source", type: "string"}
+      ignore_missing: true
+      fail_on_error: false
+      mode: copy
+      
+  - timestamp:
+      field: timestamp
+      layouts:
+        - '2006-01-02T15:04:05.999Z'
+      test:
+        - '2020-01-29T23:01:02.383Z'
+      timezone: "Europe/London"
+      ignore_missing: true
+      ignore_failure: true
+
+  - drop_fields:
+      fields: [timestamp]
+      ignore_missing: true
