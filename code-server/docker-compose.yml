@@ -14,7 +14,7 @@ services:
       - "8070:8080"
     volumes:
       - "./.ssh:/home/coder/.ssh"
-      - "${HOME}/.local/share/code-server:/home/coder/.local/share/code-server"
+      - "./config:/home/coder/.local/share/code-server"
       - "${HOME}/docker:/home/coder/docker"
     environment:
       PASSWORD: ${CODE_SERVER_PASSWORD}

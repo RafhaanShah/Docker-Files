@@ -1,9 +1,3 @@
 .env
 *.txt
 *.log
-.ssh/
-diun/diun.yml
-diun/data/
-elk/test.log
-elk/filebeat/test.yml
-pihole/etc*
