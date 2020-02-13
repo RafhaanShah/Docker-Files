@@ -11,7 +11,7 @@ services:
       - "0.0.0.0"
       - "--cert"
     ports:
-      - "8070:8080"
+      - "8020:8080"
     volumes:
       - "./config:/home/coder/.local/share/code-server"
       - "${HOME}/.gitconfig:/home/coder/.gitconfig"

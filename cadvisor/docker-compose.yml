@@ -6,7 +6,7 @@ services:
     image: "google/cadvisor:latest"
     restart: always
     ports:
-      - "8090:8080"
+      - "8021:8080"
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro
