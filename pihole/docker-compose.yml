@@ -28,4 +28,4 @@ services:
     dns:
       - 127.0.0.1
       - 192.168.1.1
-    restart: unless-stopped
+    restart: always

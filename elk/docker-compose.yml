@@ -7,7 +7,7 @@ services:
     elasticsearch:
         container_name: elasticsearch
         image: "docker.elastic.co/elasticsearch/elasticsearch:7.5.2"
-        restart: unless-stopped
+        restart: always
         environment:
           - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
         ports:
@@ -23,7 +23,7 @@ services:
     kibana:
         container_name: kibana
         image: "docker.elastic.co/kibana/kibana:7.5.2"
-        restart: unless-stopped
+        restart: always
         depends_on:
           - elasticsearch
         ports:
@@ -34,7 +34,7 @@ services:
     filebeat:
         container_name: filebeat
         image: "docker.elastic.co/beats/filebeat:7.5.2"
-        restart: unless-stopped
+        restart: always
         depends_on:
           - elasticsearch
           - kibana

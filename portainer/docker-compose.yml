@@ -4,7 +4,7 @@ services:
   portainer:
     container_name: portainer
     image: portainer/portainer
-    restart: unless-stopped
+    restart: always
     ports:
       - "8000:8000"
       - "9000:9000"

@@ -13,8 +13,9 @@ services:
     ports:
       - "8070:8080"
     volumes:
-      - "./.ssh:/home/coder/.ssh"
       - "./config:/home/coder/.local/share/code-server"
+      - "${HOME}/.gitconfig:/home/coder/.gitconfig"
+      - "${HOME}/.ssh:/home/coder/.ssh"
       - "${HOME}/docker:/home/coder/docker"
     environment:
       PASSWORD: ${CODE_SERVER_PASSWORD}

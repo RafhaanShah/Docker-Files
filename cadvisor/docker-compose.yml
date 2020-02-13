@@ -4,7 +4,7 @@ services:
   cadvisor:
     container_name: cadvisor
     image: "google/cadvisor:latest"
-    restart: unless-stopped
+    restart: always
     ports:
       - "8090:8080"
     volumes:
