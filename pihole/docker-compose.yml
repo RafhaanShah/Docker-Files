@@ -8,9 +8,7 @@ services:
     ports:
       - "53:53/tcp"
       - "53:53/udp"
-      - "67:67/udp"
-      - "80:80/tcp"
-      - "443:443/tcp"
+      - "8022:8022/tcp"
     environment:
       TZ: "Europe/London"
       WEBPASSWORD: 'YtDByqfDlQnHeNFmuzDC'
@@ -19,12 +17,12 @@ services:
       CONDITIONAL_FORWARDING: "true"
       CONDITIONAL_FORWARDING_IP: "192.168.1.1"
       CONDITIONAL_FORWARDING_DOMAIN: "lan"
+      VIRTUAL_HOST: "rafs-ubuntu:8022"
+      WEB_PORT: 8022
     volumes:
       - "./etc-pihole/:/etc/pihole/"
       - "./etc-dnsmasq.d/:/etc/dnsmasq.d/"
       - "./pihole.log/:/var/log/pihole.log"
-    extra_hosts:
-      - "pi.hole:192.168.1.3"
     dns:
       - 127.0.0.1
       - 192.168.1.1

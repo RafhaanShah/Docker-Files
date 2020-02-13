@@ -1,1 +1,3 @@
-/etc*
+/etc*/*
+!/etc-dnsmasq.d/01-pihole.conf
+!/etc-pihole/setupVars.conf
