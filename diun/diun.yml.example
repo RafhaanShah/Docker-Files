@@ -8,7 +8,7 @@ watch:
 
 notif:
   telegram:
-    enable: false
+    enable: true
     token: aabbccdd:11223344
     chat_ids:
       - 123456789

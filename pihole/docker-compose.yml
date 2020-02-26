@@ -21,7 +21,8 @@ services:
       WEB_PORT: 8022
     volumes:
       - "./etc-pihole/:/etc/pihole/"
-      - "./etc-dnsmasq.d/:/etc/dnsmasq.d/"
+      # - "./etc-dnsmasq.d/:/etc/dnsmasq.d/"
+      - "./etc-dnsmasq.d/01-pihole.conf:/etc/.pihole/advanced/01-pihole.conf:ro"
       - "./pihole.log/:/var/log/pihole.log"
     dns:
       - 127.0.0.1
