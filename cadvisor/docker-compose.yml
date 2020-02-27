@@ -4,6 +4,7 @@ services:
   cadvisor:
     container_name: cadvisor
     image: "google/cadvisor:latest"
+    network_mode: bridge
     restart: always
     ports:
       - "8021:8080"

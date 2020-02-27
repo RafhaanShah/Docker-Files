@@ -2,8 +2,10 @@ version: "3.7"
 
 services:
   diun:
-    image: crazymax/diun:latest
     container_name: diun
+    image: crazymax/diun:latest
+    network_mode: bridge
+    restart: always
     volumes:
       - "./data:/data"
       - "./diun.yml:/diun.yml:ro"
@@ -12,4 +14,4 @@ services:
       - "TZ=Europe/London"
       - "LOG_LEVEL=info"
       - "LOG_JSON=true"
-    restart: always
+    

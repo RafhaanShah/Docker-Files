@@ -4,13 +4,15 @@ services:
   heimdall:
     image: linuxserver/heimdall
     container_name: heimdall
+    network_mode: bridge
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - "./:/config"
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
-    volumes:
-      - "./:/config"
-    ports:
-      - 80:80
-      - 443:443
-    restart: always
+    

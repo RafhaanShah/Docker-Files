@@ -4,6 +4,7 @@ services:
   portainer:
     container_name: portainer
     image: portainer/portainer
+    network_mode: bridge
     restart: always
     ports:
       - "8000:8000"

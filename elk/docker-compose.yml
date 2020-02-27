@@ -1,20 +1,17 @@
 version: "3.7"
 
-volumes:
-  elasticsearch:
-
 services:
     elasticsearch:
         container_name: elasticsearch
         image: "docker.elastic.co/elasticsearch/elasticsearch:7.5.2"
         restart: always
-        environment:
-          - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
         ports:
           - "9200:9200"
         volumes:
           - "elasticsearch:/usr/share/elasticsearch/data"
           - "./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro"
+        environment:
+          - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
         deploy: # needs docker-compose --compatibility up -d
           resources:
             limits:
@@ -35,10 +32,10 @@ services:
         container_name: filebeat
         image: "docker.elastic.co/beats/filebeat:7.5.2"
         restart: always
+        user: root
         depends_on:
           - elasticsearch
-          - kibana
-        user: root
+          - kibana     
         ports:
           - "514:514"
           - "6514:6514"
@@ -49,3 +46,6 @@ services:
           - "./filebeat:/usr/share/filebeat/config:ro"
           - "./../pihole/pihole.log:/logs/pihole.log:ro"
           - "./test.log:/logs/test.log:ro"
+
+volumes:
+  elasticsearch:
