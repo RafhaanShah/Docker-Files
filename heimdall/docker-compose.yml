@@ -2,8 +2,8 @@ version: "3.7"
 
 services:
   heimdall:
-    image: linuxserver/heimdall
     container_name: heimdall
+    image: linuxserver/heimdall:latest
     network_mode: bridge
     restart: always
     ports:

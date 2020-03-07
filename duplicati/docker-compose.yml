@@ -3,7 +3,7 @@ version: "3.7"
 services:
   duplicati:
     container_name: duplicati
-    image: linuxserver/duplicati
+    image: linuxserver/duplicati:latest
     network_mode: bridge
     restart: always
     ports:
