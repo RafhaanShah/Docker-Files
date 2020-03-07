@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  duplicati:
+    container_name: duplicati
+    image: linuxserver/duplicati
+    network_mode: bridge
+    restart: always
+    ports:
+      - 8023:8200 
+    volumes:
+      - ./config:/config
+      - /mnt/hdd/Backup/Ubuntu:/backups
+      - ${HOME}:/source
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    labels:
+      - "diun.enable=true"
