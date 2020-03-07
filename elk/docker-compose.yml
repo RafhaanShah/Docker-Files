@@ -3,7 +3,7 @@ version: "3.7"
 services:
     elasticsearch:
         container_name: elasticsearch
-        image: "docker.elastic.co/elasticsearch/elasticsearch:7.5.2"
+        image: "docker.elastic.co/elasticsearch/elasticsearch:7.6.1"
         restart: always
         ports:
           - "9200:9200"
@@ -12,14 +12,12 @@ services:
           - "./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro"
         environment:
           - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-        deploy: # needs docker-compose --compatibility up -d
-          resources:
-            limits:
-              memory: 1024M
+        labels:
+          - "diun.enable=true"
        
     kibana:
         container_name: kibana
-        image: "docker.elastic.co/kibana/kibana:7.5.2"
+        image: "docker.elastic.co/kibana/kibana:7.6.1"
         restart: always
         depends_on:
           - elasticsearch
@@ -27,10 +25,12 @@ services:
           - "5601:5601"
         volumes:
           - "./kibana.yml:/usr/share/kibana/config/kibana.yml:ro"
+        labels:
+          - "diun.enable=true"
        
     filebeat:
         container_name: filebeat
-        image: "docker.elastic.co/beats/filebeat:7.5.2"
+        image: "docker.elastic.co/beats/filebeat:7.6.1"
         restart: always
         user: root
         depends_on:
@@ -46,6 +46,8 @@ services:
           - "./filebeat:/usr/share/filebeat/config:ro"
           - "./../pihole/pihole.log:/logs/pihole.log:ro"
           - "./test.log:/logs/test.log:ro"
+        labels:
+          - "diun.enable=true"
 
 volumes:
   elasticsearch:

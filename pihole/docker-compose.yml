@@ -24,6 +24,10 @@ services:
       CONDITIONAL_FORWARDING_DOMAIN: "lan"
       VIRTUAL_HOST: "rafs-ubuntu:8022"
       WEB_PORT: 8022
+    labels:
+      - "diun.enable=true"
     dns:
       - 127.0.0.1
       - 192.168.1.1
+    extra_hosts:
+      - "pi.hole:127.0.0.1"

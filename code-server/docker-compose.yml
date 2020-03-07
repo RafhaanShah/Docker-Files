@@ -20,5 +20,8 @@ services:
       - "${HOME}/.git-credentials:/home/coder/.git-credentials:ro"
       - "${HOME}/.ssh:/home/coder/.ssh:ro"
       - "${HOME}/docker:/home/coder/docker"
+      - "${HOME}/home-assistant:/home/coder/home-assistant"
     environment:
       PASSWORD: ${CODE_SERVER_PASSWORD}
+    labels:
+      - "diun.enable=true"

@@ -14,4 +14,6 @@ services:
       - "TZ=Europe/London"
       - "LOG_LEVEL=info"
       - "LOG_JSON=true"
+    labels:
+      - "diun.enable=true"
     

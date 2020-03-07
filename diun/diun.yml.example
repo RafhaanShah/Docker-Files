@@ -4,7 +4,7 @@ db:
 watch:
   workers: 10
   schedule: "0 * * * *"
-  first_check_notif: true
+  first_check_notif: false
 
 notif:
   telegram:
@@ -16,4 +16,4 @@ notif:
 providers:
   docker:
     local:
-      watch_by_default: true
+      watch_by_default: false # Add label: diun.enable=true
