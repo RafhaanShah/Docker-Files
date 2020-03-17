@@ -4,7 +4,6 @@ services:
   heimdall:
     container_name: heimdall
     image: linuxserver/heimdall:latest
-    network_mode: bridge
     restart: always
     ports:
       - 80:80
@@ -17,3 +16,8 @@ services:
       - TZ=Europe/London
     labels:
       - "diun.enable=true"
+
+networks:
+  default:
+    external:
+      name: docker

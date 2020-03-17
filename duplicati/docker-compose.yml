@@ -4,7 +4,6 @@ services:
   duplicati:
     container_name: duplicati
     image: linuxserver/duplicati:latest
-    network_mode: bridge
     restart: always
     ports:
       - 8023:8200 
@@ -18,3 +17,8 @@ services:
       - TZ=Europe/London
     labels:
       - "diun.enable=true"
+
+networks:
+  default:
+    external:
+      name: docker

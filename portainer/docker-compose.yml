@@ -4,7 +4,6 @@ services:
   portainer:
     container_name: portainer
     image: portainer/portainer:latest
-    network_mode: bridge
     restart: always
     ports:
       - "8000:8000"
@@ -17,3 +16,8 @@ services:
 
 volumes:
   data:
+
+networks:
+  default:
+    external:
+      name: docker

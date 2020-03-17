@@ -51,3 +51,8 @@ services:
 
 volumes:
   elasticsearch:
+
+networks:
+  default:
+    external:
+      name: docker

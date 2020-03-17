@@ -4,7 +4,6 @@ services:
   code-server:
     container_name: code-server
     image: "codercom/code-server:latest"
-    network_mode: bridge
     restart: always
     entrypoint:
       - "dumb-init"
@@ -25,3 +24,8 @@ services:
       PASSWORD: ${CODE_SERVER_PASSWORD}
     labels:
       - "diun.enable=true"
+
+networks:
+  default:
+    external:
+      name: docker
