@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if ! [ -x "$(command -v prettier)" ]; then
+  echo 'Warning: Prettier is not installed' >&2
+  exit 0
+fi
+
+FILES=$(git diff --cached --name-only --diff-filter=ACMR "*.md" "*.yml" "*.yaml" | sed 's| |\\ |g')
+[ -z "$FILES" ] && exit 0
+
+# Prettify all selected files
+echo "$FILES" | xargs ./node_modules/.bin/prettier --write
+
+# Add back the modified/prettified files to staging
+echo "$FILES" | xargs git add
+
+exit 0
