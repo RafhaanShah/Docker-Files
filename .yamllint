@@ -1,0 +1,9 @@
+extends: default
+
+rules:
+  document-start:
+    level: error
+    present: false
+  line-length:
+    level: error
+    max: 10

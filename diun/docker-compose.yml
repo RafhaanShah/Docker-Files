@@ -8,7 +8,7 @@ services:
     volumes:
       - "./data:/data"
       - "./diun.yml:/diun.yml:ro"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock"
     environment:
       - "TZ=Europe/London"
       - "LOG_LEVEL=info"

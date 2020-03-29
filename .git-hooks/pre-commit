@@ -1,17 +1,31 @@
 #!/bin/sh
 
+set -e
+
+# Get all staged files
+
 if ! [ -x "$(command -v prettier)" ]; then
   echo 'Warning: Prettier is not installed' >&2
-  exit 0
+else
+  FILES=$(git diff --cached --name-only --diff-filter=ACMR "*.md" "*.yml" "*.yaml" | sed 's| |\\ |g')
+  if ! [ -z "$FILES" ]; then
+    echo "Running Prettier..."
+
+    # Prettify all selected files
+    echo "$FILES" | xargs prettier --write
+
+    # Add back the modified/prettified files to staging
+    echo "$FILES" | xargs git add
+  fi
 fi
 
-FILES=$(git diff --cached --name-only --diff-filter=ACMR "*.md" "*.yml" "*.yaml" | sed 's| |\\ |g')
-[ -z "$FILES" ] && exit 0
-
-# Prettify all selected files
-echo "$FILES" | xargs ./node_modules/.bin/prettier --write
-
-# Add back the modified/prettified files to staging
-echo "$FILES" | xargs git add
-
-exit 0
+if ! [ -x "$(command -v yamllint)" ]; then
+  echo 'Warning: yamllint is not installed' >&2
+else
+  # Run yamllint
+  FILES=$(git diff --cached --name-only --diff-filter=ACMR "*.yml" "*.yaml" | sed 's| |\\ |g')
+  if ! [ -z "$FILES" ]; then
+    echo "Running yamllint..."
+    echo "$FILES" | xargs yamllint
+  fi
+fi
