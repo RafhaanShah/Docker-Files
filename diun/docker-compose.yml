@@ -4,7 +4,7 @@ services:
   diun:
     container_name: diun
     image: crazymax/diun:latest
-    restart: always
+    restart: unless-stopped
     volumes:
       - "./data:/data"
       - "./diun.yml:/diun.yml:ro"

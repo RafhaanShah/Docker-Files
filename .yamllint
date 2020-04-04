@@ -6,4 +6,4 @@ rules:
     present: false
   line-length:
     level: error
-    max: 10
+    max: 160
