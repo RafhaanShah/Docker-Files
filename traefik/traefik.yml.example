@@ -1,0 +1,45 @@
+global:
+  sendAnonymousUsage: true
+
+log:
+  level: "INFO"
+
+entryPoints:
+  http:
+    address: ":80"
+    http:
+      middlewares:
+        - domain-redirect@file
+        - https-redirect@file
+  https:
+    address: ":443"
+    http:
+      middlewares:
+        - domain-redirect@file
+      tls:
+        certResolver: "leresolver"
+        domains:
+          - main: "*.xxx.duckdns.org"
+
+api:
+  dashboard: true
+  insecure: true
+
+providers:
+  providersThrottleDuration: 60s
+  docker:
+    exposedByDefault: false
+    defaultRule: "HostRegexp(`{service:^{{ index .Labels \"com.docker.compose.service\" }}\\..+$}`)"
+  file:
+    directory: "/etc/traefik/config"
+
+certificatesResolvers:
+  leresolver:
+    acme:
+      email: "someone@mail.com"
+      storage: "/etc/traefik/acme.json"
+      keyType: "RSA4096"
+      dnsChallenge:
+        provider: "duckdns"
+        delayBeforeCheck: 120
+        disablePropagationCheck: true

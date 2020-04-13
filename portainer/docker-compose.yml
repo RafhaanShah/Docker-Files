@@ -5,17 +5,16 @@ services:
     container_name: portainer
     image: portainer/portainer:latest
     restart: always
-    ports:
-      - "8000:8000"
-      - "9000:9000"
+    command: --admin-password-file /tmp/password
+    expose:
+      - "9000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - data:/data
+      - ./password:/tmp/password
+      - ./data:/data
     labels:
       - "diun.enable=true"
-
-volumes:
-  data:
+      - "traefik.enable=true"
 
 networks:
   default:

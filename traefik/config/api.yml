@@ -1,0 +1,5 @@
+http:
+  routers:
+    api:
+      rule: "HostRegexp(`{service:^traefik\\..+$}`)"
+      service: api@internal

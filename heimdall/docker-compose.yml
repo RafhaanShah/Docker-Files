@@ -5,17 +5,17 @@ services:
     container_name: heimdall
     image: linuxserver/heimdall:latest
     restart: unless-stopped
-    ports:
-      - 80:80
-      - 443:443
+    expose:
+      - "80"
     volumes:
-      - "./:/config"
+      - "./config:/config"
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
     labels:
       - "diun.enable=true"
+      - "traefik.enable=true"
 
 networks:
   default:

@@ -1,8 +1,8 @@
 version: "3.7"
 
 services:
-  code-server:
-    container_name: code-server
+  coder:
+    container_name: coder
     image: "codercom/code-server:latest"
     restart: unless-stopped
     entrypoint:
@@ -10,9 +10,10 @@ services:
       - "code-server"
       - "--host"
       - "0.0.0.0"
-      - "--cert"
-    ports:
-      - "8020:8080"
+      - --disable-telemetry
+      - --disable-ssh
+    expose:
+      - "8080"
     volumes:
       - "./config:/home/coder/.local/share/code-server"
       - "${HOME}/.gitconfig:/home/coder/.gitconfig:ro"
@@ -22,9 +23,10 @@ services:
       - "${HOME}/home-assistant:/home/coder/home-assistant"
       - "${HOME}/grafterburner:/home/coder/grafterburner"
     environment:
-      PASSWORD: ${CODE_SERVER_PASSWORD}
+      PASSWORD: ${PASSWORD}
     labels:
       - "diun.enable=true"
+      - "traefik.enable=true"
 
 networks:
   default:
