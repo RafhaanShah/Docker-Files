@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  netdata:
+    container_name: netdata
+    hostname: rafs-ubuntu.lan
+    image: netdata/netdata
+    restart: unless-stopped
+    expose:
+      - "19999"
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - "./config:/etc/netdata"
+      - "/etc/passwd:/host/etc/passwd:ro"
+      - "/etc/group:/host/etc/group:ro"
+      - "/proc:/host/proc:ro"
+      - "/sys:/host/sys:ro"
+    environment:
+      - VIRTUALIZATION=kvm
+      - DOCKER_HOST=socket-proxy:2375
+    labels:
+      - "diun.enable=true"
+      - "traefik.enable=true"
+
+networks:
+  default:
+    external:
+      name: docker

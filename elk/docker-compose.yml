@@ -41,7 +41,6 @@ services:
       - "6514:6514"
     volumes:
       - "/var/lib/docker:/var/lib/docker:ro"
-      - "/var/run/docker.sock:/var/run/docker.sock"
       - "./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro"
       - "./filebeat:/usr/share/filebeat/config:ro"
       - "./../pihole/pihole.log:/logs/pihole.log:ro"

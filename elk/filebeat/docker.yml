@@ -8,7 +8,7 @@
 
   processors:
   - add_docker_metadata:
-      host: "unix:///var/run/docker.sock"
+      host: "tcp://socket-proxy:2375"
       
   - convert:
       fields:

@@ -15,5 +15,6 @@ notif:
 
 providers:
   docker:
-    local:
+    remote:
+      endpoint: "tcp://socket-proxy:2375"
       watch_by_default: false # Add label: diun.enable=true

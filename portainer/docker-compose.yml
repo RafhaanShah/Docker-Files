@@ -4,14 +4,14 @@ services:
   portainer:
     container_name: portainer
     image: portainer/portainer:latest
-    restart: always
+    restart: unless-stopped
     command: --admin-password-file /tmp/password
     expose:
       - "9000"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./password:/tmp/password
-      - ./data:/data
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./password:/tmp/password"
+      - "./data:/data"
     labels:
       - "diun.enable=true"
       - "traefik.enable=true"
