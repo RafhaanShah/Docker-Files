@@ -3,12 +3,13 @@ version: "3.7"
 services:
   coder:
     container_name: coder
-    image: "codercom/code-server:latest"
+    hostname: code-server
+    build: .
     restart: unless-stopped
     entrypoint:
       - "dumb-init"
-      - "code-server"
       - "fixuid"
+      - "code-server"
       - "--host"
       - "0.0.0.0"
       - --disable-telemetry
@@ -21,13 +22,14 @@ services:
       - "${HOME}/.gitconfig:/home/coder/.gitconfig:ro"
       - "${HOME}/.git-credentials:/home/coder/.git-credentials:ro"
       - "${HOME}/.ssh:/home/coder/.ssh:ro"
+      - "${HOME}/workspace:/home/coder/workspace"
       - "${HOME}/docker:/home/coder/docker"
       - "${HOME}/home-assistant:/home/coder/home-assistant"
       - "${HOME}/grafterburner:/home/coder/grafterburner"
     environment:
       PASSWORD: ${PASSWORD}
+      DOCKER_HOST: "tcp://socket-proxy:2375"
     labels:
-      - "diun.enable=true"
       - "traefik.enable=true"
 
 networks:
