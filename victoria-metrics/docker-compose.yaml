@@ -10,7 +10,7 @@ services:
       - "--graphiteListenAddr=:2003"
       - "--opentsdbListenAddr=:4242"
       - "--httpListenAddr=:8428"
-      - "--search.latencyOffset=30s"
+      - "--search.latencyOffset=1s"
       - "--retentionPeriod=1"
       # - "--promscrape.config=promscrape.yaml"
     volumes:

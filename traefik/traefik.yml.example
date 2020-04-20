@@ -9,26 +9,27 @@ entryPoints:
     address: ":80"
     http:
       middlewares:
-        - domain-redirect@file
         - https-redirect@file
   https:
     address: ":443"
     http:
       middlewares:
+        - ipwhitelist@file
         - domain-redirect@file
       tls:
         certResolver: "leresolver"
         domains:
-          - main: "*.xxx.duckdns.org"
+          - main: "*.domain.duckdns.org"
 
 api:
   dashboard: true
-  insecure: true
+  insecure: false
 
 providers:
-  providersThrottleDuration: 60s
+  providersThrottleDuration: 10s
   docker:
     exposedByDefault: false
+    endpoint: "tcp://socket-proxy:2375"
     defaultRule: "HostRegexp(`{service:^{{ index .Labels \"com.docker.compose.service\" }}\\..+$}`)"
   file:
     directory: "/etc/traefik/config"

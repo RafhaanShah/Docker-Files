@@ -22,7 +22,6 @@ services:
       - VIRTUALIZATION=kvm
       - DOCKER_HOST=socket-proxy:2375
     labels:
-      - "diun.enable=true"
       - "traefik.enable=true"
 
 networks:
