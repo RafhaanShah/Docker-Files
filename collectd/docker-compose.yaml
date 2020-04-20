@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  collectd:
+    container_name: collectd
+    build: .
+    restart: unless-stopped
+    volumes:
+      - "./collectd.conf:/etc/collectd/collectd.conf"
+
+networks:
+  default:
+    external:
+      name: docker
