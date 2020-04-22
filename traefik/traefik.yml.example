@@ -2,7 +2,7 @@ global:
   sendAnonymousUsage: true
 
 log:
-  level: "INFO"
+  level: INFO
 
 entryPoints:
   http:
@@ -17,7 +17,7 @@ entryPoints:
         - ipwhitelist@file
         - domain-redirect@file
       tls:
-        certResolver: "leresolver"
+        certResolver: leresolver
         domains:
           - main: "*.domain.duckdns.org"
 
@@ -32,15 +32,15 @@ providers:
     endpoint: "tcp://socket-proxy:2375"
     defaultRule: "HostRegexp(`{service:^{{ index .Labels \"com.docker.compose.service\" }}\\..+$}`)"
   file:
-    directory: "/etc/traefik/config"
+    directory: /etc/traefik/config
 
 certificatesResolvers:
   leresolver:
     acme:
-      email: "someone@mail.com"
-      storage: "/etc/traefik/acme.json"
-      keyType: "RSA4096"
+      email: someone@mail.com
+      storage: /etc/traefik/acme.json
+      keyType: RSA4096
       dnsChallenge:
-        provider: "duckdns"
+        provider: duckdns
         delayBeforeCheck: 120
         disablePropagationCheck: true

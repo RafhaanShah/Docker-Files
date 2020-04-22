@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.8"
 
 services:
   heimdall:
@@ -8,7 +8,7 @@ services:
     expose:
       - "80"
     volumes:
-      - "./config:/config"
+      - ./config:/config
     environment:
       - PUID=1000
       - PGID=1000
@@ -16,6 +16,7 @@ services:
     labels:
       - "diun.enable=true"
       - "traefik.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
 
 networks:
   default:

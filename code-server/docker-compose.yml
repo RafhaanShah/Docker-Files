@@ -1,34 +1,29 @@
-version: "3.7"
+version: "3.8"
 
 services:
   coder:
     container_name: coder
     hostname: code-server
+    image: coder:latest
     build: .
+    command:
+      - "--disable-telemetry"
+      - "--disable-ssh"
     restart: unless-stopped
-    entrypoint:
-      - "dumb-init"
-      - "fixuid"
-      - "code-server"
-      - "--host"
-      - "0.0.0.0"
-      - --disable-telemetry
-      - --disable-ssh
-      - --disable-updates
     expose:
       - "8080"
     volumes:
-      - "./config:/home/coder/.local/share/code-server"
-      - "${HOME}/.gitconfig:/home/coder/.gitconfig:ro"
-      - "${HOME}/.git-credentials:/home/coder/.git-credentials:ro"
-      - "${HOME}/.ssh:/home/coder/.ssh:ro"
-      - "${HOME}/workspace:/home/coder/workspace"
-      - "${HOME}/docker:/home/coder/docker"
-      - "${HOME}/home-assistant:/home/coder/home-assistant"
-      - "${HOME}/grafterburner:/home/coder/grafterburner"
+      - ./config:/home/coder/.local/share/code-server
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${HOME}/.gitconfig:/home/coder/.gitconfig:ro
+      - ${HOME}/.git-credentials:/home/coder/.git-credentials:ro
+      - ${HOME}/.ssh:/home/coder/.ssh:ro
+      - ${HOME}/workspace:/home/coder/workspace
+      - ${HOME}/docker:/home/coder/docker
+      - ${HOME}/home-assistant:/home/coder/home-assistant
+      - ${HOME}/grafterburner:/home/coder/grafterburner
     environment:
-      PASSWORD: ${PASSWORD}
-      DOCKER_HOST: "tcp://socket-proxy:2375"
+      - PASSWORD
     labels:
       - "traefik.enable=true"
 

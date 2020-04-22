@@ -1,9 +1,9 @@
-version: "3.7"
+version: "3.8"
 
 services:
   victoriametrics:
     container_name: victoriametrics
-    image: "victoriametrics/victoria-metrics:latest"
+    image: victoriametrics/victoria-metrics:latest
     restart: unless-stopped
     command:
       - "--storageDataPath=/storage"
@@ -12,12 +12,13 @@ services:
       - "--httpListenAddr=:8428"
       - "--search.latencyOffset=1s"
       - "--retentionPeriod=1"
-      # - "--promscrape.config=promscrape.yaml"
+      # - "--prometheus.config=prometheus.yml"
     volumes:
-      - "./storage:/storage"
-      - "./prom.yaml:/prom.yaml"
+      - ./storage:/storage
+      - ./prometheus.yml:/prometheus.yml
     labels:
       - "diun.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
 
 networks:
   default:

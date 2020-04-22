@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: app
+    image: dev/app:latest
+    build: .
+    command: [ "extra", "args", "to", "entrypoint" ]
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    expose:
+      - "8000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - VAR=VAL
+      - ENVVAR
+    depends_on:
+      - db
+    labels:
+      - "com.example.enable=true"
+
+networks:
+  default:
+    external:
+      name: docker

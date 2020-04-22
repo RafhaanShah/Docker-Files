@@ -12,13 +12,13 @@ RUN sudo apt update \
     && java --version
 
 ENV GOLANG_VERSION 1.14.2
-RUN curl -sSL https://storage.googleapis.com/golang/go${GOLANG_VERSION}.linux-amd64.tar.gz | sudo tar -C /usr/local -xz \
+RUN curl -sSL "https://storage.googleapis.com/golang/go${GOLANG_VERSION}.linux-amd64.tar.gz" | sudo tar -C /usr/local -xz \
     && /usr/local/go/bin/go version
-ENV PATH /usr/local/go/bin:${PATH} 
+ENV PATH /usr/local/go/bin:${PATH}
 
 ENV NVM_VERSION 0.35.3
 ENV NVM_DIR /home/coder/.nvm
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash \
+RUN curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh" | bash \
     && [ -s "${NVM_DIR}/nvm.sh" ] && \. "${NVM_DIR}/nvm.sh" \
     && nvm install node \
     && node --version \

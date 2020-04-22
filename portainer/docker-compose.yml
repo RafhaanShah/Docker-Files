@@ -1,20 +1,20 @@
-version: "3.7"
+version: "3.8"
 
 services:
   portainer:
     container_name: portainer
     image: portainer/portainer:latest
     restart: unless-stopped
-    command: --admin-password-file /tmp/password
+    command: ["--admin-password=${PASSWORD}"]
     expose:
       - "9000"
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - "./password:/tmp/password"
-      - "./data:/data"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./data:/data
     labels:
       - "diun.enable=true"
       - "traefik.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
 
 networks:
   default:

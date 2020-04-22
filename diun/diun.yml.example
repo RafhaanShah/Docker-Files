@@ -3,8 +3,8 @@ db:
 
 watch:
   workers: 10
-  schedule: "0 * * * *"
-  first_check_notif: false
+  schedule: 0 4 * * *
+  first_check_notif: true
 
 notif:
   telegram:
@@ -16,5 +16,5 @@ notif:
 providers:
   docker:
     remote:
-      endpoint: "tcp://socket-proxy:2375"
+      endpoint: tcp://socket-proxy:2375
       watch_by_default: false # Add label: diun.enable=true

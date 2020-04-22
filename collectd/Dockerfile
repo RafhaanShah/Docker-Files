@@ -1,6 +1,7 @@
 FROM ubuntu:latest
 
 RUN apt update \
-    && apt install collectd -y --no-install-recommends
+    && apt install -y \
+    collectd
 
-CMD collectd -f
+ENTRYPOINT [ "collectd", "-f" ]

@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.8"
 
 services:
   diun:
@@ -6,14 +6,15 @@ services:
     image: crazymax/diun:latest
     restart: unless-stopped
     volumes:
-      - "./data:/data"
-      - "./diun.yml:/diun.yml:ro"
+      - ./data:/data
+      - ./diun.yml:/diun.yml:ro
     environment:
-      - "TZ=Europe/London"
-      - "LOG_LEVEL=info"
-      - "LOG_JSON=true"
+      - TZ=Europe/London
+      - LOG_LEVEL=info
+      - LOG_JSON=true
     labels:
       - "diun.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
 
 networks:
   default:

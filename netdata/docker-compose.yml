@@ -1,10 +1,10 @@
-version: "3.7"
+version: "3.8"
 
 services:
   netdata:
     container_name: netdata
     hostname: rafs-ubuntu.lan
-    image: netdata/netdata
+    image: netdata/netdata:latest
     restart: unless-stopped
     expose:
       - "19999"
@@ -13,16 +13,17 @@ services:
     security_opt:
       - apparmor:unconfined
     volumes:
-      - "./config:/etc/netdata"
-      - "/etc/passwd:/host/etc/passwd:ro"
-      - "/etc/group:/host/etc/group:ro"
-      - "/proc:/host/proc:ro"
-      - "/sys:/host/sys:ro"
+      - ./config:/etc/netdata
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
     environment:
       - VIRTUALIZATION=kvm
       - DOCKER_HOST=socket-proxy:2375
     labels:
       - "traefik.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
 
 networks:
   default:

@@ -1,12 +1,13 @@
-version: "3.7"
+version: "3.8"
 
 services:
   collectd:
     container_name: collectd
+    image: collectd:latest
     build: .
     restart: unless-stopped
     volumes:
-      - "./collectd.conf:/etc/collectd/collectd.conf"
+      - ./collectd.conf:/etc/collectd/collectd.conf
 
 networks:
   default:

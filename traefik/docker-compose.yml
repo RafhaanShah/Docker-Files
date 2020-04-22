@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.8"
 
 services:
   traefik:
@@ -9,13 +9,14 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - "./traefik.yml:/etc/traefik/traefik.yml"
-      - "./acme.json:/etc/traefik/acme.json"
-      - "./config:/etc/traefik/config"
+      - ./traefik.yml:/etc/traefik/traefik.yml
+      - ./acme.json:/etc/traefik/acme.json
+      - ./config:/etc/traefik/config
     environment:
-      DUCKDNS_TOKEN: ${DUCKDNS_TOKEN}
+      - DUCKDNS_TOKEN
     labels:
       - "diun.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
 
 networks:
   default:
