@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  watchtower:
+    container_name: watchtower
+    image: containrrr/watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - TZ=Europe/London
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_LABEL_ENABLE=true
+      - WATCHTOWER_SCHEDULE=* 30 4 * * *
+      - WATCHTOWER_DEBUG=true
+
+networks:
+  default:
+    external:
+      name: docker
