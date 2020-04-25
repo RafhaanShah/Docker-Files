@@ -1,0 +1,17 @@
+http:
+  middlewares:
+    headers:
+      headers:
+        customRequestHeaders:
+          X-Forwarded-Proto: https
+        accessControlMaxAge: 120
+        browserXssFilter: true
+        contentTypeNosniff: true
+        customFrameOptionsValue: SAMEORIGIN
+        forceSTSHeader: true
+        hostsProxyHeaders: ["X-Forwarded-Host"]
+        referrerPolicy: same-origin
+        sslRedirect: true
+        stsSeconds: 63072000
+        stsIncludeSubdomains: true
+        stsPreload: true

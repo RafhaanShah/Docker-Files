@@ -5,7 +5,7 @@ services:
     container_name: app
     image: dev/app:latest
     build: .
-    command: [ "extra", "args", "to", "entrypoint" ]
+    command: ["extra", "args", "to", "entrypoint"]
     restart: unless-stopped
     ports:
       - "8080:8080"

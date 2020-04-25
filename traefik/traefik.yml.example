@@ -16,6 +16,7 @@ entryPoints:
       middlewares:
         - ipwhitelist@file
         - domain-redirect@file
+        - headers@file
       tls:
         certResolver: leresolver
         domains:
