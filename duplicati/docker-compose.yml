@@ -3,7 +3,7 @@ version: "3.8"
 services:
   duplicati:
     container_name: duplicati
-    image: linuxserver/duplicati:lateswt
+    image: linuxserver/duplicati:latest
     restart: unless-stopped
     expose:
       - "8200"

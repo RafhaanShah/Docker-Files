@@ -11,6 +11,8 @@ services:
       - "8080"
     volumes:
       - ./data:/web/data
+      - ${HOME}:/web/data/home
+      - /mnt/hdd:/web/data/hdd
     labels:
       - "traefik.enable=true"
 

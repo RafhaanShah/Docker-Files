@@ -10,7 +10,9 @@ services:
     environment:
       - DOCKER_HOST=tcp://socket-proxy:2375
     labels:
+      - "diun.enable=true"
       - "traefik.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
 
 networks:
   default:

@@ -1,3 +1,4 @@
+# https://github.com/prasathmani/tinyfilemanager
 FROM php:7.4-cli
 
 ENV TFM_URL https://raw.githubusercontent.com/prasathmani/tinyfilemanager/master/tinyfilemanager.php
