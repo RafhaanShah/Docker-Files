@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  dozzle:
+    container_name: dozzle
+    image: amir20/dozzle:latest
+    restart: unless-stopped
+    expose:
+      - "8080"
+    environment:
+      - DOCKER_HOST=tcp://socket-proxy:2375
+    labels:
+      - "traefik.enable=true"
+
+networks:
+  default:
+    external:
+      name: docker
