@@ -8,7 +8,6 @@ services:
     build: .
     command:
       - "--disable-telemetry"
-      - "--disable-ssh"
     restart: unless-stopped
     expose:
       - "8080"

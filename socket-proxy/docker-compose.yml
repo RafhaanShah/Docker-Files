@@ -10,6 +10,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
+      - LOG_LEVEL=notice
       - CONTAINERS=1
       - IMAGES=1
     labels:

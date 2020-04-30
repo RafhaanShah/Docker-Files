@@ -12,7 +12,6 @@ services:
       - WATCHTOWER_CLEANUP=true
       - WATCHTOWER_LABEL_ENABLE=true
       - WATCHTOWER_SCHEDULE=* 30 4 * * *
-      - WATCHTOWER_DEBUG=true
 
 networks:
   default:
