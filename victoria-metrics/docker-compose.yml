@@ -13,8 +13,11 @@ services:
       - "--search.latencyOffset=1s"
       - "--retentionPeriod=1"
       # - "--prometheus.config=prometheus.yml"
+    ports:
+      - "2003:2003/udp"
+      - "4242:4242"
     volumes:
-      - ./storage:/storage
+      - /mnt/hdd/AppData/VictoriaMetrics:/storage
       - ./prometheus.yml:/prometheus.yml
     labels:
       - "diun.enable=true"
