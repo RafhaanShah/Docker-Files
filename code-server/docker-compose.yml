@@ -6,8 +6,6 @@ services:
     hostname: code-server
     image: coder:latest
     build: .
-    command:
-      - "--disable-telemetry"
     restart: unless-stopped
     expose:
       - "8080"

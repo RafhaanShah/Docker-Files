@@ -8,6 +8,8 @@ services:
     restart: unless-stopped
     volumes:
       - ./collectd.conf:/etc/collectd/collectd.conf
+    external_links:
+      - victoriametrics
 
 networks:
   default:
