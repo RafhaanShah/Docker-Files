@@ -12,7 +12,7 @@ else
     echo "Running Prettier..."
 
     # Prettify all selected files
-    echo "$FILES" | xargs prettier --write
+    echo "$FILES" | xargs prettier --write --no-bracket-spacing
 
     # Add back the modified/prettified files to staging
     echo "$FILES" | xargs git add
