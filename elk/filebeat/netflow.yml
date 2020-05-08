@@ -1,0 +1,63 @@
+- type: netflow
+  max_message_size: 10KiB
+  host: "0.0.0.0:2055"
+  protocols: [v9]
+  expiration_timeout: 30m
+  queue_size: 8192
+  detect_sequence_reset: true
+  processors:
+    - drop_event:
+        when:
+          or:
+            - equals:
+                flow.locality: "private"
+            - equals:
+                network.transport: "icmp"
+    - timestamp:
+        field: netflow.exporter.timestamp
+        layouts:
+          - "2006-01-02T15:04:05.999Z"
+        test:
+          - "2020-05-08T12:55:20.000Z"
+    - drop_fields:
+        ignore_missing: true
+        fields:
+          [
+            "observer",
+            "flow",
+            "netflow",
+            "network.community_id",
+            "network.direction",
+            "network.iana_number",
+            "source.packets",
+            "source.bytes",
+            "destination.packets",
+            "destination.bytes",
+          ]
+    - if:
+        equals:
+          destination.locality: "private"
+      then:
+        - add_fields:
+            target: "network"
+            fields:
+              direction: "inbound"
+        - dns:
+            type: reverse
+            action: replace
+            fields:
+              destination.ip: destination.hostname
+            failure_cache.ttl: 15m
+            nameservers: ["192.168.1.1"]
+      else:
+        - add_fields:
+            target: "network"
+            fields:
+              direction: "outbound"
+        - dns:
+            type: reverse
+            action: replace
+            fields:
+              source.ip: source.hostname
+            failure_cache.ttl: 15m
+            nameservers: ["192.168.1.1"]

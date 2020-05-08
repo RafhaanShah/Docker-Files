@@ -1,0 +1,15 @@
+- type: container
+  json.keys_under_root: true
+  json.overwrite_keys: true
+  json.ignore_decoding_error: true
+  json.add_error_key: false
+  paths: 
+    - '/var/lib/docker/containers/*/*.log'
+
+  processors:
+  - add_docker_metadata:
+      host: "tcp://socket-proxy:2375"
+
+  - drop_fields:
+      fields: [timestamp]
+      ignore_missing: true

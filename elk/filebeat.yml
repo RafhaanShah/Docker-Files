@@ -2,31 +2,30 @@ filebeat.config.inputs:
   enabled: true
   path: config/*.yml
   reload.enabled: true
-  reload.period: 10s
+  reload.period: 60s
 
 output.elasticsearch:
   hosts: ["elasticsearch:9200"]
-  pipeline: filebeat-pipeline
   indices:
-    - index: "filebeat-%{[agent.version]}-pihole-%{+yyyy.MM.dd}"
-      when.equals:
-        message_source: "pihole-dns"
-    - index: "filebeat-%{[agent.version]}-docker-%{+yyyy.MM.dd}"
-      when.equals:
-        input.type: "container"
-    - index: "filebeat-%{[agent.version]}-syslog-%{+yyyy.MM.dd}"
-      when.equals:
-        input.type: "syslog"
+    - index: "filebeat-%{[agent.version]}-%{[input.type]}-%{+yyyy.MM.dd}"
 
-setup.dashboards.index: "filebeat-*"
-setup.dashboards.enabled: false
-setup.kibana.host: "kibana:5601"
+processors:
+  - drop_fields:
+      ignore_missing: true
+      fields:
+        [
+          "agent.ephemeral_id",
+          "agent.hostname",
+          "agent.id",
+          "agent.type",
+          "ecs",
+          "event",
+          "host",
+        ]
+
 setup.ilm.enabled: false
+monitoring.enabled: true
 
-# Get UUID from http://elasticsearch:9200/
-monitoring:
-  enabled: true
-  cluster_uuid: SfnxRaEuTEWJ7O68Pw27iw
-
+logging.level: info
 logging.json: true
 logging.metrics.enabled: false

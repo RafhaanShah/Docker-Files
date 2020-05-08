@@ -1,6 +1,0 @@
-- type: syslog
-  fields_under_root: true
-  fields:
-    message_source: syslog
-  protocol.tcp:
-    host: ":6514"
