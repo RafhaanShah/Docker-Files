@@ -18,6 +18,9 @@
             # not formatted correctly
             - not:
                 has_fields: ["dns.type", "dns.domain", "dns.ip"]
+            # ignore queries to pi.hole
+            - equals:
+                dns.domain: "pi.hole"
             # not a valid ip address (NXDOMAIN etc)
             - and:
                 - not:
@@ -48,8 +51,8 @@
         nameservers: ["192.168.1.1"]
 
     - if:
-        contains:
-          dns.type: "gravity"
+        equals:
+          dns.ip: "0.0.0.0"
       then:
         - add_fields:
             target: dns

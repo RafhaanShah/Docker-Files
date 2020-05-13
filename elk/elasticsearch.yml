@@ -5,6 +5,8 @@ discovery.type: single-node
 bootstrap.memory_lock: true
 logger.level: info
 
+indices.memory.index_buffer_size: 25%
+
 xpack.monitoring.enabled: true
 xpack.monitoring.collection.enabled: true
 xpack.monitoring.elasticsearch.collection.enabled: true

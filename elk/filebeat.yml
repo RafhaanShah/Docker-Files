@@ -6,6 +6,7 @@ filebeat.config.inputs:
 
 output.elasticsearch:
   hosts: ["elasticsearch:9200"]
+  bulk_max_size: 100
   indices:
     - index: "filebeat-%{[agent.version]}-%{[input.type]}-%{+yyyy.MM.dd}"
 
@@ -22,6 +23,12 @@ processors:
           "event",
           "host",
         ]
+
+setup.template.overwrite: true
+setup.template.settings:
+  index.number_of_shards: 1
+  index.number_of_replicas: 0
+  index.queries.cache.enabled: false
 
 setup.ilm.enabled: false
 monitoring.enabled: true
