@@ -9,7 +9,8 @@ RUN sudo apt update \
     && sudo rm -rf /var/lib/apt/lists/* \
     && python3 --version \
     && pip3 --version \
-    && java --version
+    && java --version \
+    && sudo rm -rf /var/lib/apt/lists/*
 
 ENV GOLANG_VERSION 1.14.2
 RUN curl -sSL "https://storage.googleapis.com/golang/go${GOLANG_VERSION}.linux-amd64.tar.gz" | sudo tar -C /usr/local -xz \
