@@ -3,6 +3,7 @@ version: "3.8"
 services:
   pihole:
     container_name: pihole
+    hostname: pihole
     image: pihole/pihole:latest
     restart: always
     ports:
@@ -12,8 +13,8 @@ services:
       - "80"
     volumes:
       - ./etc-dnsmasq.d/01-pihole.conf:/etc/.pihole/advanced/01-pihole.conf:ro
-      - ./etc-pihole/:/etc/pihole/
       - ./pihole.log/:/var/log/pihole.log
+      - ./etc-pihole/:/etc/pihole/
     environment:
       - TZ=Europe/London
       - WEBPASSWORD
@@ -21,7 +22,8 @@ services:
       - DNS2=no
       - CONDITIONAL_FORWARDING=true
       - CONDITIONAL_FORWARDING_IP:=192.168.1.1
-      - CONDITIONAL_FORWARDING_DOMAIN="lan
+      - CONDITIONAL_FORWARDING_DOMAIN=lan
+      - CONDITIONAL_FORWARDING_REVERSE=1.168.192.in-addr.arpa
       - VIRTUAL_HOST
     labels:
       - "diun.enable=true"
