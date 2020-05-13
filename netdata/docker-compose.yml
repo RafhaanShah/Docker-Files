@@ -14,6 +14,7 @@ services:
       - apparmor:unconfined
     volumes:
       - ./config:/etc/netdata
+      - /etc/os-release:/host/etc/os-release:ro
       - /etc/passwd:/host/etc/passwd:ro
       - /etc/group:/host/etc/group:ro
       - /proc:/host/proc:ro
