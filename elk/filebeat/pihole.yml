@@ -1,37 +1,31 @@
 - type: log
   index: "filebeat-%{[agent.version]}-pihole-%{+yyyy.MM.dd}"
-  # ignore local reverse lookups, forwarded requests, error replies
-  exclude_lines: ['\[PTR\]', '\sforwarded\s', '\serror\s']
+  # include only ipv4 queries, ipv4 replies, and blocked lines
+  include_lines: ['query\[A\]', 'reply\s.+\s\d\.\d\.\d\.\d', 'gravity\sblocked']
   paths:
     - "/logs/pihole.log"
 
   processors:
-    - dissect:
-        # split in the format of {month}  {day} {hh:mm:ss} dnsmasq[pid]: {query / reply / gravity} {domain} from/is {ip}
-        tokenizer: "%{+timestamp->} %{+timestamp} %{+timestamp} %{} %{dns.type} %{dns.domain} %{} %{dns.ip}"
-        field: "message"
-        target_prefix: ""
+    - if:
+        contains:
+          message: "gravity blocked"
+      then:
+        - dissect:
+            # split in the format of {month}  {day} {hh:mm:ss} dnsmasq[pid]: gravity blocked {domain} is {ip}
+            tokenizer: "%{+timestamp->} %{+timestamp} %{+timestamp} %{} %{} %{dns.type} %{dns.domain} %{} %{dns.ip}"
+            field: "message"
+            target_prefix: ""
+      else:
+        - dissect:
+            # split in the format of {month}  {day} {hh:mm:ss} dnsmasq[pid]: {query / reply} {domain} from / is {ip}
+            tokenizer: "%{+timestamp->} %{+timestamp} %{+timestamp} %{} %{dns.type} %{dns.domain} %{} %{dns.ip}"
+            field: "message"
+            target_prefix: ""
 
     - drop_event:
         when:
-          or:
-            # not formatted correctly
-            - not:
-                has_fields: ["dns.type", "dns.domain", "dns.ip"]
-            # ignore queries to pi.hole
-            - equals:
-                dns.domain: "pi.hole"
-            # not a valid ip address (NXDOMAIN etc)
-            - and:
-                - not:
-                    network:
-                      dns.ip: private
-                - not:
-                    network:
-                      dns.ip: public
-                - not:
-                    network:
-                      dns.ip: unspecified
+          network:
+            dns.ip: loopback
 
     - convert:
         fields:
@@ -49,15 +43,6 @@
           dns.ip: dns.hostname
         failure_cache.ttl: 15m
         nameservers: ["192.168.1.1"]
-
-    - if:
-        equals:
-          dns.ip: "0.0.0.0"
-      then:
-        - add_fields:
-            target: dns
-            fields:
-              type: blocked
 
     - timestamp:
         field: timestamp
