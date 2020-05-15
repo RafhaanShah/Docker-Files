@@ -6,6 +6,5 @@ Requirements:
 First time set-up:
 
 ```
-git config core.hooksPath .git-hooks
-chmod -R +x .git-hooks
+.git-hooks/setup.sh
 ```
