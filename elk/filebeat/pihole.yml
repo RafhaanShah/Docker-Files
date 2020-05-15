@@ -1,7 +1,8 @@
 - type: log
   index: "filebeat-%{[agent.version]}-pihole-%{+yyyy.MM.dd}"
   # include only ipv4 queries, ipv4 replies, and blocked lines
-  include_lines: ['query\[A\]', 'reply\s.+\s\d\.\d\.\d\.\d', 'gravity\sblocked']
+  include_lines:
+    ['query\[A\]', 'reply\s.+\s\d+\.\d+\.\d+\.\d+', 'gravity\sblocked']
   paths:
     - "/logs/pihole.log"
 

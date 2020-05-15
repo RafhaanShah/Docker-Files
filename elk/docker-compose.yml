@@ -11,7 +11,7 @@ services:
       - ./elasticsearch:/usr/share/elasticsearch/data
       - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
     environment:
-      - ES_JAVA_OPTS=-Xmx256m -Xms256m
+      - ES_JAVA_OPTS=-Xmx512m -Xms512m
     ulimits:
       memlock:
         soft: -1
