@@ -2,30 +2,26 @@
 FROM php:7.4-cli
 
 ENV TFM_URL https://raw.githubusercontent.com/prasathmani/tinyfilemanager/master/tinyfilemanager.php
+ENV CFG_URL https://raw.githubusercontent.com/prasathmani/tinyfilemanager/master/config.php
 
 RUN apt update \
     && apt upgrade -y \
-    && apt install -y \
-    wget \
-    zlib1g-dev \
-    libzip-dev \
+    && apt install -y wget zlib1g-dev libzip-dev \
     && docker-php-ext-install zip
 
-RUN mkdir -p /web/data && \
-    wget -O /web/index.php $TFM_URL
-
-ADD .env /web
 WORKDIR /web
 
-RUN eval $(sed 's/^/export /' .env) && rm .env \
-    && ADMIN_HASH=$(php -r "echo password_hash(\"${ADMIN_PASSWORD}\", PASSWORD_DEFAULT);") \
-    && USER_HASH=$(php -r "echo password_hash(\"${USER_PASSWORD}\", PASSWORD_DEFAULT);") \
-    && sed -i "s|_SERVER\['DOCUMENT_ROOT'\];|_SERVER\['DOCUMENT_ROOT'\].'/data';|" index.php \
-    && sed -i "s|default_timezone = .*|default_timezone = '${TZ}';|" index.php \
-    && sed -i "s|'admin' => .*|'admin' => '${ADMIN_HASH}',|" index.php \
-    && sed -i "s|'user' => .*|'user' => '${USER_HASH}'|" index.php \
-    && unset ADMIN_PASSWORD ADMIN_HASH USER_PASSWORD USER_HASH
+RUN mkdir -p /web/data \
+    && wget -O /web/index.php $TFM_URL \
+    && wget -O /web/config.php $CFG_URL \
+    && sed -i "s|_SERVER\['DOCUMENT_ROOT'\];|_SERVER\['DOCUMENT_ROOT'\].'/data';|" config.php \
+    && sed -i "s|max_upload_size_bytes = 2048|max_upload_size_bytes = 67108864|" config.php \
+    && sed -i "s|highlightjs_style = 'vs'|highlightjs_style = 'ir-black'|" config.php \
+    && sed -i "s|default_timezone = .*|default_timezone = '${TZ}';|" config.php \
+    && sed -i "s|root_url = ''|root_url = '/data';|" config.php \
+    && sed -i "s|use_auth = true|use_auth = false|" config.php \
+    && sed -i "s|theme = 'light'|theme = 'dark'|" config.php
 
 EXPOSE 8080
 
-ENTRYPOINT [ "php", "-S", "0.0.0.0:8080", "-t", "./", "./index.php" ]
+ENTRYPOINT [ "php", "-S", "0.0.0.0:8080"]
