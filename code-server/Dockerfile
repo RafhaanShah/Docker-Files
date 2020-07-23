@@ -36,3 +36,7 @@ ENV DOCKERCOMPOSE_VERSION 1.25.5
 RUN sudo curl -sSL "https://github.com/docker/compose/releases/download/${DOCKERCOMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
     && sudo chmod +x /usr/local/bin/docker-compose \
     && docker-compose --version
+
+RUN mkdir -p ~/.local \
+    && sudo chown coder:coder ~/.local \
+    && echo 'export PATH="${PATH}:~/.local/bin"' >> ~/.bashrc
