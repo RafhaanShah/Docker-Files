@@ -7,6 +7,7 @@ Docker files for stuff I use.
 - [Dozzle](https://github.com/amir20/dozzle)
 - [Duplicati](https://github.com/linuxserver/docker-duplicati)
 - [Elastic Stack](https://www.elastic.co/guide/en/elastic-stack-get-started/master/get-started-docker.html)
+- [FileBrowser](https://github.com/filebrowser/filebrowser)
 - [Grafana](https://github.com/grafana/grafana)
 - [Heimdall](https://github.com/linuxserver/Heimdall)
 - [Netdata](https://github.com/netdata/netdata)

@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  filebrowser:
+    container_name: filebrowser
+    image: filebrowser/filebrowser:latest
+    restart: unless-stopped
+    user: "1000"
+    expose:
+      - "8080"
+    volumes:
+      - ./.filebrowser.json:/.filebrowser.json
+      - ${HOME}:/data/home
+      - /mnt/hdd:/data/hdd
+      - ./data:/data
+      - ./db:/db
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.filebrowser-filebrowser.loadbalancer.server.port=8080"
+
+networks:
+  default:
+    external:
+      name: docker
