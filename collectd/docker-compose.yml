@@ -10,6 +10,8 @@ services:
       - ./collectd.conf:/etc/collectd/collectd.conf
     external_links:
       - victoriametrics
+    logging:
+      driver: none
 
 networks:
   default:
