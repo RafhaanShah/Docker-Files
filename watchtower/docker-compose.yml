@@ -3,7 +3,7 @@ version: "3.8"
 services:
   watchtower:
     container_name: watchtower
-    image: containrrr/watchtower
+    image: containrrr/watchtower:latest
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -12,6 +12,8 @@ services:
       - WATCHTOWER_CLEANUP=true
       - WATCHTOWER_LABEL_ENABLE=true
       - WATCHTOWER_SCHEDULE=* 0 3 * * *
+    labels:
+      - "diun.enable=true"
 
 networks:
   default:
