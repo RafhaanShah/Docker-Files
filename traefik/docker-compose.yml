@@ -1,9 +1,10 @@
+# https://github.com/containous/traefik
 version: "3.8"
 
 services:
   traefik:
     container_name: traefik
-    image: traefik:v2.2
+    image: traefik:latest
     restart: unless-stopped
     ports:
       - "80:80"
@@ -16,7 +17,6 @@ services:
       - DUCKDNS_TOKEN
     labels:
       - "diun.enable=true"
-      - "com.centurylinklabs.watchtower.enable=true"
 
 networks:
   default:

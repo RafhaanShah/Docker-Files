@@ -1,3 +1,4 @@
+# https://github.com/filebrowser/filebrowser
 version: "3.8"
 
 services:
@@ -16,6 +17,7 @@ services:
       - ./db:/db
     labels:
       - "traefik.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
       - "traefik.http.services.filebrowser-filebrowser.loadbalancer.server.port=8080"
 
 networks:

@@ -1,3 +1,4 @@
+# https://github.com/Tecnativa/docker-socket-proxy
 version: "3.8"
 
 services:
@@ -14,7 +15,6 @@ services:
       - CONTAINERS=1
       - IMAGES=1
     labels:
-      - "diun.enable=true"
       - "com.centurylinklabs.watchtower.enable=true"
 
 networks:

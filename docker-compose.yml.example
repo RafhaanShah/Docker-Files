@@ -1,3 +1,4 @@
+# https://github.com/RafhaanShah/Docker-Files
 version: "3.8"
 
 services:
@@ -15,7 +16,7 @@ services:
       - ./data:/app/data
     environment:
       - VAR=VAL
-      - ENVVAR
+      - SECRET_ENV_VAR
     depends_on:
       - db
     labels:

@@ -1,3 +1,4 @@
+# https://github.com/cdr/code-server
 FROM codercom/code-server:latest
 
 RUN sudo apt update \

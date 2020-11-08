@@ -1,3 +1,4 @@
+# https://github.com/VictoriaMetrics/VictoriaMetrics
 version: "3.8"
 
 services:
@@ -20,7 +21,6 @@ services:
       - /mnt/hdd/AppData/VictoriaMetrics:/storage
       - ./prometheus.yml:/prometheus.yml
     labels:
-      - "diun.enable=true"
       - "com.centurylinklabs.watchtower.enable=true"
 
 networks:

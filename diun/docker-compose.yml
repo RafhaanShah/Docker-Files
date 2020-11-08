@@ -1,3 +1,4 @@
+# https://github.com/crazy-max/diun
 version: "3.8"
 
 services:
@@ -8,10 +9,13 @@ services:
     volumes:
       - ./data:/data
       - ./diun.yml:/diun.yml:ro
+      - ./file.yml:/file.yml:ro
     environment:
       - TZ=Europe/London
       - LOG_LEVEL=info
       - LOG_JSON=true
+      - DIUN_NOTIF_TELEGRAM_TOKEN
+      - DIUN_NOTIF_TELEGRAM_CHATIDS
     labels:
       - "diun.enable=true"
 

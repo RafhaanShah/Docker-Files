@@ -8,4 +8,5 @@ rules:
     level: error
     max: 160
   comments:
+    level: error
     min-spaces-from-content: 1

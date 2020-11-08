@@ -1,3 +1,4 @@
+# https://github.com/linuxserver/Heimdall
 version: "3.8"
 
 services:
@@ -14,7 +15,6 @@ services:
       - PGID=1000
       - TZ=Europe/London
     labels:
-      - "diun.enable=true"
       - "traefik.enable=true"
       - "com.centurylinklabs.watchtower.enable=true"
 
