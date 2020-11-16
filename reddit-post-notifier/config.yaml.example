@@ -1,0 +1,12 @@
+apprise:
+  - tgram://xxxxxxx:xxxxxxx/123456789
+  - join://apikey/group
+
+reddit:
+  client: xxxxxxx
+  secret: xxxxxxx-xxxxxxx
+  agent: "reddit-post-notifier (u/xxxxxx)"
+    
+  gamedeals:
+    - 'free'
+    - '100%'
