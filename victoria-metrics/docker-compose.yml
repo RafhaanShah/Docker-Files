@@ -11,12 +11,13 @@ services:
       - "--graphiteListenAddr=:2003"
       - "--opentsdbListenAddr=:4242"
       - "--httpListenAddr=:8428"
-      - "--search.latencyOffset=1s"
-      - "--retentionPeriod=1"
+      - "--search.latencyOffset=1s" # Data becomes available 1s after ingestion
+      - "--retentionPeriod=1" # 1 Month
+      - "--selfScrapeInterval=60s" # Collect internal metrics
       # - "--prometheus.config=prometheus.yml"
     ports:
-      - "2003:2003/udp"
-      - "4242:4242"
+      - "2003:2003/udp" # Proxmox
+      - "4242:4242" # OPNsense
     volumes:
       - /mnt/hdd/AppData/VictoriaMetrics:/storage
       - ./prometheus.yml:/prometheus.yml

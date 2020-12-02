@@ -6,3 +6,5 @@ datasources:
     access: proxy
     url: http://victoriametrics:8428
     editable: true
+    jsonData:
+      timeInterval: 1s
