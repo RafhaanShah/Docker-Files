@@ -5,6 +5,7 @@ ENV GOLANG_VERSION 1.15.5
 ENV NVM_VERSION 0.37.0
 ENV DOCKER_VERSION 19.03.13
 ENV DOCKERCOMPOSE_VERSION 1.27.4
+ENV DOCKER_GROUP 999
 
 RUN sudo apt update \
     && sudo apt upgrade -y \
@@ -16,8 +17,7 @@ RUN sudo apt update \
     && sudo rm -rf /var/lib/apt/lists/* \
     && python3 --version \
     && pip3 --version \
-    && java --version \
-    && sudo rm -rf /var/lib/apt/lists/*
+    && java --version
 
 RUN curl -sSL "https://storage.googleapis.com/golang/go${GOLANG_VERSION}.linux-amd64.tar.gz" | sudo tar -C /usr/local -xz \
     && /usr/local/go/bin/go version
@@ -42,3 +42,5 @@ RUN sudo curl -sSL "https://github.com/docker/compose/releases/download/${DOCKER
 RUN mkdir -p ~/.local \
     && sudo chown coder:coder ~/.local \
     && echo 'export PATH="${PATH}:~/.local/bin"' >> ~/.bashrc
+
+RUN sudo groupadd -g ${DOCKER_GROUP} docker && sudo usermod -a -G docker ${USER}

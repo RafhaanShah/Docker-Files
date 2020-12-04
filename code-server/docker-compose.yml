@@ -12,13 +12,10 @@ services:
     volumes:
       - ./config:/home/coder/.local/share/code-server
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${HOME}/.gitconfig:/home/coder/.gitconfig:ro
-      - ${HOME}/.git-credentials:/home/coder/.git-credentials:ro
       - ${HOME}/.ssh:/home/coder/.ssh:ro
       - ${HOME}/workspace:/home/coder/workspace
       - ${HOME}/docker:/home/coder/docker
       - ${HOME}/home-assistant:/home/coder/home-assistant
-      - ${HOME}/grafterburner:/home/coder/grafterburner
     environment:
       - PASSWORD
     labels:
