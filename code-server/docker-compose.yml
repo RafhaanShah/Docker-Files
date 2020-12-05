@@ -11,11 +11,15 @@ services:
       - "8080"
     volumes:
       - ./config:/home/coder/.local/share/code-server
+      - ./.wakatime.cfg/home/coder/wakatime.cfg
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${HOME}/.ssh:/home/coder/.ssh:ro
       - ${HOME}/workspace:/home/coder/workspace
       - ${HOME}/docker:/home/coder/docker
       - ${HOME}/home-assistant:/home/coder/home-assistant
+      - ${HOME}/.ssh:/home/coder/.ssh:ro
+      - ${HOME}/.gnupg:/home/coder/.gnupg
+      - ${HOME}/.gitconfig:/home/coder/.gitconfig
+      - ${HOME}/.password-store:/home/coder/.password-store
     environment:
       - PASSWORD
     labels:

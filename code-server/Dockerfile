@@ -14,6 +14,7 @@ RUN sudo apt update \
     python3-pip \
     python3-setuptools \
     openjdk-11-jdk-headless \
+    gnupg2 pass pinentry-tty \
     && sudo rm -rf /var/lib/apt/lists/* \
     && python3 --version \
     && pip3 --version \
@@ -39,8 +40,8 @@ RUN sudo curl -sSL "https://github.com/docker/compose/releases/download/${DOCKER
     && sudo chmod +x /usr/local/bin/docker-compose \
     && docker-compose --version
 
-RUN mkdir -p ~/.local \
-    && sudo chown coder:coder ~/.local \
+RUN mkdir -p ~/.local/share \
+    && sudo chown coder:coder ~/.local && sudo chown coder:coder ~/.local/share \
     && echo 'export PATH="${PATH}:~/.local/bin"' >> ~/.bashrc
 
 RUN sudo groupadd -g ${DOCKER_GROUP} docker && sudo usermod -a -G docker ${USER}
