@@ -1,0 +1,4 @@
+*
+!.gitignore
+!netdata.conf
+!exporting.conf

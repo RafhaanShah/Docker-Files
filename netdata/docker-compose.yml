@@ -14,7 +14,7 @@ services:
     security_opt:
       - apparmor:unconfined
     volumes:
-      - ./config:/etc/netdata
+      - ./config:/etc/netdata:ro
       - /etc/os-release:/host/etc/os-release:ro
       - /etc/passwd:/host/etc/passwd:ro
       - /etc/group:/host/etc/group:ro
@@ -25,6 +25,7 @@ services:
       - VIRTUALIZATION=kvm
       - DOCKER_HOST=socket-proxy:2375
     labels:
+      - "traefik.enable=true"
       - "com.centurylinklabs.watchtower.enable=true"
 
 networks:
