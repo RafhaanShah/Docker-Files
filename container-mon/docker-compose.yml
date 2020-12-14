@@ -1,0 +1,19 @@
+# https://github.com/RafhaanShah/Container-Mon
+version: "3.8"
+
+services:
+  container-mon:
+    container_name: container-mon
+    image: ghcr.io/rafhaanshah/container-mon:latest
+    restart: unless-stopped
+    environment:
+      - CONTAINERMON_NOTIFICATION_URL
+      - CONTAINERMON_USE_LABELS=true
+      - DOCKER_HOST=tcp://socket-proxy:2375
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+networks:
+  default:
+    external:
+      name: docker

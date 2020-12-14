@@ -26,6 +26,7 @@ services:
       - DOCKER_HOST=socket-proxy:2375
     labels:
       - "traefik.enable=true"
+      - "containermon.enable=true"
       - "com.centurylinklabs.watchtower.enable=true"
 
 networks:

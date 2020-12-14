@@ -18,6 +18,7 @@ services:
       - WATCHTOWER_NOTIFICATION_URL
     labels:
       - "diun.enable=true"
+      - "containermon.enable=true"
 
 networks:
   default:

@@ -18,6 +18,7 @@ services:
       - DIUN_NOTIF_TELEGRAM_CHATIDS
     labels:
       - "diun.enable=true"
+      - "containermon.enable=true"
 
 networks:
   default:
