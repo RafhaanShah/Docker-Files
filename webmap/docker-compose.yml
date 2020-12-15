@@ -1,0 +1,20 @@
+# https://github.com/SabyasachiRana/WebMap
+version: "3.8"
+
+services:
+  webmap:
+    container_name: webmap
+    hostname: webmap
+    image: reborntc/webmap:latest
+    restart: unless-stopped
+    expose:
+      - "8000"
+    volumes:
+      - ./data:/opt/xml
+    labels:
+      - "traefik.enable=true"
+
+networks:
+  default:
+    external:
+      name: docker
