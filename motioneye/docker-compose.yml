@@ -1,0 +1,38 @@
+# https://github.com/ccrisan/motioneye
+# https://motion-project.github.io/motion_config.html
+version: "3.8"
+
+services:
+  motioneye:
+    container_name: motioneye
+    hostname: rafs-ubuntu
+    image: ccrisan/motioneye:master-amd64
+    restart: unless-stopped
+    expose:
+      - "8765" # web interface
+      - "7999" # web control
+      - "8080" # camera streams
+    volumes:
+      - ./config:/etc/motioneye
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/hdd/AppData/MotionEye:/var/lib/motioneye
+    labels:
+      - "diun.enable=true"
+      - "traefik.enable=true"
+
+      - "traefik.http.routers.motioneye.service=motioneye"
+      - "traefik.http.routers.motioneye.rule=HostRegexp(`{service:^motioneye\\..+$$}`)"
+      - "traefik.http.services.motioneye.loadbalancer.server.port=8765"
+
+      - "traefik.http.routers.motioneye-control.service=motioneye-control"
+      - "traefik.http.routers.motioneye-control.rule=HostRegexp(`{service:^motioneye-control\\..+$$}`)"
+      - "traefik.http.services.motioneye-control.loadbalancer.server.port=7999"
+
+      - "traefik.http.routers.motioneye-stream.service=motioneye-stream"
+      - "traefik.http.routers.motioneye-stream.rule=HostRegexp(`{service:^motioneye-stream\\..+$$}`)"
+      - "traefik.http.services.motioneye-stream.loadbalancer.server.port=8080"
+
+networks:
+  default:
+    external:
+      name: docker
