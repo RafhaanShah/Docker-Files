@@ -7,6 +7,8 @@ services:
     image: filebrowser/filebrowser:latest
     restart: unless-stopped
     user: "1000"
+    expose:
+      - "8080"
     volumes:
       - ./.filebrowser.json:/.filebrowser.json
       - ${HOME}:/data/home

@@ -9,7 +9,7 @@ services:
     command: ["extra", "args", "to", "entrypoint"]
     restart: unless-stopped
     ports:
-      - "8080:8080"
+      - "8080:8080" # HOST_PORT:CONTAINER_PORT
     expose:
       - "8000"
     volumes:

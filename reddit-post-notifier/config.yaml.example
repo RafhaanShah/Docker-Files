@@ -7,6 +7,7 @@ reddit:
   secret: xxxxxxx-xxxxxxx
   agent: "reddit-post-notifier (u/xxxxxx)"
     
-  gamedeals:
-    - 'free'
-    - '100%'
+  subreddits:
+    gamedeals:
+      - 'free'
+      - '100%'
