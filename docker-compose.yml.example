@@ -1,4 +1,4 @@
-# https://github.com/RafhaanShah/Docker-Files
+# https://docs.docker.com/compose/compose-file/compose-file-v3/
 version: "3.8"
 
 services:
@@ -6,7 +6,6 @@ services:
     container_name: app
     image: dev/app:latest
     build: .
-    command: ["extra", "args", "to", "entrypoint"]
     restart: unless-stopped
     ports:
       - "8080:8080" # HOST_PORT:CONTAINER_PORT

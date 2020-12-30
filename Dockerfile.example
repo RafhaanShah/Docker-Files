@@ -1,0 +1,40 @@
+# https://docs.docker.com/engine/reference/builder/
+# https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
+
+# To exclude files not relevant to the build (without restructuring your source repository) use a .dockerignore
+
+FROM ubuntu:18.04
+# Creates a layer from the ubuntu:18.04 Docker image.
+
+ARG BUILD_VAR=SOME_VALUE
+# ARG values are only accessible during the build, not during runtime (CMD / ENTRYPOINT)
+
+ENV RUNTIME_VAR=DEFAULT_VALUE
+# ENV vars are accessible during build and runtime, and can be overridden for runtime
+# To override an ENV var during build, use ARG and set ENV env_var=$arg_var
+
+COPY . /app
+# If you have multiple Dockerfile steps that use different files from your context, COPY them individually
+
+RUN make /app
+# Runs a command during the build process
+
+ENTRYPOINT ["python" "/app/app.py"]
+# ENTRYPOINT allows you to configure a container that will run as an executable.
+# ENTRYPOINT ["executable", "param1", "param2"]
+
+CMD ["-myflag"]
+# The main purpose of a CMD is to provide a DEFAULT command or parameters for executing a container.
+# The CMD instruction should be used to run the software contained in your image, along with any arguments.
+# CMD ["executable", "param1", "param2"]
+
+# These defaults can include an executable, or they can omit the executable,
+# in which case you must specify an ENTRYPOINT instruction as well.
+# CMD ["param3","param4"] + ENTRYPOINT ["executable", "param1", "param2"] => executable param1 param2 param3 param4
+
+# Command line arguments to docker run <image> will be APPENDED after all elements in an ENTRYPOINT
+# It will also OVERRIDE all elements specified using CMD
+
+# Prefer ENTRYPOINT to CMD when building executable Docker image and you need a command always to be executed. 
+# Additionally use CMD if you need to provide extra default arguments that could be overwritten from command line when docker container runs.
+# Choose CMD if you need to provide a default command and/or arguments that can be overwritten from command line when docker container runs.
