@@ -3,15 +3,19 @@ http:
     headers:
       headers:
         customRequestHeaders:
-          X-Forwarded-Proto: https
-        accessControlMaxAge: 120
-        browserXssFilter: true
+          # identifies the protocol (HTTP or HTTPS) that a client used to connect to the proxy
+          X-Forwarded-Proto: https  
+        # indicates that the MIME types advertised in the Content-Type headers should not be changed
         contentTypeNosniff: true
+        # indicates whether or not a browser should be allowed to render a page in a iframe
         customFrameOptionsValue: SAMEORIGIN
-        forceSTSHeader: true
+        # identifies the original host requested by the client
         hostsProxyHeaders: ["X-Forwarded-Host"]
+        # controls how much referrer information should be included
         referrerPolicy: same-origin
+        # only allow https requests
         sslRedirect: true
+        # max-age of the Strict-Transport-Security header
         stsSeconds: 63072000
+        # apply Strict-Transport-Security to subdomains
         stsIncludeSubdomains: true
-        stsPreload: true
