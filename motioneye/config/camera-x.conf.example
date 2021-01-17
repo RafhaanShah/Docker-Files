@@ -1,0 +1,85 @@
+# @webcam_resolution 100
+# @upload_subfolders on
+# @upload_server 
+# @enabled on
+# @network_server 
+# @motion_detection on
+# @upload_port 
+# @upload_location 
+# @preserve_movies 0
+# @network_username 
+# @upload_movie on
+# @id 1
+# @webcam_server_resize off
+# @upload_password 
+# @manual_record off
+# @upload_method post
+# @upload_picture on
+# @working_schedule_type outside
+# @network_password 
+# @upload_service ftp
+# @preserve_pictures 0
+# @storage_device custom-path
+# @manual_snapshots on
+# @network_share_name 
+# @upload_enabled off
+# @network_smb_ver 1.0
+# @working_schedule 
+# @clean_cloud_enabled off
+# @upload_username 
+
+threshold_maximum 0
+netcam_userpass username:password
+stream_quality 100
+threshold 92160
+noise_level 31
+smart_mask_speed 0
+pre_capture 1
+movie_codec mp4:h264_omx
+noise_tune on
+stream_maxrate 15
+netcam_url rtsp://cam.lan:8554/unicast
+stream_localhost off
+text_changes on
+movie_filename %Y-%m-%d/%H-%M-%S
+movie_max_time 0
+lightswitch_percent 0
+movie_passthrough off
+event_gap 5
+auto_brightness off
+stream_port 8081
+rotate 0
+stream_auth_method 1
+threshold_tune off
+framerate 15
+emulate_motion off
+movie_output off
+picture_quality 85
+snapshot_filename 
+despeckle_filter 
+snapshot_interval 0
+minimum_motion_frames 5
+stream_motion off
+target_dir /var/lib/motioneye/Camera1
+movie_output_motion off
+post_capture 1
+stream_authentication user:AnynDuuGiJSLMjRyIDpnDmK4BAFr4k9KdifksJLu
+on_picture_save /usr/local/lib/python2.7/dist-packages/motioneye/scripts/relayevent.sh "/etc/motioneye/motioneye.conf" picture_save %t %f
+on_movie_end /usr/local/lib/python2.7/dist-packages/motioneye/scripts/relayevent.sh "/etc/motioneye/motioneye.conf" movie_end %t %f
+text_left 
+picture_output_motion off
+picture_filename 
+text_scale 1
+locate_motion_style redbox
+locate_motion_mode on
+netcam_keepalive off
+movie_quality 75
+picture_output off
+on_event_end /usr/local/lib/python2.7/dist-packages/motioneye/scripts/relayevent.sh "/etc/motioneye/motioneye.conf" stop %t
+text_right 
+on_event_start /usr/local/lib/python2.7/dist-packages/motioneye/scripts/relayevent.sh "/etc/motioneye/motioneye.conf" start %t; /usr/bin/python /usr/local/lib/python2.7/dist-packages/motioneye/meyectl.pyc webhook -c /etc/motioneye/motioneye.conf 'POSTj' 'https://home-assistant.base.duckdns.org:8123/api/webhook/motioneye-cam1-motion'
+camera_name Camera1
+netcam_tolerant_check on
+height 720
+mask_file /etc/motioneye/mask_1.pgm
+width 1280

@@ -1,0 +1,47 @@
+# https://github.com/roflcoopter/viseron#configuration-options
+
+logging:
+  level: debug
+
+recorder:
+  lookback: 2
+  timeout: 2
+  retain: 14
+  thumbnail:
+    save_to_disk: false
+
+object_detection:
+  type: edgetpu
+  interval: 1.0
+  log_all_objects: true
+  labels:
+    - label: person
+      confidence: 0.8
+      triggers_recording: true
+
+motion_detection:
+  interval: 1.0
+  trigger_detector: true
+  timeout: true
+  max_timeout: 2
+  area: 0.05
+  threshold: 20 # 0 - 255, lower = more sensitive
+  frames: 2
+
+# MQTT is optional
+#mqtt:
+#  broker: <ip address or hostname of broker>
+#  port: <port the broker listens on>
+#  username: <if auth is enabled>
+#  password: <if auth is enabled>
+
+cameras:
+  - name: cam1
+    host: cam1.lan
+    port: 8554
+    username: admin
+    password: !secret cam1_password
+    path: /unicast
+    width: 1280
+    height: 720
+    fps: 15
