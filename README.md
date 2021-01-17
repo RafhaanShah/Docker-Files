@@ -12,6 +12,7 @@ Docker files for stuff I use.
 - [Grafana](https://github.com/grafana/grafana)
 - [Heimdall](https://github.com/linuxserver/Heimdall)
 - [MotionEye](https://github.com/ccrisan/motioneye)
+- [MiniDLNA](https://github.com/vladgh/docker_base_images/blob/master/minidlna)
 - [Netdata](https://github.com/netdata/netdata)
 - [Pi-Hole](https://github.com/pi-hole/docker-pi-hole)
 - [Portainer](https://github.com/portainer/portainer)

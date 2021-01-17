@@ -1,0 +1,18 @@
+# https://github.com/vladgh/docker_base_images/blob/master/minidlna
+version: "3.8"
+
+services:
+  app:
+    container_name: minidlna
+    image: vladgh/minidlna:latest
+    restart: unless-stopped
+    network_mode: host # needed for upnp
+    volumes:
+      - /mnt/hdd/Share/Media:/media
+    environment:
+      - MINIDLNA_MEDIA_DIR=/media
+      - MINIDLNA_FRIENDLY_NAME=MiniDLNA
+      # - MINIDLNA_PORT=8200 # port fixed in healthcheck
+    labels:
+      - "containermon.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
