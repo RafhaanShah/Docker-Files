@@ -1,0 +1,16 @@
+# https://github.com/RafhaanShah/Net-Mon
+
+version: "3.8"
+
+services:
+    net-mon:
+        container_name: net-mon
+        image: ghcr.io/rafhaanshah/net-mon:latest
+        restart: unless-stopped
+        network_mode: host
+        volumes:
+        - ./results.json:/app/results.json
+        environment:
+        - NETMON_NOTIFICATION
+        - NETMON_SUBNET=192.168.1.0/24
+        - NETMON_MINUTES=30
