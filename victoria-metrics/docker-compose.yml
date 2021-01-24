@@ -14,13 +14,15 @@ services:
       - "--search.latencyOffset=1s" # Data becomes available 1s after ingestion
       - "--retentionPeriod=1" # 1 Month
       - "--selfScrapeInterval=60s" # Collect internal metrics
-      # - "--prometheus.config=prometheus.yml"
+      - "--promscrape.config=prometheus.yml"
     ports:
-      - "2003:2003/udp" # Proxmox
-      - "4242:4242" # OPNsense
+      - "2003:2003/udp" # Proxmox (collectd and internal metrics)
+      - "4242:4242" # OPNsense (netdata)
     volumes:
       - /mnt/hdd/AppData/VictoriaMetrics:/storage
       - ./prometheus.yml:/prometheus.yml
+    environment:
+      - STATPING_API_KEY
     labels:
       - "containermon.enable=true"
       - "com.centurylinklabs.watchtower.enable=true"

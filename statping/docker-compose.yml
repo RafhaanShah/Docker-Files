@@ -1,0 +1,34 @@
+# https://github.com/statping/statping
+version: "3.8"
+
+services:
+  statping:
+    container_name: statping
+    image: statping/statping:latest
+    restart: unless-stopped
+    expose:
+      - "8080"
+    volumes:
+      - ./data:/app # app folder needs to be owned by root for some reason
+                    # https://github.com/statping/statping/issues/520
+    environment:
+      - API_SECRET
+      - ADMIN_USER=raf
+      - ADMIN_PASSWORD
+      - DB_CONN=sqlite
+      - DESCRIPTION=Status Monitoring
+      - DISABLE_LOGS=true # because VERBOSE does not work and it's noisy
+      - LOGS_MAX_AGE=1
+      - NAME=Statping
+      - REMOVE_AFTER=720 # 30 days
+      - SAMPLE_DATA=false
+      - VERBOSE=1 # warnings only (not that it works...)
+    labels:
+      - "traefik.enable=true"
+      - "containermon.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+
+networks:
+  default:
+    external:
+      name: docker
