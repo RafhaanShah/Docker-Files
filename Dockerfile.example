@@ -19,7 +19,7 @@ COPY . /app
 RUN make /app
 # Runs a command during the build process
 
-ENTRYPOINT ["python" "/app/app.py"]
+ENTRYPOINT ["python", "/app/app.py"]
 # ENTRYPOINT allows you to configure a container that will run as an executable.
 # ENTRYPOINT ["executable", "param1", "param2"]
 
