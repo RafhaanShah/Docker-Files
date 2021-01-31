@@ -3,7 +3,7 @@ http:
     domain-redirect:
       redirectRegex:
         regex: "^(https?)://([A-z0-9-]+\\.)(.+)*\\.?lan/(.*)"
-        replacement: "${1}://${2}xxx.duckdns.org/${4}"
+        replacement: "${1}://${2}base-domain.duckdns.org/${4}"
         permanent: true
     https-redirect:
       redirectScheme:

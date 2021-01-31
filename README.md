@@ -10,7 +10,7 @@ Docker files for stuff I use.
 - [Elastic Stack](https://www.elastic.co/guide/en/elastic-stack-get-started/master/get-started-docker.html)
 - [FileBrowser](https://github.com/filebrowser/filebrowser)
 - [Grafana](https://github.com/grafana/grafana)
-- [Heimdall](https://github.com/linuxserver/Heimdall)
+- [Homer](https://github.com/bastienwirtz/homer)
 - [MotionEye](https://github.com/ccrisan/motioneye)
 - [MiniDLNA](https://github.com/vladgh/docker_base_images/blob/master/minidlna)
 - [Netdata](https://github.com/netdata/netdata)

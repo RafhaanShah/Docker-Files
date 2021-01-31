@@ -20,7 +20,7 @@ entryPoints:
       tls:
         certResolver: leresolver
         domains:
-          - main: "*.domain.duckdns.org"
+          - main: "*.base-domain.duckdns.org"
 
 api:
   dashboard: true
