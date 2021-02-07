@@ -10,14 +10,13 @@ services:
     expose:
       - "8080"
     volumes:
-      - ./config:/home/coder/.local/share/code-server
-      - ./.wakatime.cfg:/home/coder/wakatime.cfg
+      - ./config:/home/coder/.local/share/code-server # config dir with all extensions and settings
+      - ./wakatime.cfg:/home/coder/.wakatime.cfg
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ${HOME}/workspace:/home/coder/workspace
       - ${HOME}/docker:/home/coder/docker
       - ${HOME}/.ssh:/home/coder/.ssh:ro
       - ${HOME}/.gnupg:/home/coder/.gnupg
-      - ${HOME}/.gitconfig:/home/coder/.gitconfig
       - ${HOME}/.password-store:/home/coder/.password-store
       - type: bind
         source: ${HOME}/home-assistant
