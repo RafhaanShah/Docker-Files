@@ -2,34 +2,35 @@
 FROM codercom/code-server:latest
 
 # Installs Go, Node, Python, Java, Ruby, Rust
-# Installs Docker and Docker-Compose
+# Installs Docker (executable only) and Docker-Compose
+# Installs Chrome for localhost previews
 # Sets default shell to ZSH, clones and sets up Dotfiles
 
-ENV GOLANG_VERSION=1.15.7
+ENV GOLANG_VERSION=1.16
 ENV NODE_VERSION=15
-ENV DOCKER_VERSION=20.10.2
-ENV DOCKERCOMPOSE_VERSION=1.28.0
+ENV DOCKER_VERSION=20.10.5
+ENV DOCKERCOMPOSE_VERSION=1.28.5
 ENV DOCKER_GROUP=999
 ENV GCM_URL=https://github.com/microsoft/Git-Credential-Manager-Core/releases/download/v2.0.318-beta/gcmcore-linux_amd64.2.0.318.44100.deb
 
 RUN sudo apt update \
     && sudo apt upgrade -y \
-    && sudo apt install -y --no-install-recommends \
+    && sudo apt install -yq --no-install-recommends \
     python3 \
     python3-pip \
     python3-setuptools \
     openjdk-11-jdk-headless \
     ruby-full \
+    gnupg pass pinentry-tty \
     zsh \
-    gnupg2 pass pinentry-tty \
     && python3 --version \
     && pip3 --version \
     && java --version \
-    && ruby -v \
-    && touch ~/.zshrc && sudo chsh -s $(which zsh) coder
+    && ruby --version
 
 RUN curl -sSL "https://storage.googleapis.com/golang/go${GOLANG_VERSION}.linux-amd64.tar.gz" | sudo tar -C /usr/local -xz && /usr/local/go/bin/go version \
-    && curl -sSL "https://deb.nodesource.com/setup_${NODE_VERSION}.x" | sudo -E bash - && sudo apt install -y nodejs && node --version && npm --version && mkdir -p ~/.npm-global \
+    && curl -sSL "https://deb.nodesource.com/setup_${NODE_VERSION}.x" | sudo -E bash - \
+    && sudo apt install -yq nodejs && node --version && npm --version && mkdir -p ~/.npm-global && npm config set prefix ~/.npm-global \
     && curl https://sh.rustup.rs -sSf | sh -s -- -y && . "${HOME}/.cargo/env" && rustc --version \
     && curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o chrome.deb \
     && sudo sudo apt install -y ./chrome.deb && rm chrome.deb \
@@ -47,5 +48,6 @@ RUN curl -sSLO "https://download.docker.com/linux/static/stable/x86_64/docker-${
 
 # This directory is needed so permissions stay OK when mounting the config volume here
 RUN mkdir -p ~/.local/share/code-server \
-    && git clone https://github.com/RafhaanShah/Dotfiles ~/Dotfiles && ~/Dotfiles/setup.sh -y \
-    && sudo rm -rf /var/lib/apt/lists/*
+    && git clone https://github.com/RafhaanShah/Dotfiles ~/Dotfiles \
+    && ~/Dotfiles/setup/dotfiles.sh \
+    && ~/Dotfiles/setup/zsh.sh
