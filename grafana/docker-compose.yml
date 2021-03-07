@@ -18,9 +18,29 @@ services:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_DASHBOARDS_MIN_REFRESH_INTERVAL=1s
+      - GF_SERVER_ROOT_URL
     labels:
       - "diun.enable=true"
       - "traefik.enable=true"
+
+  # loki:
+  #   container_name: loki
+  #   image: grafana/loki:2.0.0
+  #   command: -config.file=/etc/loki/config.yaml
+  #   volumes:
+  #     - ./loki:/loki
+  #     - ./loki.yaml:/etc/loki/config.yaml
+
+  # promtail:
+  #   container_name: promtail
+  #   image: grafana/promtail:2.0.0
+  #   command: -config.file=/etc/promtail/config.yml
+  #   volumes:
+  #     - ./promtail:/positions
+  #     - ./promtail.yml:/etc/promtail/config.yml
+  #     - /var/lib/docker/containers:/var/lib/docker/containers
+  #   depends_on:
+  #     - loki
 
 networks:
   default:
