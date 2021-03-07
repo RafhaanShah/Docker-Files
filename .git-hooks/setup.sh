@@ -12,16 +12,11 @@ if ! [ -x "$(command -v pip3)" ]; then
   exit 1
 fi
 
-hooks_dir=".git-hooks"
-if ! [ -d "${hooks_dir}" ]; then
-  echo "Error: run this from the root directory:\n.git-hooks/setup.sh"
-  exit 1
-fi
+git config core.hooksPath ".git-hooks"
+chmod -R +x "$(git rev-parse --git-path hooks)"
 
-git config core.hooksPath "${hooks_dir}"
-chmod -R +x "${hooks_dir}"
-echo "Set git hooks path:"
-git rev-parse --git-path hooks
+cp "paths.txt.example" "paths.txt"
+sed -i 's|HOME_DIR|'${HOME}'|' "paths.txt"
 
 npm install --global prettier
 pip3 install --user yamllint

@@ -2,8 +2,15 @@
 
 set -e
 
+# Add dirs to path from paths.txt
+while read -r line; do
+    if [ -n "${line}" ] && [ -d "${line}" ]; then
+        PATH="${line}:${PATH}"
+    fi
+done <".git-hooks/paths.txt"
+
 if ! [ -x "$(command -v prettier)" ]; then
-  echo 'Warning: Prettier is not installed' >&2
+  echo 'Error: Prettier is not installed' && exit 1
 else
   FILES=$(git diff --cached --name-only --diff-filter=ACMR "*.md" "*.yml" "*.yaml" | sed 's| |\\ |g')
   if ! [ -z "$FILES" ]; then
@@ -18,7 +25,7 @@ else
 fi
 
 if ! [ -x "$(command -v yamllint)" ]; then
-  echo 'Warning: yamllint is not installed' >&2
+  echo 'Error: yamllint is not installed' >&2
 else
   FILES=$(git diff --cached --name-only --diff-filter=ACMR "*.yml" "*.yaml" | sed 's| |\\ |g')
   if ! [ -z "$FILES" ]; then

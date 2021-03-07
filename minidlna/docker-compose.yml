@@ -6,6 +6,8 @@ services:
     container_name: minidlna
     image: vladgh/minidlna:latest
     restart: unless-stopped
+    logging:
+      driver: none # noisy
     network_mode: host # needed for upnp
     volumes:
       - /mnt/hdd/Share/Media:/media
