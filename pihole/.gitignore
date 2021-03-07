@@ -1,5 +1,0 @@
-!.gitignore
-/etc*/*
-!/etc-dnsmasq.d/01-pihole.conf
-# !/etc-pihole/setupVars.conf
-# git update-index --skip-worktree pihole/etc-pihole/setupVars.conf
