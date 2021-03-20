@@ -50,4 +50,5 @@ RUN curl -sSLO "https://download.docker.com/linux/static/stable/x86_64/docker-${
 RUN mkdir -p ~/.local/share/code-server \
     && git clone https://github.com/RafhaanShah/Dotfiles ~/Dotfiles \
     && ~/Dotfiles/setup/dotfiles.sh \
+    && ~/Dotfiles/setup/fonts.sh \
     && ~/Dotfiles/setup/zsh.sh
