@@ -13,8 +13,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./data:/data
     labels:
+      - "diun.enable=true"
+      - "containermon.enable=true"
       - "traefik.enable=true"
-      - "com.centurylinklabs.watchtower.enable=true"
       - "traefik.http.services.portainer.loadbalancer.server.port=9000"
 
 networks:

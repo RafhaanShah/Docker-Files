@@ -22,6 +22,7 @@ RUN sudo apt update \
     openjdk-11-jdk-headless \
     ruby-full \
     gnupg pass pinentry-tty \
+    unzip \
     zsh \
     && python3 --version \
     && pip3 --version \

@@ -15,7 +15,8 @@ services:
       - CONTAINERS=1
       - IMAGES=1
     labels:
-      - "com.centurylinklabs.watchtower.enable=true"
+      - "diun.enable=true"
+      - "containermon.enable=true"
 
 networks:
   default:

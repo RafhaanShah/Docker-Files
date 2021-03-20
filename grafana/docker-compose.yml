@@ -22,6 +22,7 @@ services:
     labels:
       - "diun.enable=true"
       - "traefik.enable=true"
+      - "containermon.enable=true"
 
   # loki:
   #   container_name: loki
