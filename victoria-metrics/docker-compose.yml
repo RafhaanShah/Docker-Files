@@ -15,7 +15,6 @@ services:
       - "--retentionPeriod=1" # 1 Month
       - "--selfScrapeInterval=60s" # Collect internal metrics
       - "--promscrape.config=prometheus.yml"
-      - "-eula=true"
     ports:
       - "2003:2003/udp" # Proxmox (collectd and internal metrics)
       - "4242:4242" # OPNsense (netdata)
