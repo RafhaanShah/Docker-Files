@@ -4,7 +4,7 @@ version: "3.8"
 services:
   netdata:
     container_name: netdata
-    hostname: rafs-ubuntu
+    hostname: ubuntu-server
     image: netdata/netdata:latest
     restart: unless-stopped
     expose:

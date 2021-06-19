@@ -1,8 +1,8 @@
 # https://collectd.org/
 FROM ubuntu:latest
 
-RUN apt update \
-    && apt install -y \
+RUN apt-get update \
+    && apt-get install -y \
     collectd
 
 ENTRYPOINT [ "collectd", "-f" ]

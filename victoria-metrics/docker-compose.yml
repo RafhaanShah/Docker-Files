@@ -18,6 +18,7 @@ services:
     ports:
       - "2003:2003/udp" # Proxmox (collectd and internal metrics)
       - "4242:4242" # OPNsense (netdata)
+      - "8428:8428" # Influx (home assistant)
     volumes:
       - /mnt/hdd/AppData/VictoriaMetrics:/storage
       - ./prometheus.yml:/prometheus.yml
