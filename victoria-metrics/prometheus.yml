@@ -7,8 +7,3 @@
 #   #   static_configs:
 #   #     - targets:
 #   #         - "collectd:9103"
-#   - job_name: 'statping'
-#     scheme: http
-#     bearer_token: '%{STATPING_API_KEY}'
-#     static_configs:
-#       - targets: ['statping:8080']

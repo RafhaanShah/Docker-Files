@@ -15,6 +15,7 @@ services:
       - GID=1000
     labels:
       - "traefik.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
 
 networks:
   default:

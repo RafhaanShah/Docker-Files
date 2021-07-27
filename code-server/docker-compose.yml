@@ -7,6 +7,7 @@ services:
     image: coder:latest
     build: .
     restart: unless-stopped
+    user: "1000"
     expose:
       - "8080"
     volumes:
@@ -27,6 +28,7 @@ services:
           propagation: shared # needed for cifs
     environment:
       - PASSWORD
+      - DOCKER_USER=${USER}
     labels:
       - "traefik.enable=true"
 

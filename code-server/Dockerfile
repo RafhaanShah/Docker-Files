@@ -6,12 +6,12 @@ FROM codercom/code-server:latest
 # Installs Chrome for localhost previews
 # Sets default shell to ZSH, clones and sets up Dotfiles
 
-ENV GOLANG_VERSION=1.16
+ENV GOLANG_VERSION=1.16.6
 ENV NODE_VERSION=15
-ENV DOCKER_VERSION=20.10.5
-ENV DOCKERCOMPOSE_VERSION=1.28.5
+ENV DOCKER_VERSION=20.10.7
+ENV DOCKERCOMPOSE_VERSION=1.29.2
 ENV DOCKER_GROUP=999
-ENV GCM_URL=https://github.com/microsoft/Git-Credential-Manager-Core/releases/download/v2.0.318-beta/gcmcore-linux_amd64.2.0.318.44100.deb
+ENV GCM_URL=https://github.com/microsoft/Git-Credential-Manager-Core/releases/download/v2.0.475/gcmcore-linux_amd64.2.0.475.64295.deb
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 

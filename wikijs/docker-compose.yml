@@ -37,6 +37,9 @@ services:
       - POSTGRES_DB=wiki
       - POSTGRES_PASSWORD
       - POSTGRES_USER=wikijs
+    labels:
+      - "containermon.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
 
 networks:
   default:

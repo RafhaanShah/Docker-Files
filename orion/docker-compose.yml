@@ -19,6 +19,7 @@ services:
       - orion-server
     labels:
       - "traefik.enable=true"
+      - "containermon.enable=true"
 
   orion-server:
     container_name: orion-server
@@ -39,6 +40,7 @@ services:
       - orion-db
     labels:
       - "traefik.enable=true"
+      - "containermon.enable=true"
 
   orion-db:
     container_name: orion-db
@@ -49,6 +51,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD
       - MYSQL_DATABASE=orion
+    labels:
+      - "containermon.enable=true"
 
 networks:
   default:
