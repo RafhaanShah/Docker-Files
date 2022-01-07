@@ -12,7 +12,6 @@ Docker files for stuff I use.
 - [Grafana](https://github.com/grafana/grafana)
 - [Homer](https://github.com/bastienwirtz/homer)
 - [MotionEye](https://github.com/ccrisan/motioneye)
-- [MiniDLNA](https://github.com/vladgh/docker_base_images/blob/master/minidlna)
 - [Netdata](https://github.com/netdata/netdata)
 - [Net-Mon](https://github.com/RafhaanShah/Net-Mon)
 - [Orion](https://github.com/LINKIWI/orion-web)
@@ -23,5 +22,4 @@ Docker files for stuff I use.
 - [VictoriaMetrics](https://github.com/VictoriaMetrics/VictoriaMetrics)
 - [Viseron](https://github.com/roflcoopter/viseron)
 - [Watchtower](https://github.com/containrrr/watchtower)
-- [Webmap](https://github.com/SabyasachiRana/WebMap)
 - [Wiki.js](https://github.com/Requarks/wiki)
