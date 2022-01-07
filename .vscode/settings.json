@@ -1,14 +1,14 @@
 {
     "files.watcherExclude": {
-        "./code-server/config/*/**": true,
-        "./elk/elasticsearch/*/**": true,
-        "./temp/**": true,
-        "./wikijs/data/db/**": true
+        "**/code-server/config/*/**": true,
+        "**/elk/elasticsearch/*/**": true,
+        "**/temp/**": true,
+        "**/wikijs/data/db/**": true
     },
     "search.exclude": {
-        "./code-server/config/*/**": true,
-        "./elk/elasticsearch/*/**": true,
-        "./temp/**": true,
-        "./wikijs/data/db/**": true
+        "**/code-server/config/*/**": true,
+        "**/elk/elasticsearch/*/**": true,
+        "**/temp/**": true,
+        "**/wikijs/data/db/**": true
     }
 }

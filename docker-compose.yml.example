@@ -12,7 +12,7 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./data:/app/data
+      - ./data:/app/data # HOST_PATH:CONTAINER_PATH
     environment:
       - VAR=VAL
       - SECRET_ENV_VAR
