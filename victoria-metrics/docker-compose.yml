@@ -16,11 +16,12 @@ services:
       - "--selfScrapeInterval=60s" # Collect internal metrics
       - "--promscrape.config=prometheus.yml"
     ports:
-      - "2003:2003/udp" # Proxmox (collectd and internal metrics)
-      - "4242:4242" # OPNsense (netdata)
-      - "8428:8428" # Influx (home assistant)
+      - "2003:2003/udp" # Proxmox -> Collectd / Graphite
+      - "4242:4242" # OPNsense -> Netdata / openTSDB
+      - "8428:8428" # Home Assistant -> InfluxDB
     volumes:
-      - /mnt/hdd/AppData/VictoriaMetrics:/storage
+      # - /mnt/hdd/AppData/VictoriaMetrics:/storage
+      - ./data:/storage
       - ./prometheus.yml:/prometheus.yml
     environment:
       - STATPING_API_KEY
