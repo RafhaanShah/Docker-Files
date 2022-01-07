@@ -21,11 +21,7 @@ services:
       - ${HOME}/.ssh:/home/coder/.ssh:ro
       - ${HOME}/.gnupg:/home/coder/.gnupg
       - ${HOME}/.password-store:/home/coder/.password-store
-      - type: bind
-        source: ${HOME}/home-assistant
-        target: /home/coder/home-assistant
-        bind:
-          propagation: shared # needed for cifs
+      - ${HOME}/home-assistant/config:/home/coder/home-assistant
     environment:
       - PASSWORD
       - DOCKER_USER=${USER}
