@@ -8,23 +8,26 @@ services:
     restart: unless-stopped
     command:
       - "--storageDataPath=/storage"
-      - "--graphiteListenAddr=:2003"
-      - "--opentsdbListenAddr=:4242"
-      - "--httpListenAddr=:8428"
+      - "--graphiteListenAddr=:2003" # Graphite plaintext format, UDP / TCP
+      - "--opentsdbListenAddr=:4242" # OpenTSDB format, UDP / TCP
+      - "--influxListenAddr=:8189" # InfluxDB line protocol, UDP / TCP
+      - "--httpListenAddr=:8428" # HTTP / InfluxDB format, TCP
       - "--search.latencyOffset=1s" # Data becomes available 1s after ingestion
-      - "--retentionPeriod=1" # 1 Month
+      - "--retentionPeriod=6" # Months
       - "--selfScrapeInterval=60s" # Collect internal metrics
       - "--promscrape.config=prometheus.yml"
     ports:
-      - "2003:2003/udp" # Proxmox -> Collectd / Graphite
-      - "4242:4242" # OPNsense -> Netdata / openTSDB
-      - "8428:8428" # Home Assistant -> InfluxDB
+      - "2003:2003/udp" # Proxmox: Collectd -> Graphite
+      - "2003:2003/tcp"
+      - "4242:4242/udp" # OPNsense: Netdata -> openTSDB
+      - "4242:4242/tcp"
+      - "8189:8189/udp" # Proxmox: InfluxDB -> InfluxDB
+      - "8189:8189/tcp"
+      - "8428:8428" # Home Assistant: InfluxDB -> InfluxDB
     volumes:
       # - /mnt/hdd/AppData/VictoriaMetrics:/storage
       - ./data:/storage
       - ./prometheus.yml:/prometheus.yml
-    environment:
-      - STATPING_API_KEY
     labels:
       - "diun.enable=true"
       - "containermon.enable=true"
