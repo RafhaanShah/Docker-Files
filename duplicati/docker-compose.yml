@@ -1,24 +1,26 @@
-# https://github.com/linuxserver/docker-duplicati
+# https://hub.docker.com/r/duplicati/duplicati
 version: "3.8"
 
 services:
   duplicati:
     container_name: duplicati
-    image: linuxserver/duplicati:latest
+    hostname: duplicati
+    image: duplicati/duplicati:latest
     restart: unless-stopped
+    command: # Check cmd from https://hub.docker.com/r/duplicati/duplicati/tags if this changes
+      - "/usr/bin/duplicati-server"
+      - "--webservice-port=8200"
+      - "--webservice-interface=any"
+      - "--webservice-allowed-hostnames=*" # Needed for Traefik to work
     expose:
       - "8200"
     volumes:
-      - ./config:/config
-      - /mnt/hdd/Backup/Ubuntu:/backups
+      - /mnt/hdd/Backup:/destination
       - ${HOME}:/source
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
+      - ./data/:/data
     labels:
       - "traefik.enable=true"
-      - "com.centurylinklabs.watchtower.enable=true"
+      - "diun.enable=true"
 
 networks:
   default:
