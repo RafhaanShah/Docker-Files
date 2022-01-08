@@ -1,0 +1,23 @@
+# https://github.com/louislam/uptime-kuma
+version: "3.8"
+
+services:
+  uptime-kuma:
+    container_name: uptime-kuma
+    image: louislam/uptime-kuma:latest
+    restart: unless-stopped
+    expose:
+      - "3001"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - VAR=VAL
+      - SECRET_ENV_VAR
+    labels:
+      - "traefik.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+
+networks:
+  default:
+    external:
+      name: docker

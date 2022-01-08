@@ -19,6 +19,7 @@ Docker files for stuff I use.
 - [Reddit Post Notifier](https://github.com/RafhaanShah/Reddit-Post-Notifier)
 - [Socket Proxy](https://github.com/Tecnativa/docker-socket-proxy)
 - [Traefik](https://github.com/containous/traefik)
+- [Uptime-Kuma](https://github.com/louislam/uptime-kuma)
 - [VictoriaMetrics](https://github.com/VictoriaMetrics/VictoriaMetrics)
 - [Viseron](https://github.com/roflcoopter/viseron)
 - [Watchtower](https://github.com/containrrr/watchtower)
