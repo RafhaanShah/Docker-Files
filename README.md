@@ -14,7 +14,6 @@ Docker files for stuff I use.
 - [MotionEye](https://github.com/ccrisan/motioneye)
 - [Netdata](https://github.com/netdata/netdata)
 - [Net-Mon](https://github.com/RafhaanShah/Net-Mon)
-- [Orion](https://github.com/LINKIWI/orion-web)
 - [OwnTracks](https://github.com/owntracks/frontend)
 - [Portainer](https://github.com/portainer/portainer)
 - [Reddit Post Notifier](https://github.com/RafhaanShah/Reddit-Post-Notifier)
