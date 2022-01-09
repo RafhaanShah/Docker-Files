@@ -1,0 +1,56 @@
+# https://github.com/owntracks/frontend
+# https://github.com/owntracks/recorder
+version: "3.8"
+
+services:
+  owntracks-frontend:
+    container_name: owntracks-frontend
+    image: owntracks/frontend:latest
+    restart: unless-stopped
+    expose:
+      - "80"
+    environment:
+      - SERVER_HOST=owntracks-recorder
+      - SERVER_PORT=8083
+    depends_on:
+      - owntracks-recorder
+    labels:
+      - "traefik.enable=true"
+      - "diun.enable=true"
+      - "containermon.enable=true"
+
+  owntracks-recorder:
+    container_name: owntracks-recorder
+    hostname: owntracks-recorder
+    image: owntracks/recorder:latest
+    restart: unless-stopped
+    expose:
+      - "8083"
+    volumes:
+      - ./data:/store
+      - ./config:/config
+    environment:
+      - OTR_PORT=0 # disable mqtt if 0
+      - OTR_HOST=owntracks-mqtt
+      - OTR_HTTPPORT=8083
+      - OTR_STORAGEDIR=/store
+      # - OTR_GEOKEY
+      # - OTR_BROWSERAPIKEY
+    labels:
+      - "traefik.enable=true"
+      - "diun.enable=true"
+      - "containermon.enable=true"
+
+  # owntracks-mqtt:
+  #   container_name: owntracks-mqtt
+  #   image: eclipse-mosquitto:latest
+  #   restart: unless-stopped
+  #   ports:
+  #     - "1883:1883"
+  #   volumes:
+  #     - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+networks:
+  default:
+    external:
+      name: docker
