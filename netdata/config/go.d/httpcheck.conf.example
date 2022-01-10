@@ -1,0 +1,5 @@
+update_every: 300
+
+jobs:
+  - name: healthcheck_io
+    url: https://hc-ping.com/xxxxxxxxxx

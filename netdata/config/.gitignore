@@ -2,3 +2,4 @@
 !.gitignore
 !netdata.conf
 !exporting.conf
+!go.d/
