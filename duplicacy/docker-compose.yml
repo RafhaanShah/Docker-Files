@@ -1,0 +1,23 @@
+# https://github.com/azinchen/duplicacy
+version: "3.8"
+
+services:
+  duplicacy:
+    container_name: duplicacy
+    hostname: duplicacy
+    build: .
+    restart: unless-stopped
+    expose:
+      - "3875"
+    volumes:
+      - ${HOME}:/source
+      - ./data/:/root/.duplicacy-web
+    labels:
+      - "traefik.enable=true"
+      - "containermon.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
+
+networks:
+  default:
+    external:
+      name: docker

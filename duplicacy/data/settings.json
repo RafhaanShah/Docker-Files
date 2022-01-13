@@ -1,0 +1,9 @@
+{
+    "listening_address": "0.0.0.0:3875",
+    "https_address": "",
+    "https_domain": "",
+    "temporary_directory": "/root/.duplicacy-web/repositories",
+    "log_directory": "/root/.duplicacy-web/logs",
+    "dark_mode": true,
+    "cli_stable_version": false
+}
