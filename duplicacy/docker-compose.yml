@@ -15,7 +15,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "containermon.enable=true"
-      - "com.centurylinklabs.watchtower.enable=true"
 
 networks:
   default:
