@@ -9,6 +9,15 @@ while read -r line; do
     fi
 done <".git-hooks/paths.txt"
 
+FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
+if ! [ -z "$FILES" ]; then
+  URL="$(cat .git-hooks/url.txt)"
+  if echo "$FILES" | xargs grep "${URL}"; then
+    echo "Remove URL from file before commit"
+    exit 1
+  fi
+fi
+
 if ! [ -x "$(command -v prettier)" ]; then
   echo 'Error: Prettier is not installed' && exit 1
 else

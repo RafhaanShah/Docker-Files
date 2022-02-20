@@ -25,3 +25,4 @@ Docker files for stuff I use.
 - [Viseron](https://github.com/roflcoopter/viseron)
 - [Watchtower](https://github.com/containrrr/watchtower)
 - [Wiki.js](https://github.com/Requarks/wiki)
+- [Your Spotify](https://github.com/Yooooomi/your_spotify)
