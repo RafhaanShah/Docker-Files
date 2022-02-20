@@ -1,0 +1,50 @@
+# https://github.com/Yooooomi/your_spotify
+version: "3.8"
+
+services:
+  your-spotify:
+    image: yooooomi/your_spotify_client
+    container_name: your-spotify
+    restart: unless-stopped
+    expose:
+      - "3000"
+    environment:
+      - API_ENDPOINT
+    depends_on:
+      - your-spotify-backend
+    labels:
+      - "traefik.enable=true"
+
+  your-spotify-backend:
+    container_name: your-spotify-backend
+    image: yooooomi/your_spotify_server:latest
+    restart: unless-stopped
+    expose:
+      - "8080"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - API_ENDPOINT
+      - CLIENT_ENDPOINT
+      - SPOTIFY_PUBLIC
+      - SPOTIFY_SECRET
+      - CORS=all
+      - MONGO_ENDPOINT=mongodb://your-spotify-db:27017/your_spotify
+    depends_on:
+      - your-spotify-db
+    labels:
+      - "traefik.enable=true"
+
+  your-spotify-db:
+    container_name: your-spotify-db
+    image: mongo:latest
+    restart: unless-stopped
+    logging:
+      driver: none
+    volumes:
+      - ./data:/data/db
+
+networks:
+  default:
+    external:
+      name: docker
