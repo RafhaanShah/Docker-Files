@@ -6,12 +6,21 @@ FROM codercom/code-server:latest
 # Installs Chrome for localhost previews
 # Sets default shell to ZSH, clones and sets up Dotfiles
 
-ENV GOLANG_VERSION=1.17.6
-ENV NODE_VERSION=17
-ENV DOCKER_VERSION=20.10.12
-ENV DOCKERCOMPOSE_VERSION=1.29.2
+# https://go.dev/dl/
+ENV GOLANG_VERSION=1.19.3
+
+# https://nodejs.org/en/download/releases/
+ENV NODE_VERSION=18
+
+# https://docs.docker.com/engine/release-notes/
+ENV DOCKER_VERSION=20.10.21
+
+# https://github.com/docker/compose/releases
+ENV DOCKERCOMPOSE_VERSION=v2.14.0
 ENV DOCKER_GROUP=999
-ENV GCM_URL="https://github.com/GitCredentialManager/git-credential-manager/releases/latest/download/gcmcore-linux_amd64.2.0.632.34631.deb"
+
+# https://github.com/GitCredentialManager/git-credential-manager/releases/
+ENV GCM_URL="https://github.com/GitCredentialManager/git-credential-manager/releases/download/v2.0.877/gcm-linux_amd64.2.0.877.deb"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
