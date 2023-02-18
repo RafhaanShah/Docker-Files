@@ -1,0 +1,51 @@
+# https://github.com/mbentley/docker-omada-controller/tree/master
+# https://github.com/mbentley/docker-omada-controller/issues/168
+version: "3.8"
+
+services:
+  omada-controller:
+    container_name: omada-controller
+    image: mbentley/omada-controller:5.8
+    restart: unless-stopped
+    stop_grace_period: 60s
+    ports:
+      # - "8088:8088"
+      # - "8043:8043"
+      # - "8843:8843"
+      - "27001:27001/udp"
+      - "29810:29810/udp"
+      - "29811:29811"
+      - "29812:29812"
+      - "29813:29813"
+      - "29814:29814"
+    expose:
+      - "443" # web interface
+    volumes:
+      - ./data:/opt/tplink/EAPController/data
+      - ./logs:/opt/tplink/EAPController/logs
+    environment:
+      - PUID=508
+      - PGID=508
+      - MANAGE_HTTP_PORT=8088
+      - MANAGE_HTTPS_PORT=443 # 8043
+      - PORTAL_HTTP_PORT=8088
+      - PORTAL_HTTPS_PORT=8843
+      - PORT_APP_DISCOVERY=27001
+      - PORT_ADOPT_V1=29812
+      - PORT_UPGRADE_V1=29813
+      - PORT_MANAGER_V1=29811
+      - PORT_MANAGER_V2=29814
+      - PORT_DISCOVERY=29810
+      - SHOW_SERVER_LOGS=true
+      - SHOW_MONGODB_LOGS=false
+      - TZ=Etc/UTC
+    labels:
+      - "containermon.enable=true"
+      - "traefik.enable=true"
+      - "traefik.http.services.omada-controller.loadbalancer.server.port=443"
+      - "traefik.http.services.omada-controller.loadbalancer.server.scheme=https"
+
+networks:
+  default:
+    external:
+      name: docker

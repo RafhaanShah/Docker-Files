@@ -45,3 +45,7 @@ certificatesResolvers:
         provider: duckdns
         delayBeforeCheck: 120
         disablePropagationCheck: true
+
+# accepts self signed certificates on internal services
+serversTransport:
+  insecureSkipVerify: true
