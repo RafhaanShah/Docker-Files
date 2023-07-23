@@ -17,7 +17,7 @@ services:
       - WATCHTOWER_NOTIFICATIONS=shoutrrr
       - WATCHTOWER_NOTIFICATION_URL
     labels:
-      - "diun.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
       - "containermon.enable=true"
 
 networks:

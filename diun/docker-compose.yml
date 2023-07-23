@@ -17,7 +17,7 @@ services:
       - DIUN_NOTIF_TELEGRAM_TOKEN
       - DIUN_NOTIF_TELEGRAM_CHATIDS
     labels:
-      - "diun.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
       - "containermon.enable=true"
 
 networks:

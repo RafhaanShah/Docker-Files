@@ -29,7 +29,7 @@ services:
       - ./data:/storage
       - ./prometheus.yml:/prometheus.yml
     labels:
-      - "diun.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
       - "containermon.enable=true"
 
 networks:

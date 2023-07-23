@@ -7,20 +7,20 @@ FROM codercom/code-server:latest
 # Sets default shell to ZSH, clones and sets up Dotfiles
 
 # https://go.dev/dl/
-ENV GOLANG_VERSION=1.19.3
+ENV GOLANG_VERSION=1.20.6
 
 # https://nodejs.org/en/download/releases/
-ENV NODE_VERSION=18
+ENV NODE_VERSION=20
 
 # https://docs.docker.com/engine/release-notes/
-ENV DOCKER_VERSION=20.10.21
+ENV DOCKER_VERSION=24.0.4
 
 # https://github.com/docker/compose/releases
-ENV DOCKERCOMPOSE_VERSION=v2.14.0
+ENV DOCKERCOMPOSE_VERSION=v2.20.2
 ENV DOCKER_GROUP=999
 
-# https://github.com/GitCredentialManager/git-credential-manager/releases/
-ENV GCM_URL="https://github.com/GitCredentialManager/git-credential-manager/releases/download/v2.0.877/gcm-linux_amd64.2.0.877.deb"
+# https://github.com/git-ecosystem/git-credential-manager/releases/
+ENV GCM_URL="https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.2.2/gcm-linux_amd64.2.2.2.deb"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -62,5 +62,4 @@ RUN curl -sSLO "https://download.docker.com/linux/static/stable/x86_64/docker-${
 RUN mkdir -p ~/.local/share/code-server \
     && git clone https://github.com/RafhaanShah/Dotfiles ~/Dotfiles \
     && ~/Dotfiles/setup/dotfiles.sh \
-    && ~/Dotfiles/setup/fonts.sh \
     && ~/Dotfiles/setup/zsh.sh

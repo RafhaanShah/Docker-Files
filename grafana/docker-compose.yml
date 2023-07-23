@@ -20,7 +20,7 @@ services:
       - GF_DASHBOARDS_MIN_REFRESH_INTERVAL=1s
       - GF_SERVER_ROOT_URL
     labels:
-      - "diun.enable=true"
+      - "com.centurylinklabs.watchtower.enable=true"
       - "traefik.enable=true"
       - "containermon.enable=true"
 
