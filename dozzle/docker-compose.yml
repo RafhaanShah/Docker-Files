@@ -8,6 +8,7 @@ services:
     restart: unless-stopped
     expose:
       - "8080"
+    command: --remote-host tcp://socket-proxy:2375
     environment:
       - DOCKER_HOST=tcp://socket-proxy:2375
     labels:

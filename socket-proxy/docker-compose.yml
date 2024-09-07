@@ -14,6 +14,8 @@ services:
       - LOG_LEVEL=notice
       - CONTAINERS=1
       - IMAGES=1
+      - INFO=1
+      - EVENTS=1
     labels:
       - "diun.enable=true"
       - "containermon.enable=true"
