@@ -1,5 +1,4 @@
 # https://github.com/grafana/grafana
-version: "3.8"
 
 services:
   grafana:
@@ -45,5 +44,5 @@ services:
 
 networks:
   default:
-    external:
-      name: docker
+    external: true
+    name: docker

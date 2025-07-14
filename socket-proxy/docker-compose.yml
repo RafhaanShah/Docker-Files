@@ -1,15 +1,16 @@
 # https://github.com/Tecnativa/docker-socket-proxy
-version: "3.8"
 
 services:
   socket-proxy:
     container_name: socket-proxy
-    image: tecnativa/docker-socket-proxy:latest
+    image: ghcr.io/tecnativa/docker-socket-proxy:0.2
     restart: unless-stopped
     expose:
       - "2375"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./haproxy.cfg.template:/usr/local/etc/haproxy/haproxy.cfg.template
+      - ./server-state:/var/lib/haproxy/server-state
     environment:
       - LOG_LEVEL=notice
       - CONTAINERS=1
@@ -22,5 +23,5 @@ services:
 
 networks:
   default:
-    external:
-      name: docker
+    external: true
+    name: docker

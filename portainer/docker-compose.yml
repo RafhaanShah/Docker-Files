@@ -1,5 +1,4 @@
 # https://github.com/portainer/portainer
-version: "3.8"
 
 services:
   portainer:
@@ -20,5 +19,5 @@ services:
 
 networks:
   default:
-    external:
-      name: docker
+    external: true
+    name: docker

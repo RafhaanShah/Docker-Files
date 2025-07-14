@@ -1,10 +1,9 @@
 # https://github.com/amir20/dozzle
-version: "3.8"
 
 services:
   dozzle:
     container_name: dozzle
-    image: amir20/dozzle:latest
+    image: amir20/dozzle:v8
     restart: unless-stopped
     expose:
       - "8080"
@@ -17,5 +16,5 @@ services:
 
 networks:
   default:
-    external:
-      name: docker
+    external: true
+    name: docker

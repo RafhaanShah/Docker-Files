@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   collectd:
     container_name: collectd
@@ -17,5 +15,5 @@ services:
 
 networks:
   default:
-    external:
-      name: docker
+    external: true
+    name: docker

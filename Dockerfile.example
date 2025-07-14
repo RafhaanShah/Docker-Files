@@ -3,8 +3,8 @@
 
 # To exclude files not relevant to the build (without restructuring your source repository) use a .dockerignore
 
-FROM ubuntu:18.04
-# Creates a layer from the ubuntu:18.04 Docker image.
+FROM ubuntu:latest
+# Creates a layer from the ubuntu:latest Docker image.
 
 ARG BUILD_VAR=SOME_VALUE
 # ARG values are only accessible during the build, not during runtime (CMD / ENTRYPOINT)

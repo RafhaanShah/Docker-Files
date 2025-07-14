@@ -1,11 +1,10 @@
 # https://github.com/owntracks/frontend
 # https://github.com/owntracks/recorder
-version: "3.8"
 
 services:
   owntracks-frontend:
     container_name: owntracks-frontend
-    image: owntracks/frontend:latest
+    image: owntracks/frontend:2.15.3
     restart: unless-stopped
     expose:
       - "80"
@@ -21,7 +20,7 @@ services:
 
   owntracks-recorder:
     container_name: owntracks-recorder
-    hostname: owntracks-recorder
+    hostname: owntracks-recorder:1.0.0
     image: owntracks/recorder:latest
     restart: unless-stopped
     expose:
@@ -52,5 +51,5 @@ services:
 
 networks:
   default:
-    external:
-      name: docker
+    external: true
+    name: docker

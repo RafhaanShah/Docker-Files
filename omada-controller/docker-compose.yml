@@ -1,16 +1,16 @@
 # https://github.com/mbentley/docker-omada-controller/tree/master
 # https://github.com/mbentley/docker-omada-controller/issues/168
 # https://www.reddit.com/r/selfhosted/comments/krsupy/issues_accessing_tplink_omada_controller_software/
-version: "3.8"
 
 services:
   omada-controller:
     container_name: omada-controller
-    image: mbentley/omada-controller:latest
+    image: mbentley/omada-controller:5.15
     restart: unless-stopped
     stop_grace_period: 60s
     ports:
       # - "8088:8088"
+      # TODO: https://github.com/mbentley/docker-omada-controller/issues/168
       - "8043:8043" # PITA to make Traefik work, using port 443 almost works except for AP config pages
       # - "8843:8843"
       - "27001:27001/udp"
@@ -44,5 +44,5 @@ services:
 
 networks:
   default:
-    external:
-      name: docker
+    external: true
+    name: docker

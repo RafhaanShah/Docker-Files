@@ -1,5 +1,4 @@
 # https://github.com/RafhaanShah/Reddit-Post-Notifier
-version: "3.8"
 
 services:
   reddit-post-notifier:
@@ -14,5 +13,5 @@ services:
 
 networks:
   default:
-    external:
-      name: docker
+    external: true
+    name: docker

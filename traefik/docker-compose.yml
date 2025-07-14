@@ -1,10 +1,9 @@
 # https://github.com/containous/traefik
-version: "3.8"
 
 services:
   traefik:
     container_name: traefik
-    image: traefik:latest
+    image: traefik:v2.10.3
     restart: unless-stopped
     ports:
       - "80:80"
@@ -21,5 +20,5 @@ services:
 
 networks:
   default:
-    external:
-      name: docker
+    external: true
+    name: docker

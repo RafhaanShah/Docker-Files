@@ -1,5 +1,4 @@
-# https://docs.docker.com/compose/compose-file/compose-file-v3/
-version: "3.8"
+# https://docs.docker.com/reference/compose-file/
 
 services:
   app:
@@ -23,5 +22,5 @@ services:
 
 networks:
   default:
-    external:
-      name: docker
+    external: true
+    name: docker

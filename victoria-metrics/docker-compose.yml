@@ -1,10 +1,8 @@
 # https://github.com/VictoriaMetrics/VictoriaMetrics
-version: "3.8"
 
 services:
   victoriametrics:
     container_name: victoriametrics
-    # apparently too cool to have a 'latest' tag
     image: victoriametrics/victoria-metrics:v1.118.0
     restart: unless-stopped
     command:
@@ -35,5 +33,5 @@ services:
 
 networks:
   default:
-    external:
-      name: docker
+    external: true
+    name: docker
