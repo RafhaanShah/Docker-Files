@@ -5,6 +5,9 @@ services:
     container_name: victoriametrics
     image: victoriametrics/victoria-metrics:v1.118.0
     restart: unless-stopped
+    # saves DNS logs getting clogged
+    extra_hosts:
+      - "opnsense.lan:192.168.1.1"
     command:
       - "--storageDataPath=/storage"
       - "--graphiteListenAddr=:2003" # Graphite plaintext format, UDP / TCP
@@ -18,7 +21,7 @@ services:
     ports:
       - "2003:2003/udp" # Proxmox: Collectd -> Graphite
       - "2003:2003/tcp"
-      - "4242:4242/udp" # OPNsense: Netdata -> openTSDB
+      - "4242:4242/udp" # Ubuntu-Server: Netdata -> openTSDB
       - "4242:4242/tcp"
       - "8189:8189/udp" # Proxmox: InfluxDB -> InfluxDB
       - "8189:8189/tcp"
@@ -26,7 +29,7 @@ services:
     volumes:
       # - /mnt/hdd/AppData/VictoriaMetrics:/storage
       - ./data:/storage
-      - ./prometheus.yml:/prometheus.yml
+      - ./prometheus.yml:/prometheus.yml # OPNsense: Prometheus -> node_exporter
     labels:
       # - "com.centurylinklabs.watchtower.enable=true"
       - "containermon.enable=true"
