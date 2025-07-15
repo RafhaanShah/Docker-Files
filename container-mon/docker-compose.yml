@@ -7,10 +7,8 @@ services:
     restart: unless-stopped
     environment:
       - CONTAINERMON_NOTIFICATION_URL
-      - CONTAINERMON_USE_LABELS=true
+      # - CONTAINERMON_USE_LABELS=true
       - DOCKER_HOST=tcp://socket-proxy:2375
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
 
 networks:
   default:

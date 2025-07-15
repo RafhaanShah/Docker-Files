@@ -30,9 +30,6 @@ services:
       # - /mnt/hdd/AppData/VictoriaMetrics:/storage
       - ./data:/storage
       - ./prometheus.yml:/prometheus.yml # OPNsense: Prometheus -> node_exporter
-    labels:
-      # - "com.centurylinklabs.watchtower.enable=true"
-      - "containermon.enable=true"
 
 networks:
   default:

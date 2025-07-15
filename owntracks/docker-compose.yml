@@ -15,8 +15,6 @@ services:
       - owntracks-recorder
     labels:
       - "traefik.enable=true"
-      - "diun.enable=true"
-      - "containermon.enable=true"
 
   owntracks-recorder:
     container_name: owntracks-recorder
@@ -37,17 +35,15 @@ services:
       # - OTR_BROWSERAPIKEY
     labels:
       - "traefik.enable=true"
-      - "diun.enable=true"
-      - "containermon.enable=true"
 
-  # owntracks-mqtt:
-  #   container_name: owntracks-mqtt
-  #   image: eclipse-mosquitto:latest
-  #   restart: unless-stopped
-  #   ports:
-  #     - "1883:1883"
-  #   volumes:
-  #     - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+# owntracks-mqtt:
+#   container_name: owntracks-mqtt
+#   image: eclipse-mosquitto:latest
+#   restart: unless-stopped
+#   ports:
+#     - "1883:1883"
+#   volumes:
+#     - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
 
 networks:
   default:

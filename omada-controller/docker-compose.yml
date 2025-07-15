@@ -39,8 +39,6 @@ services:
       - SHOW_SERVER_LOGS=true
       - SHOW_MONGODB_LOGS=false
       - TZ=Europe/London
-    labels:
-      - "containermon.enable=true"
 
 networks:
   default:

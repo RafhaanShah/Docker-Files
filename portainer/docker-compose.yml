@@ -3,17 +3,14 @@
 services:
   portainer:
     container_name: portainer
-    image: portainer/portainer-ce:latest
+    image: portainer/portainer-ce:lts
     restart: unless-stopped
-    command: ["--admin-password=${PASSWORD}"]
     expose:
       - "9000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./data:/data
     labels:
-      - "com.centurylinklabs.watchtower.enable=true"
-      - "containermon.enable=true"
       - "traefik.enable=true"
       - "traefik.http.services.portainer.loadbalancer.server.port=9000"
 

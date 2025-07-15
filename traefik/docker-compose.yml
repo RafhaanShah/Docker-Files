@@ -14,9 +14,6 @@ services:
       - ./config:/etc/traefik/config
     environment:
       - DUCKDNS_TOKEN
-    labels:
-      - "diun.enable=true"
-      - "containermon.enable=true"
 
 networks:
   default:

@@ -12,7 +12,6 @@ services:
       - DOCKER_HOST=tcp://socket-proxy:2375
     labels:
       - "traefik.enable=true"
-      - "com.centurylinklabs.watchtower.enable=true"
 
 networks:
   default:

@@ -10,8 +10,6 @@ services:
       - victoriametrics
     logging:
       driver: none
-    labels:
-      - "containermon.enable=true"
 
 networks:
   default:

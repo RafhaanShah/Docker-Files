@@ -23,7 +23,6 @@ services:
       - TZ=Europe/London
     labels:
       - "traefik.enable=true"
-      - "containermon.enable=true"
 
 networks:
   default:

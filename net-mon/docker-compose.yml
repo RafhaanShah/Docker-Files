@@ -12,6 +12,3 @@ services:
       - NETMON_NOTIFICATION
       - NETMON_SUBNET=192.168.1.0/24
       - NETMON_MINUTES=30
-    labels:
-      - "containermon.enable=true"
-      - "com.centurylinklabs.watchtower.enable=true"

@@ -17,7 +17,6 @@ services:
       - SSHWIFTY_CONFIG=/sshwifty.conf.json
     labels:
       - "traefik.enable=true"
-      - "containermon.enable=true"
 
 networks:
   default:

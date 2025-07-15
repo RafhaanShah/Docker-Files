@@ -7,9 +7,6 @@ services:
     restart: unless-stopped
     volumes:
       - ./config.yaml:/app/config.yaml
-    labels:
-      - "containermon.enable=true"
-      - "com.centurylinklabs.watchtower.enable=true"
 
 networks:
   default:
