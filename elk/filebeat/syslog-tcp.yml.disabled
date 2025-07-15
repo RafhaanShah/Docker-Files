@@ -1,7 +1,0 @@
-- type: syslog
-  protocol.tcp:
-    host: ":6514"
-
-- type: syslog
-  protocol.udp:
-    host: ":514"

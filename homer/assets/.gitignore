@@ -1,7 +1,0 @@
-*
-!.gitignore
-!config.yml.example
-
-!icons/
-icons/*
-!icons/favicon*
