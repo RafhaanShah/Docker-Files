@@ -38,7 +38,7 @@ services:
       - PORT_DISCOVERY=29810
       - SHOW_SERVER_LOGS=true
       - SHOW_MONGODB_LOGS=false
-      - TZ=Etc/UTC
+      - TZ=Europe/London
     labels:
       - "containermon.enable=true"
 
