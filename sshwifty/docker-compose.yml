@@ -1,0 +1,25 @@
+# https://github.com/nirui/sshwifty
+
+services:
+  sshwifty:
+    container_name: sshwifty
+    image: niruix/sshwifty:0.3.25-beta-release
+    restart: unless-stopped
+    user: "nobody:nobody"
+    # allows referring to the host
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    expose:
+      - "8182"
+    volumes:
+      - ./sshwifty.conf.json:/sshwifty.conf.json
+    environment:
+      - SSHWIFTY_CONFIG=/sshwifty.conf.json
+    labels:
+      - "traefik.enable=true"
+      - "containermon.enable=true"
+
+networks:
+  default:
+    external: true
+    name: docker

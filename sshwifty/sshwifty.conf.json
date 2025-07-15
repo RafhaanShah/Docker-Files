@@ -1,0 +1,30 @@
+{
+    "DialTimeout": 10,
+    "Servers": [
+        {
+            "ListenInterface": "0.0.0.0",
+            "ListenPort": 8182,
+            "InitialTimeout": 3,
+            "ReadTimeout": 60,
+            "WriteTimeout": 60,
+            "HeartbeatTimeout": 20,
+            "ReadDelay": 10,
+            "WriteDelay": 10,
+            "TLSCertificateFile": "",
+            "TLSCertificateKeyFile": ""
+        }
+    ],
+    "Presets": [
+        {
+            "Title": "Ubuntu Server",
+            "Type": "SSH",
+            "Host": "host.docker.internal:22",
+            "Authentication": "Password",
+            "TabColor": "FF5722",
+            "Meta": {
+                "User": "raf"
+            }
+        }
+    ],
+    "OnlyAllowPresetRemotes": false
+}
