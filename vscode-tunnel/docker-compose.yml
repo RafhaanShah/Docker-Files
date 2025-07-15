@@ -1,0 +1,22 @@
+# https://docs.docker.com/reference/compose-file/
+
+services:
+  vscode-tunnel:
+    container_name: vscode-tunnel
+    image: vscode-tunnel:latest
+    build: .
+    restart: unless-stopped
+    stdin_open: true
+    volumes:
+      - ${HOME}:/home/vscode/raf
+      # stores session and extensions
+      - ./data/vscode:/home/vscode/.vscode
+      - ./data/vscode-server:/home/vscode/.vscode-server
+    environment:
+      - SERVER_NAME=ubuntu-server
+      - DOCKER_HOST=tcp://socket-proxy:2375
+
+networks:
+  default:
+    external: true
+    name: docker
