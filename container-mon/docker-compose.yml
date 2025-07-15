@@ -1,5 +1,4 @@
 # https://github.com/RafhaanShah/Container-Mon
-version: "3.8"
 
 services:
   container-mon:
@@ -15,5 +14,5 @@ services:
 
 networks:
   default:
-    external:
-      name: docker
+    external: true
+    name: docker

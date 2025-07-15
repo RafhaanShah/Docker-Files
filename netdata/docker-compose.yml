@@ -15,7 +15,7 @@ services:
     volumes:
       # - ./cache:/var/cache/netdata
       # - ./lib:/var/lib/netdata
-      - ./config:/etc/netdata:ro
+      - ./config:/etc/netdata
       - /etc/os-release:/host/etc/os-release:ro
       - /etc/passwd:/host/etc/passwd:ro
       - /etc/group:/host/etc/group:ro

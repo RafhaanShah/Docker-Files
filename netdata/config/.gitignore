@@ -1,5 +1,4 @@
 *
 !.gitignore
-!netdata.conf
-!exporting.conf
-!go.d/
+!/*.d
+!*.conf*
