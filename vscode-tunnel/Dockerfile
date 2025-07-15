@@ -15,14 +15,15 @@ RUN apk add --no-cache \
     docker-cli
 
 RUN addgroup -S -g ${VSCODE_GID} "${VSCODE_USER}" && \
-    adduser -S -u ${VSCODE_UID} "${VSCODE_USER}" -G "${VSCODE_USER}"
+    adduser -S -u ${VSCODE_UID} "${VSCODE_USER}" -G "${VSCODE_USER}" -s /bin/ash
 
 USER "${VSCODE_USER}"
 
 WORKDIR "/home/${VSCODE_USER}/"
 
 RUN curl -Lk "${VSCODE_URL}" --output vscode_cli.tar.gz && \
-    tar -xf vscode_cli.tar.gz
+    tar -xf vscode_cli.tar.gz && \
+    rm vscode_cli.tar.gz
 
 COPY --chown="${VSCODE_USER}:${VSCODE_USER}" . .
 
