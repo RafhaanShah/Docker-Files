@@ -1,4 +1,0 @@
-backend docker-events
-    server dockersocket $SOCKET_PATH
-    timeout server 30s
-    timeout connect 30s

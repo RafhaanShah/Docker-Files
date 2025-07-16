@@ -3,7 +3,7 @@
 services:
   socket-proxy:
     container_name: socket-proxy
-    image: ghcr.io/tecnativa/docker-socket-proxy:0.2
+    image: ghcr.io/tecnativa/docker-socket-proxy:0.3
     extends:
       file: ../base.yml
       service: base
@@ -11,14 +11,36 @@ services:
       - "2375"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./haproxy.cfg.template:/usr/local/etc/haproxy/haproxy.cfg.template
-      - ./server-state:/var/lib/haproxy/server-state
     environment:
+      # https://docs.docker.com/reference/api/engine/version/v1.37
       - LOG_LEVEL=notice
+      # basic info
+      - EVENTS=1
+      - PING=1
+      - VERSION=1
+      # security critical
+      - AUTH=0
+      - SECRETS=0
+      - POST=0 # modify containers
+      # as needed
+      - BUILD=0 # create build
+      - COMMIT=0 # commit image
+      - CONFIGS=1
       - CONTAINERS=1
+      - DISTRIBUTION=1
+      - EXEC=0 # exec command
+      - GRPC=0 # ???
       - IMAGES=1
       - INFO=1
-      - EVENTS=1
+      - NETWORKS=1
+      - NODES=1
+      - PLUGINS=1
+      - SERVICES=1
+      - SESSION=0 # interactive session
+      - SWARM=1
+      - SYSTEM=1
+      - TASKS=1
+      - VOLUMES=1
 
 include:
   - ../network.yml
