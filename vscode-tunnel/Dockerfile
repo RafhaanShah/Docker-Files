@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3
 
 ARG VSCODE_URL='https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64'
 ARG VSCODE_USER="vscode"

@@ -18,8 +18,8 @@ services:
 
   owntracks-recorder:
     container_name: owntracks-recorder
-    hostname: owntracks-recorder:1.0.0
-    image: owntracks/recorder:latest
+    hostname: owntracks-recorder
+    image: owntracks/recorder:1.0.0
     restart: unless-stopped
     expose:
       - "8083"
@@ -38,7 +38,7 @@ services:
 
 # owntracks-mqtt:
 #   container_name: owntracks-mqtt
-#   image: eclipse-mosquitto:latest
+#   image: eclipse-mosquitto:2
 #   restart: unless-stopped
 #   ports:
 #     - "1883:1883"

@@ -1,8 +1,8 @@
 # https://collectd.org/
-FROM ubuntu:latest
+FROM alpine:3
 
-RUN apt-get update \
-    && apt-get install -y \
-    collectd
+RUN apk add --no-cache \
+    collectd \
+    collectd-curl
 
 ENTRYPOINT [ "collectd", "-f" ]

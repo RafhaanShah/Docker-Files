@@ -3,7 +3,7 @@
 services:
   container-mon:
     container_name: container-mon
-    image: ghcr.io/rafhaanshah/container-mon:latest
+    image: ghcr.io/rafhaanshah/container-mon:v1.0.5
     restart: unless-stopped
     environment:
       - CONTAINERMON_NOTIFICATION_URL

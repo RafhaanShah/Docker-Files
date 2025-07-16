@@ -3,7 +3,7 @@
 services:
   net-mon:
     container_name: net-mon
-    image: ghcr.io/rafhaanshah/net-mon:latest
+    image: ghcr.io/rafhaanshah/net-mon:v1.0.0
     restart: unless-stopped
     network_mode: host # needed for nmap
     volumes:

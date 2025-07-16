@@ -4,7 +4,7 @@ services:
   vscode-tunnel:
     container_name: vscode-tunnel
     hostname: vscode-tunnel
-    image: vscode-tunnel:latest
+    image: vscode-tunnel:1.0.0
     build: .
     restart: unless-stopped
     stdin_open: true
