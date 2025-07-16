@@ -1,0 +1,35 @@
+# https://grafana.com/docs/grafana/latest/administration/provisioning/#data-sources
+apiVersion: 1
+
+prune: true
+
+datasources:
+  - name: VictoriaMetrics
+    orgId: 1
+    type: prometheus
+    access: proxy
+    url: http://victoriametrics:8428
+    editable: true
+    jsonData:
+      timeInterval: 1s
+#   - name: Elasticsearch-Netflow
+#     type: elasticsearch
+#     access: proxy
+#     url: http://elasticsearch:9200
+#     database: "[filebeat-*-netflow-]YYYY.MM.DD"
+#     editable: true
+#     jsonData:
+#       interval: Daily
+#       timeField: "@timestamp"
+#       esVersion: 70
+
+# - name: Elasticsearch-PiHole
+#   type: elasticsearch
+#   access: proxy
+#   url: http://elasticsearch:9200
+#   database: "[filebeat-*-pihole-]YYYY.MM.DD"
+#   editable: true
+#   jsonData:
+#     interval: Daily
+#     timeField: "@timestamp"
+#     esVersion: 70

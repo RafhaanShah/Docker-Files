@@ -8,8 +8,7 @@ services:
       service: base
     volumes:
       - ./collectd.conf:/etc/collectd/collectd.conf
-    external_links:
-      - victoriametrics
+    # noisy spam when PC is offline
     logging:
       driver: none
 

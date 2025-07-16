@@ -1,0 +1,16 @@
+# https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/file-provisioning/
+apiVersion: 1
+
+contactPoints:
+  - orgId: 1
+    name: raf
+    receivers:
+      - uid: telegram
+        type: telegram
+        settings:
+          bottoken: $TELEGRAM_TOKEN
+          # https://github.com/grafana/grafana/issues/69950
+          chatid: |
+            $TELEGRAM_CHAT
+          message: |
+            {{ template "default.message" . }}
