@@ -4,7 +4,9 @@ services:
   net-mon:
     container_name: net-mon
     image: ghcr.io/rafhaanshah/net-mon:v1.0.0
-    restart: unless-stopped
+    extends:
+      file: ../base.yml
+      service: base
     network_mode: host # needed for nmap
     volumes:
       - ./results.json:/app/results.json

@@ -28,3 +28,8 @@ RUN curl -Lk "${VSCODE_URL}" --output vscode_cli.tar.gz && \
 COPY --chown="${VSCODE_USER}:${VSCODE_USER}" . .
 
 ENTRYPOINT ["./start.sh"]
+
+HEALTHCHECK --interval=60s --timeout=10s \
+    --start-period=60s --start-interval=10s \
+    --retries=5 \
+    CMD "./health.sh"

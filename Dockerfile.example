@@ -38,3 +38,9 @@ CMD ["-myflag"]
 # Prefer ENTRYPOINT to CMD when building executable Docker image and you need a command always to be executed. 
 # Additionally use CMD if you need to provide extra default arguments that could be overwritten from command line when docker container runs.
 # Choose CMD if you need to provide a default command and/or arguments that can be overwritten from command line when docker container runs.
+
+HEALTHCHECK --interval=30s --timeout=5s \
+    --start-period=30s --start-interval=5s \
+    --retries=1 \
+    CMD pgrep collectd || exit 1
+# Sets a healthcheck that can check the status of a process, or an API etc.

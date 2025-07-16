@@ -4,7 +4,9 @@ services:
   victoriametrics:
     container_name: victoriametrics
     image: victoriametrics/victoria-metrics:v1.118.0
-    restart: unless-stopped
+    extends:
+      file: ../base.yml
+      service: base
     # saves DNS logs getting clogged
     extra_hosts:
       - "opnsense.lan:192.168.1.1"
@@ -17,7 +19,8 @@ services:
       - "--search.latencyOffset=1s" # Data becomes available 1s after ingestion
       - "--retentionPeriod=6" # Months
       - "--selfScrapeInterval=60s" # Collect internal metrics
-      - "--promscrape.config=prometheus.yml"
+      - "--promscrape.config=prometheus.yml" # Scrape Prometheus endpoints
+    # expose directly, don't need to go through proxy
     ports:
       - "2003:2003/udp" # Proxmox: Collectd -> Graphite
       - "2003:2003/tcp"
@@ -31,7 +34,5 @@ services:
       - ./data:/storage
       - ./prometheus.yml:/prometheus.yml # OPNsense: Prometheus -> node_exporter
 
-networks:
-  default:
-    external: true
-    name: docker
+include:
+  - ../network.yml

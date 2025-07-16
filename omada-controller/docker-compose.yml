@@ -6,8 +6,10 @@ services:
   omada-controller:
     container_name: omada-controller
     image: mbentley/omada-controller:5.15
-    restart: unless-stopped
-    stop_grace_period: 60s
+    extends:
+      file: ../base.yml
+      service: base
+    stop_grace_period: 60s # shuts down DB cleanly
     ports:
       # - "8088:8088"
       # TODO: https://github.com/mbentley/docker-omada-controller/issues/168
@@ -40,7 +42,5 @@ services:
       - SHOW_MONGODB_LOGS=false
       - TZ=Europe/London
 
-networks:
-  default:
-    external: true
-    name: docker
+include:
+  - ../network.yml

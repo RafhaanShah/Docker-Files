@@ -4,8 +4,12 @@ services:
   grafana:
     container_name: grafana
     image: "grafana/grafana:10.1.10"
-    restart: unless-stopped
+    extends:
+      file: ../base.yml
+      service: base
     user: "1000"
+    # healthcheck:
+    #   test: ["CMD", "/usr/bin/curl", "-s", "localhost:3000/api/health"]
     expose:
       - "3000"
     volumes:
@@ -40,7 +44,5 @@ services:
 #   depends_on:
 #     - loki
 
-networks:
-  default:
-    external: true
-    name: docker
+include:
+  - ../network.yml

@@ -4,7 +4,9 @@ services:
   socket-proxy:
     container_name: socket-proxy
     image: ghcr.io/tecnativa/docker-socket-proxy:0.2
-    restart: unless-stopped
+    extends:
+      file: ../base.yml
+      service: base
     expose:
       - "2375"
     volumes:
@@ -18,7 +20,5 @@ services:
       - INFO=1
       - EVENTS=1
 
-networks:
-  default:
-    external: true
-    name: docker
+include:
+  - ../network.yml

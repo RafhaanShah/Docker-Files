@@ -4,13 +4,13 @@ services:
   container-mon:
     container_name: container-mon
     image: ghcr.io/rafhaanshah/container-mon:v1.0.5
-    restart: unless-stopped
+    extends:
+      file: ../base.yml
+      service: base
     environment:
       - CONTAINERMON_NOTIFICATION_URL
       # - CONTAINERMON_USE_LABELS=true
       - DOCKER_HOST=tcp://socket-proxy:2375
 
-networks:
-  default:
-    external: true
-    name: docker
+include:
+  - ../network.yml

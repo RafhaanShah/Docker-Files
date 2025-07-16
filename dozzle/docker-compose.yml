@@ -4,7 +4,11 @@ services:
   dozzle:
     container_name: dozzle
     image: amir20/dozzle:v8
-    restart: unless-stopped
+    extends:
+      file: ../base.yml
+      service: base
+    # healthcheck:
+    #   test: ["CMD", "/dozzle", "healthcheck"]
     expose:
       - "8080"
     command: --remote-host tcp://socket-proxy:2375
@@ -13,7 +17,5 @@ services:
     labels:
       - "traefik.enable=true"
 
-networks:
-  default:
-    external: true
-    name: docker
+include:
+  - ../network.yml

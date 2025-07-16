@@ -4,11 +4,11 @@ services:
   reddit-post-notifier:
     container_name: reddit-post-notifier
     image: ghcr.io/rafhaanshah/reddit-post-notifier:v1.0.2
-    restart: unless-stopped
+    extends:
+      file: ../base.yml
+      service: base
     volumes:
       - ./config.yaml:/app/config.yaml
 
-networks:
-  default:
-    external: true
-    name: docker
+include:
+  - ../network.yml

@@ -1,0 +1,9 @@
+# https://docs.docker.com/compose/how-tos/multiple-compose-files/extends/
+# common service configurations
+services:
+  base:
+    # start automatically on host boot (but also on crash)
+    restart: unless-stopped
+    # disable healthcheck to reduce CPU usage
+    healthcheck:
+      disable: true

@@ -3,9 +3,13 @@
 services:
   app:
     container_name: app
-    image: dev/app:v1.0.0
+    image: dev/app:v1.0.0 # avoid latest, makes finding out the version annoying
     # build: .
-    restart: unless-stopped
+    extends:
+      file: ../base.yml
+      service: base
+    # healthcheck:
+    # test: ["CMD", "pgrep", "process_name"]
     ports:
       - "8080:8080" # HOST_PORT:CONTAINER_PORT
     expose:
@@ -14,13 +18,11 @@ services:
       - ./data:/app/data # HOST_PATH:CONTAINER_PATH
     environment:
       - VAR=VAL
-      - SECRET_ENV_VAR
+      - SECRET_ENV_VAR # from .env file
     depends_on:
       - db
     labels:
       - "com.example.enable=true"
 
-networks:
-  default:
-    external: true
-    name: docker
+include:
+  - ../network.yml

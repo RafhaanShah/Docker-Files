@@ -5,7 +5,9 @@ services:
     container_name: netdata
     hostname: ubuntu-server
     image: netdata/netdata:stable
-    restart: unless-stopped
+    extends:
+      file: ../base.yml
+      service: base
     expose:
       - "19999"
     cap_add:
@@ -28,7 +30,5 @@ services:
     labels:
       - "traefik.enable=true"
 
-networks:
-  default:
-    external: true
-    name: docker
+include:
+  - ../network.yml

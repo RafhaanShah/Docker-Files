@@ -4,9 +4,12 @@ services:
   sshwifty:
     container_name: sshwifty
     image: niruix/sshwifty:0.3.25-beta-release
-    restart: unless-stopped
     user: "nobody:nobody"
-    # allows referring to the host
+    extends:
+      file: ../base.yml
+      service: base
+    # healthcheck:
+    #   test: ["CMD", "/usr/bin/wget", "--spider", "--quiet", "--tries=1", "localhost:8182/sshwifty/socket/verify"]
     extra_hosts:
       - "host.docker.internal:host-gateway"
     expose:
@@ -18,7 +21,5 @@ services:
     labels:
       - "traefik.enable=true"
 
-networks:
-  default:
-    external: true
-    name: docker
+include:
+  - ../network.yml

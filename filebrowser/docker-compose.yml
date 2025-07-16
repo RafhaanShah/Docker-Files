@@ -4,7 +4,9 @@ services:
   filebrowser:
     container_name: filebrowser
     image: filebrowser/filebrowser:v2
-    restart: unless-stopped
+    extends:
+      file: ../base.yml
+      service: base
     user: "1000"
     expose:
       - "80"
@@ -15,10 +17,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.filebrowser-filebrowser.loadbalancer.server.port=80"
-    healthcheck:
-      disable: true # https://github.com/filebrowser/filebrowser/pull/1409
 
-networks:
-  default:
-    external: true
-    name: docker
+include:
+  - ../network.yml

@@ -1,0 +1,6 @@
+# https://docs.docker.com/compose/how-tos/multiple-compose-files/include/
+# default network for all services
+networks:
+  default:
+    external: true
+    name: docker

@@ -4,7 +4,9 @@ services:
   portainer:
     container_name: portainer
     image: portainer/portainer-ce:lts
-    restart: unless-stopped
+    extends:
+      file: ../base.yml
+      service: base
     expose:
       - "9000"
     volumes:
@@ -14,7 +16,5 @@ services:
       - "traefik.enable=true"
       - "traefik.http.services.portainer.loadbalancer.server.port=9000"
 
-networks:
-  default:
-    external: true
-    name: docker
+include:
+  - ../network.yml

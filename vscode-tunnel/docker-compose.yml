@@ -6,7 +6,9 @@ services:
     hostname: vscode-tunnel
     image: vscode-tunnel:1.0.0
     build: .
-    restart: unless-stopped
+    extends:
+      file: ../base.yml
+      service: base
     stdin_open: true
     # allows referring to the host
     extra_hosts:
@@ -23,7 +25,5 @@ services:
       - DOCKER_HOST=tcp://socket-proxy:2375
       - ENV=/home/vscode/.profile
 
-networks:
-  default:
-    external: true
-    name: docker
+include:
+  - ../network.yml

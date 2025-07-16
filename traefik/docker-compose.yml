@@ -4,7 +4,9 @@ services:
   traefik:
     container_name: traefik
     image: traefik:v2.10.3
-    restart: unless-stopped
+    extends:
+      file: ../base.yml
+      service: base
     ports:
       - "80:80"
       - "443:443"
@@ -15,7 +17,5 @@ services:
     environment:
       - DUCKDNS_TOKEN
 
-networks:
-  default:
-    external: true
-    name: docker
+include:
+  - ../network.yml

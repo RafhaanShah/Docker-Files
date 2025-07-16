@@ -3,7 +3,9 @@ services:
     container_name: collectd
     image: collectd:1.0.0
     build: .
-    restart: unless-stopped
+    extends:
+      file: ../base.yml
+      service: base
     volumes:
       - ./collectd.conf:/etc/collectd/collectd.conf
     external_links:
@@ -11,7 +13,5 @@ services:
     logging:
       driver: none
 
-networks:
-  default:
-    external: true
-    name: docker
+include:
+  - ../network.yml
