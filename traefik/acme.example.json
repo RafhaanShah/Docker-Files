@@ -1,0 +1,28 @@
+{
+    "leresolver": {
+        "Account": {
+            "Email": "someone@mail.com",
+            "Registration": {
+                "body": {
+                    "status": "valid",
+                    "contact": [
+                        "mailto:someone@mail.com"
+                    ]
+                },
+                "uri": "https://acme-v02.api.letsencrypt.org/acme/acct/83228683"
+            },
+            "PrivateKey": "",
+            "KeyType": "4096"
+        },
+        "Certificates": [
+            {
+                "domain": {
+                    "main": "*.base-domain.duckdns.org"
+                },
+                "certificate": "",
+                "key": "",
+                "Store": "default"
+            }
+        ]
+    }
+}

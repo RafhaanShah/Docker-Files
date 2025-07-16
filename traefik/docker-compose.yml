@@ -3,7 +3,7 @@
 services:
   traefik:
     container_name: traefik
-    image: traefik:v2.10.3
+    image: traefik:v3
     extends:
       file: ../base.yml
       service: base
@@ -16,6 +16,13 @@ services:
       - ./config:/etc/traefik/config
     environment:
       - DUCKDNS_TOKEN
+
+# whoami:
+#   image: "traefik/whoami"
+#   container_name: "whoami"
+#   labels:
+#     - "traefik.enable=true"
+#     - "traefik.http.routers.whoami.rule=Host(`whoami.server.lan`)"
 
 include:
   - ../network.yml

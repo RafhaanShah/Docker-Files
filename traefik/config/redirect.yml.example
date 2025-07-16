@@ -1,3 +1,5 @@
+# redirects all matching requests
+# e.g. service.lan -> service.base-domain.duckdns.org
 http:
   middlewares:
     domain-redirect:

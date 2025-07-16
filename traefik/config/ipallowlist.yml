@@ -1,7 +1,8 @@
+# allow-listed ranges of IPs
 http:
   middlewares:
-    ipwhitelist:
-      ipWhiteList:
+    ipallowlist:
+      ipAllowList:
         sourceRange:
           - "10.0.0.0/8"
           - "172.16.0.0/12"

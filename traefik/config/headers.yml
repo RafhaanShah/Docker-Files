@@ -1,3 +1,4 @@
+# configures various headers and options for all requests
 http:
   middlewares:
     headers:

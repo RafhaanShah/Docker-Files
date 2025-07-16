@@ -1,5 +1,7 @@
+# allows access to the API / Dashboard
+# matches requests where the host starts with 'traefik'
 http:
   routers:
     api:
-      rule: "HostRegexp(`{service:^traefik\\..+$}`)"
+      rule: "HostRegexp(`^traefik\\..+`)"
       service: api@internal

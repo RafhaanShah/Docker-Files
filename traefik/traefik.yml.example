@@ -1,8 +1,11 @@
+# https://doc.traefik.io/traefik/getting-started/configuration-overview/
+# https://doc.traefik.io/traefik/reference/static-configuration/file/
+
 global:
-  sendAnonymousUsage: true
+  sendAnonymousUsage: false
 
 log:
-  level: ERROR
+  level: INFO
 
 entryPoints:
   http:
@@ -14,7 +17,7 @@ entryPoints:
     address: ":443"
     http:
       middlewares:
-        - ipwhitelist@file
+        - ipallowlist@file
         - domain-redirect@file
         - headers@file
       tls:
@@ -31,6 +34,8 @@ providers:
   docker:
     exposedByDefault: false
     endpoint: "tcp://socket-proxy:2375"
+    # regex matches service_name followed by . followed by anything
+    # e.g. container.lan or container.host.lan
     defaultRule: "HostRegexp(`{service:^{{ index .Labels \"com.docker.compose.service\" }}\\..+$}`)"
   file:
     directory: /etc/traefik/config
@@ -43,8 +48,9 @@ certificatesResolvers:
       keyType: RSA4096
       dnsChallenge:
         provider: duckdns
-        delayBeforeCheck: 120
-        disablePropagationCheck: true
+        propagation:
+          delayBeforeChecks: 120
+          disableChecks: true
 
 # accepts self signed certificates on internal services
 serversTransport:
