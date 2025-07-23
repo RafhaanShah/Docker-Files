@@ -1,0 +1,48 @@
+# https://github.com/google/cadvisor/
+
+services:
+  cadvisor:
+    container_name: cadvisor
+    image: ghcr.io/google/cadvisor:v0.53.0
+    extends:
+      file: ../base.yml
+      service: base
+    command:
+      # https://github.com/google/cadvisor/blob/master/docs/runtime_options.md
+      - "--port=8080"
+      - "--storage_driver_host=victoriametrics:8428"
+      - "--storage_driver_buffer_duration=1m0s"
+      - "--docker_only=true"
+      - "--docker=tcp://socket-proxy:2375"
+      - "--disable_root_cgroup_stats=true"
+      # store only the labels we need
+      - "--store_container_labels=false"
+      - "--whitelisted_container_labels=name"
+      # https://github.com/google/cadvisor/issues/1498
+      # https://github.com/google/cadvisor/issues/2523
+      # https://github.com/google/cadvisor/issues/3139
+      # https://github.com/vegasbrianc/prometheus/issues/126
+      # https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md
+      # disable unwanted default metrics
+      - "--enable_metrics=app,cpu,disk,diskIO,memory,network"
+      - "--global_housekeeping_interval=1m0s"
+      - "--housekeeping_interval=15s"
+      - "--max_housekeeping_interval=1m0s"
+      - "--storage_duration=2m0s"
+    expose:
+      - "8080"
+    devices:
+      - /dev/kmsg:/dev/kmsg
+    volumes:
+      # https://github.com/google/cadvisor/issues/3252
+      # https://github.com/google/cadvisor/issues/3051
+      # https://github.com/google/cadvisor/issues/3453
+      - /sys:/sys:ro # needed for most stats
+      - /var/lib/docker/:/rootfs/var/lib/docker:ro # needed for docker containers
+      - /proc/:/rootfs/proc/:ro # needed for network stats
+      - /etc/machine-id:/rootfs/etc/machine-id:ro # for machine id
+    labels:
+      - "traefik.enable=true"
+
+include:
+  - ../network.yml
