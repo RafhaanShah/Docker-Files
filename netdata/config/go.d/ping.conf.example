@@ -1,6 +1,0 @@
-update_every: 1
-autodetection_retry: 0
-jobs:
-  - name: cloudflare
-    hosts:
-      - 1.1.1.1
