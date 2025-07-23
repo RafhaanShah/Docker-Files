@@ -1,0 +1,22 @@
+# https://docs.victoriametrics.com/victoriametrics/scrape_config_examples/
+# https://prometheus.io/docs/prometheus/latest/configuration/configuration/
+global:
+  scrape_interval: 15s
+  scrape_timeout: 5s
+
+# will log warnings for failed scrapes
+scrape_configs:
+  # node_exporter plugin
+  # https://github.com/opnsense/plugins/tree/master/sysutils/node_exporter/
+  # 1% CPU usage
+  - job_name: opnsense
+    static_configs:
+      - targets:
+          - "opnsense.lan:9100"
+  # cadvisor metrics
+  # https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md
+  # 4% CPU usage
+  # - job_name: cadvisor
+  #   static_configs:
+  #     - targets:
+  #         - "cadvisor:8080"
