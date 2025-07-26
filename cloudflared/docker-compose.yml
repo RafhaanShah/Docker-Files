@@ -1,0 +1,31 @@
+# https://github.com/cloudflare/cloudflared
+
+services:
+  cloudflared:
+    container_name: cloudflared
+    image: cloudflare/cloudflared:2025.7.0
+    extends:
+      file: ../base.yml
+      service: base
+    command:
+      - "tunnel"
+      - "run"
+    environment:
+      - TUNNEL_TOKEN
+
+include:
+  - ../network.yml
+# Create Tunnel:
+# 1. Go to one.dash.cloudflare.com
+# 2. Networks -> Tunnels -> Create
+# 3. Private Networks -> Add local network CIDR, e.g. 192.168.1.0/24
+# 4. Overview -> Get TUNNEL_TOKEN
+
+# Create WARP App Profile
+# 1. Go to one.dash.cloudflare.com
+# 2. Settings -> Network -> Firewall -> Enable Proxy
+# 3. Settings -> WARP Client -> Device Enrollment -> Manage -> Add Policy
+# 4. Settings -> WARP Client -> Profile Settings -> Create Profile
+# 5. Service Mode: Gateway with WARP
+# 6. Local Domain Fallback: Add DNS overrides for local domains / .com, .org, etc if needed
+# 7. Exclude IPs and domains: Remove local tunnel CIDR

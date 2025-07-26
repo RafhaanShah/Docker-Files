@@ -1,0 +1,28 @@
+# https://tailscale.com/kb/1282/docker
+
+services:
+  tailscale:
+    container_name: tailscale
+    image: tailscale/tailscale:stable
+    extends:
+      file: ../base.yml
+      service: base
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - net_admin
+    volumes:
+      - ./state:/var/lib/tailscale
+    environment:
+      - TS_HOSTNAME=ubuntu-server
+      - TS_ROUTES=192.168.1.0/24
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_AUTH_ONCE=true
+      - TS_USERSPACE=false
+      - TS_EXTRA_ARGS=--advertise-exit-node
+
+include:
+  - ../network.yml
+# https://tailscale.com/kb/1406/quick-guide-subnets
+# Setup ip-forwading on host first
+# Then run once to get auth link in logs
