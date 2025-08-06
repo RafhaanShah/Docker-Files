@@ -4,11 +4,14 @@ apiVersion: 1
 providers:
   - name: Dashboards
     orgId: 1
-    folder: ""
+    folder: "" # default root folder
     type: file
-    disableDeletion: false
+    disableDeletion: true
     editable: true
     updateIntervalSeconds: 300
     allowUiUpdates: true
     options:
       path: /etc/grafana/provisioning/dashboards
+# https://grafana.com/grafana/dashboards/1860-node-exporter-full/
+# https://grafana.com/grafana/dashboards/10229-victoriametrics-single-node/
+# https://grafana.com/grafana/dashboards/19366-opnsense/

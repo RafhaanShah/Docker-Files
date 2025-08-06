@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -14,17 +17,17 @@
   },
   "description": "Shows stats from MSI Afterburner",
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 8,
-  "iteration": 1606935506540,
+  "id": 9,
   "links": [],
   "panels": [
     {
-      "datasource": "$prometheus",
+      "datasource": {
+        "uid": "$prometheus"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "decimals": 0,
           "displayName": "FPS",
           "mappings": [],
@@ -34,8 +37,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
+                "color": "red"
               },
               {
                 "color": "orange",
@@ -63,6 +65,8 @@
       },
       "id": 10,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -72,11 +76,16 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
+          "datasource": {
+            "uid": "$prometheus"
+          },
+          "editorMode": "code",
           "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-Framerate\"}",
           "instant": true,
           "interval": "",
@@ -84,16 +93,15 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "",
       "type": "gauge"
     },
     {
-      "datasource": "$prometheus",
+      "datasource": {
+        "uid": "$prometheus"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "decimals": 1,
           "displayName": "Frametime",
           "mappings": [],
@@ -103,8 +111,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
+                "color": "red"
               },
               {
                 "color": "green",
@@ -136,6 +143,8 @@
       },
       "id": 11,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -145,11 +154,16 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
+          "datasource": {
+            "uid": "$prometheus"
+          },
+          "editorMode": "code",
           "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-Frametime\"}",
           "instant": true,
           "interval": "",
@@ -157,16 +171,15 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "",
       "type": "gauge"
     },
     {
-      "datasource": "$prometheus",
+      "datasource": {
+        "uid": "$prometheus"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "decimals": 0,
           "displayName": "",
           "mappings": [],
@@ -176,8 +189,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "yellow",
@@ -206,6 +218,16 @@
       "id": 13,
       "options": {
         "displayMode": "gradient",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
         "orientation": "vertical",
         "reduceOptions": {
           "calcs": [
@@ -214,11 +236,16 @@
           "fields": "",
           "values": false
         },
-        "showUnfilled": true
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
       },
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
+          "datasource": {
+            "uid": "$prometheus"
+          },
           "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-CPU_usage\"}",
           "instant": true,
           "interval": "",
@@ -226,6 +253,9 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "uid": "$prometheus"
+          },
           "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-GPU_usage\"}",
           "instant": true,
           "interval": "",
@@ -233,16 +263,15 @@
           "refId": "B"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "",
       "type": "bargauge"
     },
     {
-      "datasource": "$prometheus",
+      "datasource": {
+        "uid": "$prometheus"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "decimals": 0,
           "displayName": "",
           "mappings": [],
@@ -252,8 +281,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -282,6 +310,16 @@
       "id": 12,
       "options": {
         "displayMode": "gradient",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
         "orientation": "vertical",
         "reduceOptions": {
           "calcs": [
@@ -290,11 +328,16 @@
           "fields": "",
           "values": false
         },
-        "showUnfilled": true
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
       },
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "12.0.2",
       "targets": [
         {
+          "datasource": {
+            "uid": "$prometheus"
+          },
           "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-CPU_temperature\"}",
           "instant": true,
           "interval": "",
@@ -302,6 +345,9 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "uid": "$prometheus"
+          },
           "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-GPU_temperature\"}",
           "instant": true,
           "interval": "",
@@ -309,171 +355,232 @@
           "refId": "B"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "",
       "type": "bargauge"
     },
     {
-      "aliasColors": {
-        "CPU": "orange",
-        "CPU Temperature": "orange",
-        "CPU Usage": "blue",
-        "CPU%": "green",
-        "CPU°C": "blue",
-        "GPU": "blue",
-        "GPU%": "yellow",
-        "GPU°C": "red"
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
       },
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "$prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
-          "links": []
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "max": 200,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
         },
         "overrides": []
       },
-      "fill": 0,
-      "fillGradient": 0,
       "gridPos": {
-        "h": 9,
-        "w": 24,
+        "h": 8,
+        "w": 12,
         "x": 0,
         "y": 8
       },
-      "hiddenSeries": false,
-      "id": 2,
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "nullPointMode": "null",
+      "id": 14,
       "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.3.2",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "CPU °C",
-          "yaxis": 2
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
         },
-        {
-          "alias": "GPU °C",
-          "yaxis": 2
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
         }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      },
+      "pluginVersion": "12.0.2",
       "targets": [
         {
-          "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-CPU_temperature\"}",
-          "interval": "",
-          "legendFormat": "CPU °C",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-Framerate\"}",
+          "instant": false,
+          "legendFormat": "FPS",
+          "range": true,
           "refId": "A"
-        },
-        {
-          "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-GPU_temperature\"}",
-          "interval": "",
-          "legendFormat": "GPU °C",
-          "refId": "B"
-        },
-        {
-          "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-CPU_usage\"}",
-          "interval": "",
-          "legendFormat": "CPU",
-          "refId": "C"
-        },
-        {
-          "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-GPU_usage\"}",
-          "interval": "",
-          "legendFormat": "GPU",
-          "refId": "D"
         }
       ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
+      "title": "FPS",
       "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": false,
-        "values": []
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${prometheus}"
       },
-      "yaxes": [
-        {
-          "decimals": 0,
-          "format": "percent",
-          "label": "",
-          "logBase": 1,
-          "max": "100",
-          "min": "0",
-          "show": true
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "max": 50,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
         },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 15,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.2",
+      "targets": [
         {
-          "format": "celsius",
-          "label": null,
-          "logBase": 1,
-          "max": "100",
-          "min": "0",
-          "show": true
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-Frametime\"}",
+          "instant": false,
+          "legendFormat": "FPS",
+          "range": true,
+          "refId": "A"
         }
       ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "title": "Frametime",
+      "transparent": true,
+      "type": "timeseries"
     }
   ],
+  "preload": false,
   "refresh": "1s",
-  "schemaVersion": 26,
-  "style": "dark",
-  "tags": [],
+  "schemaVersion": 41,
+  "tags": [
+    "pc",
+    "graphite",
+    "prometheus"
+  ],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": false,
           "text": "VictoriaMetrics",
-          "value": "VictoriaMetrics"
+          "value": "P4169E866C3094E38"
         },
-        "error": null,
-        "hide": 0,
         "includeAll": false,
         "label": "Prometheus",
-        "multi": false,
         "name": "prometheus",
         "options": [],
         "query": "prometheus",
         "refresh": 1,
         "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       }
     ]
@@ -502,5 +609,5 @@
   "timezone": "",
   "title": "MSI Afterburner RPi",
   "uid": "-ViqSZCWk",
-  "version": 1
+  "version": 18
 }
