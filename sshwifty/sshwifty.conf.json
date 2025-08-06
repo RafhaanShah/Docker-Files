@@ -16,11 +16,10 @@
     ],
     "Presets": [
         {
-            "Title": "Ubuntu Server",
+            "Title": "Host",
             "Type": "SSH",
             "Host": "host.docker.internal:22",
             "Authentication": "Password",
-            "TabColor": "FF5722",
             "Meta": {
                 "User": "raf"
             }

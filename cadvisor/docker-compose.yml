@@ -7,9 +7,11 @@ services:
     extends:
       file: ../base.yml
       service: base
+    hostname: ubuntu-server
     command:
       # https://github.com/google/cadvisor/blob/master/docs/runtime_options.md
       - "--port=8080"
+      - "--storage_driver=influxdb"
       - "--storage_driver_host=victoriametrics:8428"
       - "--storage_driver_buffer_duration=1m0s"
       - "--docker_only=true"

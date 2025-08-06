@@ -27,3 +27,4 @@ services:
 
 include:
   - ../network.yml
+# Run once to get auth code in logs

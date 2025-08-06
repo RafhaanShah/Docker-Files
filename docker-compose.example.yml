@@ -3,7 +3,8 @@
 services:
   app:
     container_name: app
-    image: dev/app:v1.0.0 # avoid latest, makes finding out the version annoying
+    # avoid latest, makes finding out the version annoying
+    image: dev/app:v1.0.0
     # build: .
     extends:
       file: ../base.yml
@@ -14,6 +15,7 @@ services:
       - "8080:8080" # HOST_PORT:CONTAINER_PORT
     expose:
       - "8000"
+    # remember to update any backup exclusions
     volumes:
       - ./data:/app/data # HOST_PATH:CONTAINER_PATH
     environment:
