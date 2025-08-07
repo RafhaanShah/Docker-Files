@@ -11,6 +11,8 @@ services:
     # noisy spam when PC is offline
     logging:
       driver: none
+    labels:
+      - wud.watch=false
 
 include:
   - ../network.yml

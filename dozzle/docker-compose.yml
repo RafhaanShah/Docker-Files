@@ -16,6 +16,8 @@ services:
       - DOCKER_HOST=tcp://socket-proxy:2375
     labels:
       - "traefik.enable=true"
+      - "wud.tag.include=^v\\d+$$"
+      - "wud.watch.digest=true"
 
 include:
   - ../network.yml

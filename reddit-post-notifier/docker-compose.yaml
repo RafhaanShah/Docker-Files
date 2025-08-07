@@ -9,6 +9,8 @@ services:
       service: base
     volumes:
       - ./config.yaml:/app/config.yaml
+    labels:
+      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
 
 include:
   - ../network.yml

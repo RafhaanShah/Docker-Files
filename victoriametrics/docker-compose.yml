@@ -3,7 +3,7 @@
 services:
   victoriametrics:
     container_name: victoriametrics
-    image: victoriametrics/victoria-metrics:v1.121.0
+    image: victoriametrics/victoria-metrics:v1.123.0
     extends:
       file: ../base.yml
       service: base
@@ -39,6 +39,7 @@ services:
       # web UI at /vmui
       - "traefik.enable=true"
       - "traefik.http.services.victoriametrics-victoriametrics.loadbalancer.server.port=8428"
+      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
 
 include:
   - ../network.yml

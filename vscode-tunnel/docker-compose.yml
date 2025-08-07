@@ -24,6 +24,8 @@ services:
       - SERVER_NAME=ubuntu-server
       - DOCKER_HOST=tcp://socket-proxy:2375
       - ENV=/home/vscode/.profile
+    labels:
+      - wud.watch=false
 
 include:
   - ../network.yml

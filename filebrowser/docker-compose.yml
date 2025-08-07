@@ -17,6 +17,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.filebrowser-filebrowser.loadbalancer.server.port=80"
+      - "wud.tag.include=^v\\d+$$"
+      - "wud.watch.digest=true"
 
 include:
   - ../network.yml

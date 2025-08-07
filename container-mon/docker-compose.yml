@@ -11,6 +11,8 @@ services:
       - CONTAINERMON_NOTIFICATION_URL
       # - CONTAINERMON_USE_LABELS=true
       - DOCKER_HOST=tcp://socket-proxy:2375
+    labels:
+      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
 
 include:
   - ../network.yml

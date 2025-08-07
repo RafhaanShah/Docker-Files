@@ -16,6 +16,9 @@ services:
       - ./config:/etc/traefik/config
     environment:
       - DUCKDNS_TOKEN
+    labels:
+      - "wud.tag.include=^v\\d+$$"
+      - "wud.watch.digest=true"
 
 # whoami:
 #   image: "traefik/whoami"

@@ -19,6 +19,7 @@ services:
       - owntracks-recorder
     labels:
       - "traefik.enable=true"
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$$"
 
   owntracks-recorder:
     container_name: owntracks-recorder
@@ -43,6 +44,7 @@ services:
       # - OTR_BROWSERAPIKEY
     labels:
       - "traefik.enable=true"
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$$"
 
 # owntracks-mqtt:
 #   container_name: owntracks-mqtt

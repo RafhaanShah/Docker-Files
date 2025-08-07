@@ -20,6 +20,9 @@ services:
       - TS_AUTH_ONCE=true
       - TS_USERSPACE=false
       - TS_EXTRA_ARGS=--advertise-exit-node
+    labels:
+      - "wud.tag.include=^stable$$"
+      - "wud.watch.digest=true"
 
 include:
   - ../network.yml

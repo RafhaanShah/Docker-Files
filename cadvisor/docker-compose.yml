@@ -45,6 +45,7 @@ services:
       - /etc/machine-id:/rootfs/etc/machine-id:ro # for machine id
     labels:
       - "traefik.enable=true"
+      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
 
 include:
   - ../network.yml

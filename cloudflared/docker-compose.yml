@@ -12,6 +12,8 @@ services:
       - "run"
     environment:
       - TUNNEL_TOKEN
+    labels:
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$$"
 
 include:
   - ../network.yml

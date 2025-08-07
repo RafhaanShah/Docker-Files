@@ -20,6 +20,8 @@ services:
       - SSHWIFTY_CONFIG=/sshwifty.conf.json
     labels:
       - "traefik.enable=true"
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+.*$$"
+      - "wud.tag.transform=^(\\d+\\.\\d+\\.\\d+).*$$ => $$1"
 
 include:
   - ../network.yml

@@ -15,6 +15,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+      - "wud.watch.digest=true"
+      - "wud.tag.include=^lts$$"
 
 include:
   - ../network.yml

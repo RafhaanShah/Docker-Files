@@ -41,6 +41,9 @@ services:
       - SYSTEM=1
       - TASKS=1
       - VOLUMES=1
+    labels:
+      - "wud.tag.include=^\\d+.\\d+$$"
+      - "wud.watch.digest=true"
 
 include:
   - ../network.yml

@@ -1,4 +1,4 @@
-# https://github.com/mbentley/docker-omada-controller/tree/master
+# https://github.com/mbentley/docker-omada-controller/
 # https://github.com/mbentley/docker-omada-controller/issues/168
 # https://www.reddit.com/r/selfhosted/comments/krsupy/issues_accessing_tplink_omada_controller_software/
 
@@ -41,6 +41,9 @@ services:
       - SHOW_SERVER_LOGS=true
       - SHOW_MONGODB_LOGS=false
       - TZ=Europe/London
+    labels:
+      - "wud.tag.include=^\\d+\\.\\d+$$"
+      - "wud.watch.digest=true"
 
 include:
   - ../network.yml

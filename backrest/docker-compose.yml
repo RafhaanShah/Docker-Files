@@ -27,6 +27,8 @@ services:
       - TZ=Europe/London
     labels:
       - "traefik.enable=true"
+      - "wud.tag.include=^v\\d+$$"
+      - "wud.watch.digest=true"
 
 include:
   - ../network.yml
