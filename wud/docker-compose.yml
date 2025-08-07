@@ -1,0 +1,35 @@
+# https://docs.docker.com/reference/compose-file/
+
+services:
+  wud:
+    container_name: wud
+    image: ghcr.io/getwud/wud:8
+    extends:
+      file: ../base.yml
+      service: base
+    expose:
+      - "3000"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - WUD_REGISTRY_HUB_PUBLIC_TOKEN
+      - WUD_WATCHER_DOCKER_CRON=0 */12 * * * # every 12 hours
+      - WUD_AUTH_BASIC_RAF_USER=raf
+      - WUD_AUTH_BASIC_RAF_HASH
+      # configure DOCKER instead of DOCKER_COMPOSE
+      # as I can't be bothered to configure every single compose file
+      # but we need to manually update compose files when there's a new version
+      - WUD_TRIGGER_DOCKER_RAF_AUTO=false # manually trigger updates on the UI
+      - WUD_TRIGGER_DOCKER_RAF_PRUNE=true # remove old images on update
+    labels:
+      - "traefik.enable=true"
+      - "wud.tag.include=^\\d+$$" # should match the image tag defined in compose
+      - "wud.watch.digest=true" # watch digest if we are not watching a specific version like 1.2.3
+
+include:
+  - ../network.yml
+# TODO:
+# https://github.com/getwud/wud/discussions/616
+# https://github.com/getwud/wud/issues/691
+# https://github.com/getwud/wud/issues/388
