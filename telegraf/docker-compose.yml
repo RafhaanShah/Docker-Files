@@ -1,0 +1,19 @@
+# https://docs.docker.com/reference/compose-file/
+
+services:
+  telegraf:
+    container_name: telegraf
+    image: telegraf:1.35
+    extends:
+      file: ../base.yml
+      service: base
+    # noisy spam when PC is offline
+    logging:
+      driver: none
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    labels:
+      - "wud.tag.include=^\\d+\\.\\d+$$"
+
+include:
+  - ../network.yml
