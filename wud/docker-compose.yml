@@ -11,7 +11,7 @@ services:
       - "3000"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro # update containers
     environment:
       - WUD_REGISTRY_HUB_PUBLIC_TOKEN
       - WUD_WATCHER_DOCKER_CRON=0 */12 * * * # every 12 hours

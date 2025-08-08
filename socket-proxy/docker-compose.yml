@@ -1,49 +1,27 @@
-# https://github.com/Tecnativa/docker-socket-proxy
+# https://github.com/11notes/docker-socket-proxy
+# alt: https://github.com/linuxserver/docker-socket-proxy
+# alt: https://github.com/Tecnativa/docker-socket-proxy
 
 services:
   socket-proxy:
     container_name: socket-proxy
-    image: ghcr.io/tecnativa/docker-socket-proxy:0.3
+    image: ghcr.io/11notes/socket-proxy:2
+    read_only: true
+    user: "0:988"
     extends:
       file: ../base.yml
       service: base
-    expose:
-      - "2375"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /run/docker.sock:/run/docker.sock:ro
+      - socket-proxy.run:/run/proxy
     environment:
-      # https://docs.docker.com/reference/api/engine/version/v1.37
-      - LOG_LEVEL=notice
-      # basic info
-      - EVENTS=1
-      - PING=1
-      - VERSION=1
-      # security critical
-      - AUTH=0
-      - SECRETS=0
-      - POST=0 # modify containers
-      # as needed
-      - BUILD=0 # create build
-      - COMMIT=0 # commit image
-      - CONFIGS=1
-      - CONTAINERS=1
-      - DISTRIBUTION=1
-      - EXEC=0 # exec command
-      - GRPC=0 # ???
-      - IMAGES=1
-      - INFO=1
-      - NETWORKS=1
-      - NODES=1
-      - PLUGINS=1
-      - SERVICES=1
-      - SESSION=0 # interactive session
-      - SWARM=1
-      - SYSTEM=1
-      - TASKS=1
-      - VOLUMES=1
+      - TZ=Europe/London
     labels:
-      - "wud.tag.include=^\\d+.\\d+$$"
+      - "wud.tag.include=^\\d+$$"
       - "wud.watch.digest=true"
+
+volumes:
+  socket-proxy.run:
 
 include:
   - ../network.yml

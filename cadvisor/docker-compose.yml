@@ -13,7 +13,7 @@ services:
       - "--port=8080"
       - "--storage_driver=influxdb"
       - "--storage_driver_host=victoriametrics:8428"
-      - "--storage_driver_buffer_duration=1m0s"
+      - "--storage_driver_buffer_duration=30s"
       - "--docker_only=true"
       - "--docker=tcp://socket-proxy:2375"
       - "--disable_root_cgroup_stats=true"
