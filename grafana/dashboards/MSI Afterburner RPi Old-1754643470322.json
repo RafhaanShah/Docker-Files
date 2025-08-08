@@ -15,17 +15,16 @@
       }
     ]
   },
-  "description": "Shows stats from MSI Afterburner, streamed via Telegraf",
+  "description": "Shows stats from MSI Afterburner",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 40,
+  "id": 43,
   "links": [],
   "panels": [
     {
       "datasource": {
-        "type": "datasource",
-        "uid": "grafana"
+        "uid": "$prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -61,7 +60,7 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 8,
+        "w": 7,
         "x": 0,
         "y": 0
       },
@@ -84,22 +83,14 @@
       "pluginVersion": "12.1.0",
       "targets": [
         {
-          "channel": "stream/msi_afterburner/msi_afterburner",
           "datasource": {
             "uid": "$prometheus"
           },
           "editorMode": "code",
           "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-Framerate\"}",
-          "filter": {
-            "fields": [
-              "time",
-              "framerate"
-            ]
-          },
           "instant": true,
           "interval": "",
           "legendFormat": "FPS",
-          "queryType": "measurements",
           "refId": "A"
         }
       ],
@@ -108,8 +99,7 @@
     },
     {
       "datasource": {
-        "type": "datasource",
-        "uid": "grafana"
+        "uid": "$prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -149,8 +139,8 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 8,
-        "x": 8,
+        "w": 7,
+        "x": 7,
         "y": 0
       },
       "id": 11,
@@ -172,22 +162,14 @@
       "pluginVersion": "12.1.0",
       "targets": [
         {
-          "channel": "stream/msi_afterburner/msi_afterburner",
           "datasource": {
             "uid": "$prometheus"
           },
           "editorMode": "code",
           "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-Frametime\"}",
-          "filter": {
-            "fields": [
-              "time",
-              "framtime"
-            ]
-          },
           "instant": true,
           "interval": "",
           "legendFormat": "Frametime",
-          "queryType": "measurements",
           "refId": "A"
         }
       ],
@@ -196,12 +178,12 @@
     },
     {
       "datasource": {
-        "type": "datasource",
-        "uid": "grafana"
+        "uid": "$prometheus"
       },
       "fieldConfig": {
         "defaults": {
           "decimals": 0,
+          "displayName": "",
           "mappings": [],
           "max": 100,
           "min": 0,
@@ -228,40 +210,15 @@
           },
           "unit": "percent"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "cpu_usage http://rafs-pc.lan:82/mahm"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "CPU"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "gpu_usage http://rafs-pc.lan:82/mahm"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "GPU"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
-        "w": 4,
-        "x": 16,
+        "w": 5,
+        "x": 14,
         "y": 0
       },
-      "id": 18,
+      "id": 13,
       "options": {
         "displayMode": "gradient",
         "legend": {
@@ -289,40 +246,23 @@
       "pluginVersion": "12.1.0",
       "targets": [
         {
-          "channel": "stream/msi_afterburner/msi_afterburner",
           "datasource": {
             "uid": "$prometheus"
           },
           "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-CPU_usage\"}",
-          "filter": {
-            "fields": [
-              "time",
-              "cpu_usage"
-            ]
-          },
           "instant": true,
           "interval": "",
           "legendFormat": "CPU",
-          "queryType": "measurements",
           "refId": "A"
         },
         {
-          "channel": "stream/msi_afterburner/msi_afterburner",
           "datasource": {
             "uid": "$prometheus"
           },
-          "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-CPU_usage\"}",
-          "filter": {
-            "fields": [
-              "time",
-              "gpu_usage"
-            ]
-          },
-          "hide": false,
+          "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-GPU_usage\"}",
           "instant": true,
           "interval": "",
-          "legendFormat": "CPU",
-          "queryType": "measurements",
+          "legendFormat": "GPU",
           "refId": "B"
         }
       ],
@@ -331,12 +271,12 @@
     },
     {
       "datasource": {
-        "type": "datasource",
-        "uid": "grafana"
+        "uid": "$prometheus"
       },
       "fieldConfig": {
         "defaults": {
           "decimals": 0,
+          "displayName": "",
           "mappings": [],
           "max": 100,
           "min": 0,
@@ -348,7 +288,7 @@
                 "value": 0
               },
               {
-                "color": "yellow",
+                "color": "#EAB839",
                 "value": 50
               },
               {
@@ -363,40 +303,15 @@
           },
           "unit": "celsius"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "cpu_temp http://rafs-pc.lan:82/mahm"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "CPU"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "gpu_temp http://rafs-pc.lan:82/mahm"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "GPU"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
-        "w": 4,
-        "x": 20,
+        "w": 5,
+        "x": 19,
         "y": 0
       },
-      "id": 19,
+      "id": 12,
       "options": {
         "displayMode": "gradient",
         "legend": {
@@ -424,40 +339,23 @@
       "pluginVersion": "12.1.0",
       "targets": [
         {
-          "channel": "stream/msi_afterburner/msi_afterburner",
           "datasource": {
             "uid": "$prometheus"
           },
-          "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-CPU_usage\"}",
-          "filter": {
-            "fields": [
-              "time",
-              "cpu_temp"
-            ]
-          },
+          "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-CPU_temperature\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "CPU",
-          "queryType": "measurements",
           "refId": "A"
         },
         {
-          "channel": "stream/msi_afterburner/msi_afterburner",
           "datasource": {
             "uid": "$prometheus"
           },
-          "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-CPU_usage\"}",
-          "filter": {
-            "fields": [
-              "time",
-              "gpu_temp"
-            ]
-          },
-          "hide": false,
+          "expr": "{__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-GPU_temperature\"}",
           "instant": true,
           "interval": "",
-          "legendFormat": "CPU",
-          "queryType": "measurements",
+          "legendFormat": "GPU",
           "refId": "B"
         }
       ],
@@ -466,8 +364,8 @@
     },
     {
       "datasource": {
-        "type": "datasource",
-        "uid": "grafana"
+        "type": "prometheus",
+        "uid": "${prometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -508,7 +406,6 @@
               "mode": "off"
             }
           },
-          "displayName": "Framerate",
           "mappings": [],
           "max": 150,
           "min": 50,
@@ -540,7 +437,7 @@
           "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
-          "showLegend": false
+          "showLegend": true
         },
         "tooltip": {
           "hideZeros": false,
@@ -551,7 +448,6 @@
       "pluginVersion": "12.1.0",
       "targets": [
         {
-          "channel": "stream/msi_afterburner/msi_afterburner",
           "datasource": {
             "type": "prometheus",
             "uid": "${prometheus}"
@@ -559,30 +455,23 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "expr": "clamp({__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-Framerate\"}, 50, 150)",
-          "filter": {
-            "fields": [
-              "time",
-              "framerate"
-            ]
-          },
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
           "legendFormat": "FPS",
-          "queryType": "measurements",
           "range": true,
           "refId": "A",
           "useBackend": false
         }
       ],
-      "title": "",
+      "title": "FPS",
       "transparent": true,
       "type": "timeseries"
     },
     {
       "datasource": {
-        "type": "datasource",
-        "uid": "grafana"
+        "type": "prometheus",
+        "uid": "${prometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -626,11 +515,9 @@
               "mode": "off"
             }
           },
-          "displayName": "Frametime",
           "mappings": [],
           "max": 20,
           "min": 6,
-          "noValue": "6",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -659,7 +546,7 @@
           "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
-          "showLegend": false
+          "showLegend": true
         },
         "tooltip": {
           "hideZeros": false,
@@ -670,7 +557,6 @@
       "pluginVersion": "12.1.0",
       "targets": [
         {
-          "channel": "stream/msi_afterburner/msi_afterburner",
           "datasource": {
             "type": "prometheus",
             "uid": "${prometheus}"
@@ -678,29 +564,22 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "expr": "clamp({__name__=\"collectd.rafs_pc.curl_xml-afterburner.gauge-Frametime\"}, 6, 20)",
-          "filter": {
-            "fields": [
-              "time",
-              "framtime"
-            ]
-          },
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
           "legendFormat": "FPS",
-          "queryType": "measurements",
           "range": true,
           "refId": "A",
           "useBackend": false
         }
       ],
-      "title": "",
+      "title": "Frametime",
       "transparent": true,
       "type": "timeseries"
     }
   ],
   "preload": false,
-  "refresh": "",
+  "refresh": "1s",
   "schemaVersion": 41,
   "tags": [
     "pc",
@@ -708,7 +587,22 @@
     "prometheus"
   ],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "text": "VictoriaMetrics",
+          "value": "P4169E866C3094E38"
+        },
+        "includeAll": false,
+        "label": "Prometheus",
+        "name": "prometheus",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "type": "datasource"
+      }
+    ]
   },
   "time": {
     "from": "now-1m",
@@ -732,7 +626,7 @@
     ]
   },
   "timezone": "",
-  "title": "MSI Afterburner RPi",
-  "uid": "-ViqSZCWk",
-  "version": 12
+  "title": "MSI Afterburner RPi Old",
+  "uid": "-ViqSjCWk",
+  "version": 1
 }
