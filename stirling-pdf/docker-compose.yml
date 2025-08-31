@@ -1,11 +1,11 @@
-# https://docs.docker.com/reference/compose-file/
+# https://github.com/Stirling-Tools/Stirling-PDF
 
 services:
   stirling-pdf:
     container_name: stirling-pdf
     # https://docs.stirlingpdf.com/Installation/Versions/
     # 600MB RAM vs 300 MB RAM on lite
-    image: docker.stirlingpdf.com/stirlingtools/stirling-pdf:1.1.1-ultra-lite
+    image: ghcr.io/stirling-tools/stirling-pdf:1.2.0-ultra-lite
     extends:
       file: ../base.yml
       service: base
@@ -23,6 +23,9 @@ services:
       - LANGS=en_GB
     labels:
       - "traefik.enable=true"
+      # override hostname to just 'pdf'
+      - "traefik.http.routers.stirling-pdf.rule=HostRegexp(`^pdf\\..+`)"
+      - "traefik.http.services.stirling-pdf.loadbalancer.server.port=8080"
       - "wud.tag.include=^\\d+\\.\\d+\\.\\d+.*$$"
       - "wud.tag.transform=^(\\d+\\.\\d+\\.\\d+).*$$ => $$1"
 

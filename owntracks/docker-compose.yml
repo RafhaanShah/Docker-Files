@@ -24,7 +24,7 @@ services:
   owntracks-recorder:
     container_name: owntracks-recorder
     hostname: owntracks-recorder
-    image: owntracks/recorder:1.0.0
+    image: owntracks/recorder:1.0.1
     extends:
       file: ../base.yml
       service: base
