@@ -10,8 +10,14 @@ updates:
       - "**/*"
     schedule:
       interval: "weekly"
+    groups:
+      all:
+        patterns: "*"
   - package-ecosystem: "docker-compose"
     directories:
       - "**/*"
     schedule:
       interval: "weekly"
+    groups:
+      all:
+        patterns: "*"
