@@ -12,7 +12,8 @@ updates:
       interval: "weekly"
     groups:
       all:
-        patterns: "*"
+        patterns:
+          - "*"
   - package-ecosystem: "docker-compose"
     directories:
       - "**/*"
@@ -20,4 +21,5 @@ updates:
       interval: "weekly"
     groups:
       all:
-        patterns: "*"
+        patterns:
+          - "*"
