@@ -3,14 +3,15 @@
 services:
   reddit-post-notifier:
     container_name: reddit-post-notifier
-    image: ghcr.io/rafhaanshah/reddit-post-notifier:v1.0.2
+    image: ghcr.io/rafhaanshah/reddit-post-notifier:v2
     extends:
       file: ../base.yml
       service: base
     volumes:
       - ./config.yaml:/app/config.yaml
     labels:
-      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
+      - "wud.tag.include=^v\\d+$$"
+      - "wud.watch.digest=true"
 
 include:
   - ../network.yml

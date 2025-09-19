@@ -8,6 +8,7 @@ reddit:
   agent: "reddit-post-notifier (u/xxxxxx)"
     
   subreddits:
-    gamedeals:
-      - 'free'
-      - '100%'
+    - gamedeals:
+        title:
+          - 'free'
+          - '100%'

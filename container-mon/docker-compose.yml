@@ -3,7 +3,7 @@
 services:
   container-mon:
     container_name: container-mon
-    image: ghcr.io/rafhaanshah/container-mon:v1.0.5
+    image: ghcr.io/rafhaanshah/container-mon:v1
     extends:
       file: ../base.yml
       service: base
@@ -12,7 +12,8 @@ services:
       # - CONTAINERMON_USE_LABELS=true
       - DOCKER_HOST=tcp://socket-proxy:2375
     labels:
-      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$$"
+      - "wud.tag.include=^v\\d+$$"
+      - "wud.watch.digest=true"
 
 include:
   - ../network.yml
