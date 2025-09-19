@@ -3,7 +3,7 @@
 services:
   reddit-post-notifier:
     container_name: reddit-post-notifier
-    image: ghcr.io/rafhaanshah/reddit-post-notifier:v1.0.2
+    image: ghcr.io/rafhaanshah/reddit-post-notifier:v2.0.1
     extends:
       file: ../base.yml
       service: base
