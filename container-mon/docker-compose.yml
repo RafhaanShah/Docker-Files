@@ -3,7 +3,7 @@
 services:
   container-mon:
     container_name: container-mon
-    image: ghcr.io/rafhaanshah/container-mon:v1.0.5
+    image: ghcr.io/rafhaanshah/container-mon:v1.1.1
     extends:
       file: ../base.yml
       service: base
