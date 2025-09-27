@@ -1,21 +1,19 @@
-FROM alpine:3
+FROM ubuntu:24.04
 
 ARG VSCODE_URL='https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64'
-ARG VSCODE_USER="vscode"
+ARG VSCODE_USER="ubuntu"
 ARG VSCODE_UID=1000
 ARG VSCODE_GID=1000
 
-RUN apk add --no-cache \
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     curl \
     tar \
     expect \
-    libstdc++ \
     git \
-    openssh \
-    docker-cli
-
-RUN addgroup -S -g ${VSCODE_GID} "${VSCODE_USER}" && \
-    adduser -S -u ${VSCODE_UID} "${VSCODE_USER}" -G "${VSCODE_USER}" -s /bin/ash
+    openssh-client \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
 USER "${VSCODE_USER}"
 

@@ -14,16 +14,19 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
-      - ${HOME}:/home/vscode/raf
-      - ${HOME}/.ssh:/home/vscode/.ssh
-      - ./.profile:/home/vscode/.profile
-      # stores session and extensions
-      - ./data/vscode:/home/vscode/.vscode
-      - ./data/vscode-server:/home/vscode/.vscode-server
+      - ./.profile:${CONTAINER_HOME}/.profile
+      - ${HOME}:${CONTAINER_HOME}/raf
+      - ${HOME}/.ssh:${CONTAINER_HOME}/.ssh
+      - ${HOME}/.wakatime:${CONTAINER_HOME}/.wakatime
+      # stores session and extensions and data
+      # use home folder so we don't duplicate stuff
+      # created by vs-code SSH connections
+      - ${HOME}/.vscode-server:${CONTAINER_HOME}/.vscode
+      - ${HOME}/.vscode-server:${CONTAINER_HOME}/.vscode-server
     environment:
       - SERVER_NAME=ubuntu-server
       - DOCKER_HOST=tcp://socket-proxy:2375
-      - ENV=/home/vscode/.profile
+      - ENV=${CONTAINER_HOME}/.profile
     labels:
       - wud.watch=false
 
