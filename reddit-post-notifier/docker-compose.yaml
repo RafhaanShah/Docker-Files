@@ -9,6 +9,9 @@ services:
       service: base
     volumes:
       - ./config.yaml:/app/config.yaml
+    environment:
+      - RPN_CONFIG=config.yaml
+      - RPN_LOGGING=true
     labels:
       - "wud.tag.include=^v\\d+$$"
       - "wud.watch.digest=true"
