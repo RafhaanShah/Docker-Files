@@ -3,7 +3,7 @@
 services:
   cloudflared:
     container_name: cloudflared
-    image: cloudflare/cloudflared:2025.9.0
+    image: cloudflare/cloudflared:2025.9.1
     extends:
       file: ../base.yml
       service: base
