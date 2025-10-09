@@ -1,0 +1,19 @@
+# https://github.com/dmunozv04/iSponsorBlockTV
+# to setup config: docker run --rm -it -v ./data:/app/data ghcr.io/dmunozv04/isponsorblocktv --setup-cli
+
+services:
+  isponsorblocktv:
+    container_name: isponsorblocktv
+    image: ghcr.io/dmunozv04/isponsorblocktv:v2
+    extends:
+      file: ../base.yml
+      service: base
+    network_mode: host
+    volumes:
+      - ./data:/app/data
+    labels:
+      - "wud.tag.include=^v\\d+$$"
+      - "wud.watch.digest=true"
+
+include:
+  - ../network.yml
