@@ -1,0 +1,23 @@
+# https://github.com/FreshRSS/FreshRSS
+
+services:
+  freshrss:
+    container_name: freshrss
+    image: freshrss/freshrss:1
+    extends:
+      file: ../base.yml
+      service: base
+    expose:
+      - "80"
+    volumes:
+      - ./data:/var/www/FreshRSS/data
+    environment:
+      TZ: Europe/London
+      CRON_MIN: "30"
+    labels:
+      - "traefik.enable=true"
+      - "wud.tag.include=^\\d$$"
+      - "wud.watch.digest=true"
+
+include:
+  - ../network.yml
