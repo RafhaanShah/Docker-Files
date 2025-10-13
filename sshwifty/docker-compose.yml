@@ -3,7 +3,7 @@
 services:
   sshwifty:
     container_name: sshwifty
-    image: niruix/sshwifty:0.4.0-beta-release
+    image: niruix/sshwifty:0.4.1-beta-release
     user: "nobody:nobody"
     extends:
       file: ../base.yml
