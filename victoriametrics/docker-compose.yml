@@ -3,7 +3,7 @@
 services:
   victoriametrics:
     container_name: victoriametrics
-    image: victoriametrics/victoria-metrics:v1.127.0
+    image: victoriametrics/victoria-metrics:v1.128.0
     extends:
       file: ../base.yml
       service: base
