@@ -1,0 +1,27 @@
+# https://docs.n8n.io/hosting/installation/docker/
+
+services:
+  n8n:
+    container_name: n8n
+    image: docker.n8n.io/n8nio/n8n:stable
+    extends:
+      file: ../base.yml
+      service: base
+    expose:
+      - "5678"
+    volumes:
+      - ./data:/home/node/.n8n
+    environment:
+      - GENERIC_TIMEZONE=Europe/London
+      - TZ=Europe/London
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_RUNNERS_ENABLED=true
+      - N8N_PROXY_HOPS=1
+      - WEBHOOK_URL
+    labels:
+      - "traefik.enable=true"
+      - "wud.tag.include=^stable$"
+      - "wud.watch.digest=true"
+
+include:
+  - ../network.yml
