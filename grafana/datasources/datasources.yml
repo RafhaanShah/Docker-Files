@@ -12,6 +12,11 @@ datasources:
     editable: true
     jsonData:
       timeInterval: 1s
+
+  - name: VictoriaMetricsNative
+    type: victoriametrics-metrics-datasource
+    access: proxy
+    url: http://victoriametrics:8428
 #   - name: Elasticsearch-Netflow
 #     type: elasticsearch
 #     access: proxy

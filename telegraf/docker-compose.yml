@@ -7,6 +7,9 @@ services:
     extends:
       file: ../base.yml
       service: base
+    # needed for ping
+    # cap_add:
+    #   - net_admin
     # noisy spam when PC is offline
     logging:
       driver: none

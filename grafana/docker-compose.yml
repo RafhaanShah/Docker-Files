@@ -17,8 +17,10 @@ services:
       - ./alerting:/etc/grafana/provisioning/alerting
       - ./datasources:/etc/grafana/provisioning/datasources
       - ./dashboards:/etc/grafana/provisioning/dashboards
+      - ./plugins:/var/lib/grafana/plugins
     environment:
       # https://github.com/grafana/grafana/blob/main/conf/defaults.ini
+      - "GF_PLUGINS_PREINSTALL=grafana-clock-panel,grafana-worldmap-panel,grafana-simple-json-datasource,victoriametrics-metrics-datasource"
       - "GF_AUTH_DISABLE_LOGIN=true"
       - "GF_AUTH_DISABLE_LOGIN_FORM=true"
       - "GF_AUTH_ANONYMOUS_ENABLED=true"

@@ -26,7 +26,7 @@ services:
       - "2003:2003/tcp"
       - "4242:4242/udp"
       - "4242:4242/tcp"
-      - "8189:8189/udp" # Proxmox: InfluxDB -> InfluxDB
+      - "8189:8189/udp" # Proxmox: InfluxDB -> InfluxDB, # OPNsense: Telegraf -> InfluxDB
       - "8189:8189/tcp"
       - "8428:8428/tcp"
       # Home Assistant: InfluxDB -> InfluxDB
