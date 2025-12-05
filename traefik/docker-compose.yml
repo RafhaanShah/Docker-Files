@@ -14,6 +14,8 @@ services:
       - ./traefik.yml:/etc/traefik/traefik.yml
       - ./acme.json:/etc/traefik/acme.json
       - ./config:/etc/traefik/config
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       - DUCKDNS_TOKEN
     labels:

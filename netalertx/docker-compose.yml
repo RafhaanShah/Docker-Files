@@ -1,0 +1,34 @@
+# https://docs.docker.com/reference/compose-file/
+
+services:
+  netalertx:
+    container_name: netalertx
+    image: ghcr.io/jokob-sk/netalertx:25
+    extends:
+      file: ../base.yml
+      service: base
+    network_mode: host
+    expose:
+      - "8000"
+    volumes:
+      - ./data/config:/app/config
+      - ./data/db:/app/db
+      - /etc/localtime:/etc/localtime:ro
+      - type: tmpfs
+        target: /tmp/api
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - LISTEN_ADDR=host.docker.internal
+      - PORT
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.netalertx.rule=HostRegexp(`^netalertx\\..+`)"
+      - "traefik.http.routers.netalertx.middlewares=netalertx-auth"
+      - "traefik.http.services.netalertx.loadbalancer.server.url=http://host.docker.internal:${PORT}"
+      - "traefik.http.middlewares.netalertx-auth.basicauth.users=${BASIC_AUTH}"
+      - "wud.tag.include=^\\d+$$"
+      - "wud.watch.digest=true"
+
+include:
+  - ../network.yml
