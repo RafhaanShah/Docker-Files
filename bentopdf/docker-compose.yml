@@ -12,8 +12,8 @@ services:
     labels:
       - "traefik.enable=true"
       # override hostname to just 'pdf'
-      - "traefik.http.routers.stirling-pdf.rule=HostRegexp(`^pdf\\..+`)"
-      - "traefik.http.services.stirling-pdf.loadbalancer.server.port=8080"
+      - "traefik.http.routers.bentopdf.rule=HostRegexp(`^pdf\\..+`)"
+      - "traefik.http.services.bentopdf.loadbalancer.server.port=8080"
       - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$$"
 
 include:

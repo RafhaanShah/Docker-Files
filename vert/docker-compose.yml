@@ -1,0 +1,21 @@
+# https://github.com/VERT-sh/VERT
+
+services:
+  vert:
+    container_name: vert
+    image: ghcr.io/vert-sh/vert:main
+    extends:
+      file: ../base.yml
+      service: base
+    expose:
+      - "80"
+    labels:
+      - "traefik.enable=true"
+      # override hostname to just 'converter'
+      - "traefik.http.routers.vert.rule=HostRegexp(`^converter\\..+`)"
+      - "traefik.http.services.vert.loadbalancer.server.port=80"
+      - "wud.tag.include=main"
+      - "wud.watch.digest=true"
+
+include:
+  - ../network.yml
