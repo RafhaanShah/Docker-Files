@@ -18,6 +18,7 @@ services:
       - ${HOME}:${CONTAINER_HOME}/raf
       - ${HOME}/.ssh:${CONTAINER_HOME}/.ssh
       - ${HOME}/.wakatime:${CONTAINER_HOME}/.wakatime
+      - ${HOME}/.gitconfig/.gitconfig
       # stores session and extensions and data
       # use home folder so we don't duplicate stuff
       # created by vs-code SSH connections
