@@ -3,7 +3,7 @@
 services:
   dozzle:
     container_name: dozzle
-    image: amir20/dozzle:v8
+    image: amir20/dozzle:v9
     extends:
       file: ../base.yml
       service: base
