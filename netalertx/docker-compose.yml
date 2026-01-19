@@ -3,7 +3,7 @@
 services:
   netalertx:
     container_name: netalertx
-    image: ghcr.io/jokob-sk/netalertx:25
+    image: ghcr.io/jokob-sk/netalertx:26
     extends:
       file: ../base.yml
       service: base
