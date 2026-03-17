@@ -10,7 +10,7 @@ updates:
     schedule:
       interval: "monthly"
     groups:
-      all:
+      github-actions:
         patterns:
           - "*"
   - package-ecosystem: "docker"
@@ -19,7 +19,7 @@ updates:
     schedule:
       interval: "monthly"
     groups:
-      all:
+      docker:
         patterns:
           - "*"
   - package-ecosystem: "docker-compose"
@@ -28,6 +28,6 @@ updates:
     schedule:
       interval: "monthly"
     groups:
-      all:
+      docker:
         patterns:
           - "*"
