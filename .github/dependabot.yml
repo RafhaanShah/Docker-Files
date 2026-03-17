@@ -26,7 +26,7 @@ updates:
     directories:
       - "**/*"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     groups:
       all:
         patterns:
