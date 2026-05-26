@@ -1,5 +1,5 @@
 # https://github.com/dmunozv04/iSponsorBlockTV
-# to setup config: docker run --rm -it -v ./data:/app/data ghcr.io/dmunozv04/isponsorblocktv --setup-cli
+# to setup config: docker run --rm -it -v ./data:/app/data ghcr.io/dmunozv04/isponsorblocktv:v2 --setup-cli
 
 services:
   isponsorblocktv:

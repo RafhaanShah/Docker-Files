@@ -1,6 +1,7 @@
 apprise:
   - tgram://xxxxxxx:xxxxxxx/123456789
   - join://apikey/group
+  - pover://userKey@appToken/device?sound=none
 
 reddit:
   client: xxxxxxx
