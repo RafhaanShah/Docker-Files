@@ -8,22 +8,20 @@ log:
   level: INFO
 
 entryPoints:
-  http:
+  web:
     address: ":80"
     http:
       middlewares:
         - https-redirect@file
-  https:
+  websecure:
     address: ":443"
     http:
       middlewares:
-        - ipallowlist@file
-        - domain-redirect@file
-        - headers@file
-      tls:
-        certResolver: leresolver
-        domains:
-          - main: "*.base-domain.duckdns.org"
+        - lan-ipallowlist@file
+        - https-redirect@file
+        - default-headers@file
+        - access-control-headers@file
+      tls: {} # force any available TLS
 
 api:
   dashboard: true
@@ -36,9 +34,10 @@ providers:
     endpoint: "tcp://socket-proxy:2375"
     # regex matches service_name followed by . followed by anything
     # e.g. container.lan or container.host.lan
-    defaultRule: "HostRegexp(`{service:^{{ index .Labels \"com.docker.compose.service\" }}\\..+$}`)"
+    defaultRule: "HostRegexp(`^{{ index .Labels \"com.docker.compose.service\" }}\\..+`)"
   file:
     directory: /etc/traefik/config
+    watch: true
 
 certificatesResolvers:
   leresolver:
@@ -48,6 +47,16 @@ certificatesResolvers:
       keyType: RSA4096
       dnsChallenge:
         provider: duckdns
+        propagation:
+          delayBeforeChecks: 120
+          disableChecks: true
+  cfresolver:
+    acme:
+      email: someone@mail.com
+      storage: /etc/traefik/acme.json
+      keyType: RSA4096
+      dnsChallenge:
+        provider: cloudflare
         propagation:
           delayBeforeChecks: 120
           disableChecks: true

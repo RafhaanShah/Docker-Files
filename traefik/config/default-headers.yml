@@ -1,7 +1,7 @@
 # configures various headers and options for all requests
 http:
   middlewares:
-    headers:
+    default-headers:
       headers:
         # set of header keys with associated values that would indicate a valid HTTPS request
         sslProxyHeaders:
@@ -12,7 +12,6 @@ http:
           - "origin"
           - "content-type"
           - "X-Forwarded-For"
-        accessControlAllowOriginListRegex: "https://.*(\\.duckdns\\.org)(.*)"
         accessControlAllowCredentials: true
         addVaryHeader: true
         # indicates that the MIME types advertised in the Content-Type headers should not be changed

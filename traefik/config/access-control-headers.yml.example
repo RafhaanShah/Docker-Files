@@ -1,0 +1,6 @@
+# configures access control headers
+http:
+  middlewares:
+    access-control-headers:
+      headers:
+        accessControlAllowOriginListRegex: "https://.*(\\.domain\\.duckdns\\.org|\\.other\\.domain).*"

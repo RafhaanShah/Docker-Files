@@ -1,7 +1,7 @@
 # allow-listed ranges of IPs
 http:
   middlewares:
-    ipallowlist:
+    lan-ipallowlist:
       ipAllowList:
         sourceRange:
           - "10.0.0.0/8"

@@ -1,0 +1,22 @@
+# define dummy routers so wildcard TLS certs get generated
+http:  
+  routers:
+    tls-dummy-duckdns:
+      rule: "Host(`dummy.domain.duckdns.org`)"
+      service: noop@internal
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: leresolver
+        domains:
+          - main: "*.domain.duckdns.org"
+
+    tls-dummy-cloudflare:
+      rule: "Host(`dummy.domain`)"
+      service: noop@internal
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: cfresolver
+        domains:
+          - main: "*.domain"
