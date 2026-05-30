@@ -1,0 +1,86 @@
+# https://github.com/Viren070/AIOStreams
+# https://github.com/cedya77/aiometadata
+
+services:
+  aiostreams:
+    container_name: aiostreams
+    image: ghcr.io/viren070/aiostreams:v2
+    extends:
+      file: ../base.yml
+      service: base
+    expose:
+      - "3000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - BASE_URL
+      - SECRET_KEY
+      - AIOSTREAMS_AUTH
+      - AIOSTREAMS_AUTH_ADMINS
+      - AIOSTREAMS_AUTH_REQUIRED=true
+      - CONFIG_ACCESS_KEY
+      - TMDB_API_KEY
+      - TMDB_ACCESS_TOKEN
+      - TVDB_API_KEY
+      - DATABASE_URI=sqlite://./data/db.sqlite
+      - PORT=3000
+    labels:
+      - "traefik.enable=true"
+      - "wud.tag.include=^v\\d+$$"
+      - "wud.watch.digest=true"
+
+  aiometadata:
+    container_name: aiometadata
+    image: ghcr.io/cedya77/aiometadata:latest
+    extends:
+      file: ../base.yml
+      service: base
+    expose:
+      - "3232"
+    environment:
+      - HOST_NAME
+      - ADMIN_KEY
+      - ADDON_PASSWORD
+      - TMDB_API_KEY
+      - TVDB_API_KEY
+      - FANART_API_KEY
+      - FANART_API_PROJECT_KEY
+      - RPDB_API_KEY
+      - MDBLIST_API_KEY
+      - GEMINI_API_KEY
+      - DATABASE_URI=sqlite://addon/data/db.sqlite
+      - PORT=3232
+      - REDIS_URL=redis://:${REDIS_PASSWORD}@aiometadata-redis:6379
+      - TRAKT_CONCURRENCY=10
+      - TRAKT_MIN_TIME=100
+      - TZ=Europe/London
+      - CACHE_WARMUP_UUIDS=54804f3b-3cc0-44d7-9408-8984db55cc3d
+      - FANART_CLIENT_CACHE_MAX=200 # 2000
+      - TMDB_SCRAPED_IMDB_CACHE_MAX=10000
+    volumes:
+      - ./metadata:/app/addon/data
+    depends_on:
+      - aiometadata-redis
+    tty: true
+    labels:
+      - "traefik.enable=true"
+      - "wud.tag.include=^latest$$"
+      - "wud.watch.digest=true"
+
+  aiometadata-redis:
+    container_name: aiometadata-redis
+    image: redis:8
+    extends:
+      file: ../base.yml
+      service: base
+    volumes:
+      - ./cache:/data
+    # command: redis-server --appendonly yes --save 3600 1
+    environment:
+      - REDIS_ARGS=--appendonly yes --save 3600 1 --requirepass ${REDIS_PASSWORD}
+    labels:
+      - "wud.tag.include=^\\d+$$"
+      - "wud.watch.digest=true"
+
+include:
+  - ../network.yml

@@ -20,3 +20,5 @@ http:
         certResolver: cfresolver
         domains:
           - main: "*.domain"
+            sans:
+              - "*.server.domain"
