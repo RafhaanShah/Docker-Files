@@ -124,9 +124,6 @@ jobs:
             cat response.json
             exit 1
           fi
-          
-          # Output to action logs for immediate review during manual runs
-          cat analysis.md
 
       - name: Post Comment to PR
         # Only run if there was a diff, the API succeeded, AND a valid PR number exists
