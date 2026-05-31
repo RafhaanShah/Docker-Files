@@ -23,6 +23,7 @@ on:
 
 jobs:
   analyze-tags:
+    # Only run on manual dispatch OR if the PR author is a recognized contributor/member
     if: github.event_name == 'workflow_dispatch' || contains(fromJson('["CONTRIBUTOR", "COLLABORATOR", "MEMBER", "OWNER"]'), github.event.pull_request.author_association)
     runs-on: ubuntu-latest
     permissions:
@@ -40,19 +41,24 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # 1. Determine the source of the diff based on the trigger event
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             if [ -n "${{ inputs.pr_number }}" ]; then
+              # Fetch diff directly from the specified PR
               RAW_DIFF=$(gh pr diff ${{ inputs.pr_number }})
             else
+              # Fallback to the mock diff provided in the manual trigger
               RAW_DIFF=$(echo -e "${{ inputs.mock_diff }}")
             fi
           else
+            # Fetch the diff from the automatic PR trigger
             RAW_DIFF=$(git diff HEAD~1 HEAD -- '**/Dockerfile' '**/docker-compose.yml' '**/docker-compose.yaml' '**/compose.yml' '**/compose.yaml')
           fi
           
-          # Isolate changes to both FROM statements (Dockerfile) and image: keys (Compose)
+          # 2. Isolate changes to both FROM statements (Dockerfile) and image: keys (Compose)
           DIFF_DATA=$(echo "$RAW_DIFF" | grep -E '^\+[[:space:]]*(FROM|image:)|^\-[[:space:]]*(FROM|image:)' || true)
           
+          # 3. Exit cleanly if no relevant Docker updates are found
           if [ -z "$DIFF_DATA" ]; then
             echo "has_diff=false" >> $GITHUB_OUTPUT
             exit 0
@@ -60,7 +66,7 @@ jobs:
           
           echo "has_diff=true" >> $GITHUB_OUTPUT
           
-          # Safely export multi-line diff to environment variable
+          # 4. Safely export multi-line diff to environment variable for the next step
           {
             echo 'DIFF_DATA<<EOF'
             echo "$DIFF_DATA"
@@ -72,6 +78,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
+          # 1. Define the AI persona and instructions
           SYSTEM_PROMPT="You are a senior site reliability engineer inspecting automated dependency upgrades. Review the provided Dockerfile and docker-compose image tag differences. Search the internet for the official changelogs spanning those specific versions. 
 
           Generate a markdown report detailing:
@@ -82,9 +89,10 @@ jobs:
 
           If no breaking changes exist, state: 'No breaking changes or significant migration considerations identified for this update.'"
           
+          # 2. Inject the isolated git diff into the user prompt
           USER_PROMPT="Review these image version updates:\n$DIFF_DATA"
           
-          # Construct JSON payload using jq to guarantee valid JSON formatting/escaping
+          # 3. Construct JSON payload using jq to guarantee valid JSON formatting/escaping
           jq -n \
             --arg sys "$SYSTEM_PROMPT" \
             --arg usr "$USER_PROMPT" \
@@ -94,24 +102,34 @@ jobs:
               tools: [{ googleSearch: {} }]
             }' > payload.json
           
-          # Execute Gemini API call with Google Search grounding (3.5 does not have free tools usage)
-          RESPONSE=$(curl -s -X POST "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent" \
-            -H "x-goog-api-key: $GEMINI_API_KEY" \
+          # 4. Execute Gemini API call using header authentication and Google Search grounding
+          HTTP_STATUS=$(curl -s -o response.json -w "%{http_code}" -X POST "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent" \
             -H "Content-Type: application/json" \
+            -H "x-goog-api-key: $GEMINI_API_KEY" \
             -d @payload.json)
           
-          # Extract the text from the response payload
-          echo "$RESPONSE" | jq -r '.candidates[0].content.parts[0].text // empty' > analysis.md
+          # 5. Handle HTTP errors (403, 429, etc.) by failing the step without commenting
+          if [ "$HTTP_STATUS" -ne 200 ]; then
+            echo "Error: Gemini API request failed with HTTP status $HTTP_STATUS."
+            cat response.json
+            exit 1
+          fi
           
+          # 6. Extract the markdown text from the successful response payload
+          jq -r '.candidates[0].content.parts[0].text // empty' response.json > analysis.md
+          
+          # 7. Ensure the extracted file isn't empty (handles unexpected API schema changes)
           if [ ! -s analysis.md ]; then
-            echo "Failed to generate a valid response from Gemini API."
-            echo "$RESPONSE" > analysis.md
+            echo "Error: Failed to extract valid response from Gemini API payload."
+            cat response.json
+            exit 1
           fi
           
           # Output to action logs for immediate review during manual runs
           cat analysis.md
 
       - name: Post Comment to PR
+        # Only run if there was a diff, the API succeeded, AND a valid PR number exists
         if: steps.get_diff.outputs.has_diff == 'true' && (github.event.pull_request.number || inputs.pr_number)
         uses: thollander/actions-comment-pull-request@v2
         with:
