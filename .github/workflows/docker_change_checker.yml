@@ -1,0 +1,119 @@
+name: Docker Change Checker
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - '**/Dockerfile'
+      - '**/docker-compose.yml'
+      - '**/docker-compose.yaml'
+      - '**/compose.yml'
+      - '**/compose.yaml'
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR Number to fetch diff from'
+        required: false
+        type: string
+      mock_diff:
+        description: 'Mock diff (used if no PR number provided)'
+        required: false
+        type: string
+        default: "-FROM postgres:15\n+FROM postgres:17"
+
+jobs:
+  analyze-tags:
+    if: github.event_name == 'workflow_dispatch' || contains(fromJson('["CONTRIBUTOR", "COLLABORATOR", "MEMBER", "OWNER"]'), github.event.pull_request.author_association)
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Extract Tag Changes
+        id: get_diff
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            if [ -n "${{ inputs.pr_number }}" ]; then
+              RAW_DIFF=$(gh pr diff ${{ inputs.pr_number }})
+            else
+              RAW_DIFF=$(echo -e "${{ inputs.mock_diff }}")
+            fi
+          else
+            RAW_DIFF=$(git diff HEAD~1 HEAD -- '**/Dockerfile' '**/docker-compose.yml' '**/docker-compose.yaml' '**/compose.yml' '**/compose.yaml')
+          fi
+          
+          # Isolate changes to both FROM statements (Dockerfile) and image: keys (Compose)
+          DIFF_DATA=$(echo "$RAW_DIFF" | grep -E '^\+[[:space:]]*(FROM|image:)|^\-[[:space:]]*(FROM|image:)' || true)
+          
+          if [ -z "$DIFF_DATA" ]; then
+            echo "has_diff=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          echo "has_diff=true" >> $GITHUB_OUTPUT
+          
+          # Safely export multi-line diff to environment variable
+          {
+            echo 'DIFF_DATA<<EOF'
+            echo "$DIFF_DATA"
+            echo 'EOF'
+          } >> $GITHUB_ENV
+
+      - name: Query Gemini API
+        if: steps.get_diff.outputs.has_diff == 'true'
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          SYSTEM_PROMPT="You are a senior site reliability engineer inspecting automated dependency upgrades. Review the provided Dockerfile and docker-compose image tag differences. Search the internet for the official changelogs spanning those specific versions. 
+
+          Generate a markdown report detailing:
+          1. **Breaking Changes**: API modifications, removed features, or altered behaviors.
+          2. **Configuration Updates**: Deprecated variables or changes to flags.
+          3. **Security Implications**: Major vulnerabilities patched.
+          4. **Sources**: Provide markdown links directly to the changelogs found.
+
+          If no breaking changes exist, state: 'No breaking changes or significant migration considerations identified for this update.'"
+          
+          USER_PROMPT="Review these image version updates:\n$DIFF_DATA"
+          
+          # Construct JSON payload using jq to guarantee valid JSON formatting/escaping
+          jq -n \
+            --arg sys "$SYSTEM_PROMPT" \
+            --arg usr "$USER_PROMPT" \
+            '{
+              systemInstruction: { parts: [{ text: $sys }] },
+              contents: [{ parts: [{ text: $usr }] }],
+              tools: [{ googleSearch: {} }]
+            }' > payload.json
+          
+          # Execute Gemini API call with Google Search grounding (3.5 does not have free tools usage)
+          RESPONSE=$(curl -s -X POST "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent" \
+            -H "x-goog-api-key: $GEMINI_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d @payload.json)
+          
+          # Extract the text from the response payload
+          echo "$RESPONSE" | jq -r '.candidates[0].content.parts[0].text // empty' > analysis.md
+          
+          if [ ! -s analysis.md ]; then
+            echo "Failed to generate a valid response from Gemini API."
+            echo "$RESPONSE" > analysis.md
+          fi
+          
+          # Output to action logs for immediate review during manual runs
+          cat analysis.md
+
+      - name: Post Comment to PR
+        if: steps.get_diff.outputs.has_diff == 'true' && (github.event.pull_request.number || inputs.pr_number)
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          filePath: analysis.md
+          pr_number: ${{ inputs.pr_number || github.event.pull_request.number }}
