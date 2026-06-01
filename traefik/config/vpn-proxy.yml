@@ -1,0 +1,20 @@
+tcp:
+  # get local DNS to point to traefik for these domains
+  routers:
+    vpn-proxy-router:
+      entryPoints:
+        - websecure
+      rule: >-
+        HostSNIRegexp(`^(.*\.)?imgur\.com$`) ||
+        HostSNIRegexp(`^(.*\.)?reddit.*\.com$`) ||
+        HostSNIRegexp(`^(.*\.)?redd\.it$`)
+      service: vpn-proxy-service
+      tls:
+        passthrough: true
+
+  # proxy received traffic to glutun
+  services:
+    vpn-proxy-service:
+      loadBalancer:
+        servers:
+          - address: "gluetun:443"

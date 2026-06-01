@@ -1,0 +1,44 @@
+# https://github.com/passteque/gluetun
+# see https://blog.tymscar.com/posts/imgurukproxy/
+# test with: docker run --rm alpine sh -c "ping -c 1 -W 2 1.1.1.1 && nslookup -timeout=2 google.com && wget -T 5 -qO- ipecho.net/plain; echo"
+
+services:
+  gluetun:
+    container_name: gluetun
+    image: qmcgaw/gluetun:latest
+    extends:
+      file: ../base.yml
+      service: base
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    volumes:
+      - ./wg0.conf:/gluetun/wireguard/wg0.conf:ro
+    environment:
+      - VPN_SERVICE_PROVIDER=custom
+      - VPN_TYPE=wireguard
+      - DNS_SERVER=on
+      - DNS_UPSTREAM_RESOLVERS=cloudflare
+      - HEALTH_ENABLED=no
+    labels:
+      - "wud.tag.include=^latest$$"
+      - "wud.watch.digest=true"
+
+  nginx-proxy:
+    container_name: nginx-proxy
+    image: nginx:alpine
+    extends:
+      file: ../base.yml
+      service: base
+    network_mode: "service:gluetun"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - gluetun
+    labels:
+      - "wud.tag.include=^alpine$$"
+      - "wud.watch.digest=true"
+
+include:
+  - ../network.yml

@@ -1,0 +1,12 @@
+[Interface]
+PrivateKey = 123
+Address = 10.66.66.5/32 # ,fd42:42:42::5/128
+DNS = 1.1.1.1
+
+[Peer]
+PublicKey = 123
+PresharedKey = 123
+# no hostname apparently https://github.com/passteque/gluetun/issues/788
+# Endpoint = vpn.domain:12345
+Endpoint = 123.123.123.123:12345
+AllowedIPs = 0.0.0.0/0 # ,::/0
