@@ -32,7 +32,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 2
 
@@ -128,7 +128,7 @@ jobs:
       - name: Post Comment to PR
         # Only run if there was a diff, the API succeeded, AND a valid PR number exists
         if: steps.get_diff.outputs.has_diff == 'true' && (github.event.pull_request.number || inputs.pr_number)
-        uses: thollander/actions-comment-pull-request@v2
+        uses: thollander/actions-comment-pull-request@v3
         with:
           filePath: analysis.md
           pr_number: ${{ inputs.pr_number || github.event.pull_request.number }}
