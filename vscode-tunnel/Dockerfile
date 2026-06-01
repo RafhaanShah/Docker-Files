@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 
 ARG VSCODE_URL='https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64'
 ARG VSCODE_USER="ubuntu"
