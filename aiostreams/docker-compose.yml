@@ -57,6 +57,7 @@ services:
       - CACHE_WARMUP_UUIDS=54804f3b-3cc0-44d7-9408-8984db55cc3d
       - FANART_CLIENT_CACHE_MAX=200 # 2000
       - TMDB_SCRAPED_IMDB_CACHE_MAX=10000
+      - PORT=3232
     volumes:
       - ./metadata:/app/addon/data
     depends_on:
@@ -80,6 +81,23 @@ services:
       - REDIS_ARGS=--appendonly yes --save 3600 1 --requirepass ${REDIS_PASSWORD}
     labels:
       - "wud.tag.include=^\\d+$$"
+      - "wud.watch.digest=true"
+
+  aiomanager:
+    container_name: aiomanager
+    image: ghcr.io/sonicx161/aiomanager:latest
+    extends:
+      file: ../base.yml
+      service: base
+    expose:
+      - "1610"
+    volumes:
+      - ./manager:/app/data
+    environment:
+      - PORT=1610
+    labels:
+      - "traefik.enable=true"
+      - "wud.tag.include=^latest$$"
       - "wud.watch.digest=true"
 
 include:
