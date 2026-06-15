@@ -7,7 +7,8 @@ tcp:
       rule: >-
         HostSNIRegexp(`^(.*\.)?imgur\.com$`) ||
         HostSNIRegexp(`^(.*\.)?reddit.*\.com$`) ||
-        HostSNIRegexp(`^(.*\.)?redd\.it$`)
+        HostSNIRegexp(`^(.*\.)?redd\.it$`) ||
+        HostSNIRegexp(`^(.*\.)?formula1\.com$`)
       service: vpn-proxy-service
       tls:
         passthrough: true
