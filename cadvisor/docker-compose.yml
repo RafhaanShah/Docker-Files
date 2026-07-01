@@ -3,7 +3,7 @@
 services:
   cadvisor:
     container_name: cadvisor
-    image: ghcr.io/google/cadvisor:0.57.0
+    image: ghcr.io/google/cadvisor:v0.60.3
     extends:
       file: ../base.yml
       service: base
