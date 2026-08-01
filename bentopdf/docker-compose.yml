@@ -3,7 +3,7 @@
 services:
   bentopdf:
     container_name: bentopdf
-    image: ghcr.io/alam00000/bentopdf-simple:2.8.6
+    image: ghcr.io/alam00000/bentopdf-simple:2.8.7
     extends:
       file: ../base.yml
       service: base
