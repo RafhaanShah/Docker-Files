@@ -1,0 +1,23 @@
+# https://github.com/mickael-kerjean/filestash
+
+services:
+  filestash:
+    container_name: filestash
+    image: machines/filestash:latest
+    extends:
+      file: ../base.yml
+      service: base
+    expose:
+      - "8334"
+    environment:
+      - APPLICATION_URL
+    volumes:
+      - ./app:/app/data/state
+      - ${HOME}:/srv
+    labels:
+      - "traefik.enable=true"
+      - "wud.tag.include=^v\\latest$$"
+      - "wud.watch.digest=true"
+
+include:
+  - ../network.yml
