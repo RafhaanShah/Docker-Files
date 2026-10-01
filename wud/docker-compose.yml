@@ -3,7 +3,7 @@
 services:
   wud:
     container_name: wud
-    image: ghcr.io/getwud/wud:8
+    image: ghcr.io/getwud/wud:9
     extends:
       file: ../base.yml
       service: base
