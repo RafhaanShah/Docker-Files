@@ -1,0 +1,66 @@
+# https://github.com/jez500/pricebuddy
+
+services:
+  pricebuddy:
+    container_name: pricebuddy
+    image: jez500/pricebuddy:latest
+    extends:
+      file: ../base.yml
+      service: base
+    expose:
+      - "8000"
+    volumes:
+      - ./storage:/app/storage
+    environment:
+      - DB_HOST=pricebuddy-db
+      - DB_USERNAME=pricebuddy
+      - DB_PASSWORD
+      - DB_DATABASE=pricebuddy
+      - APP_USER_EMAIL
+      - APP_USER_PASSWORD
+      - SCRAPER_BASE_URL=http://pricebuddy-scraper:3000
+      - AFFILIATE_ENABLED=false
+    depends_on:
+      - pricebuddy-db
+      - pricebuddy-scraper
+    labels:
+      - "traefik.enable=true"
+      - "wud.tag.include=^latest$$"
+      - "wud.watch.digest=true"
+
+  pricebuddy-db:
+    container_name: pricebuddy-db
+    # image: mysql:8.2
+    image: mariadb:lts
+    command:
+      - --innodb-buffer-pool-size=32M
+      - --innodb-log-buffer-size=1M
+      - --key-buffer-size=8M
+      - --aria-pagecache-buffer-size=8M
+      - --max-connections=20
+      - --table-open-cache=100
+      - --table-definition-cache=100
+      - --performance-schema=OFF
+    extends:
+      file: ../base.yml
+      service: base
+    volumes:
+      - ./db:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=pricebuddy
+      - MYSQL_USER=pricebuddy
+      - MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD
+
+  pricebuddy-scraper:
+    container_name: pricebuddy-scraper
+    image: jez500/seleniumbase-scrapper:latest
+    extends:
+      file: ../base.yml
+      service: base
+    labels:
+      - "wud.tag.include=^latest$$"
+      - "wud.watch.digest=true"
+
+include:
+  - ../network.yml
